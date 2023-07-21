@@ -1,0 +1,163 @@
+{
+    "daoDesc": "DAO is making profit by financing the development of the projects and initiatives based on Waves blockchain.",
+    "bannerText": "Get PWR to gain a full-scale access to governance and affect on community's decisions. Give a POWER to your voice!",
+    "bannerBtn": "Get PWR",
+    "linkAbout": "About WAVES DAO",
+    "linkSource": "Go to Source Code Repository",
+    "linkGo": "Go to PWR DAO",
+    "linkLast": "Forum",
+    "treasuty": "Treasury",
+    "tokenPrice": "{{assetName}} Price",
+    "lpPrice": "{{assetName}} Price",
+    "rate": "Rate",
+    "kpiPeriod": "KPI period ends in {span}[~ {{period}} ({{blocks}})]",
+    "kpiPeriodFinalizing": "Finalizing KPI period...",
+    "connectDesc": "Connect Wallet to Deposit WAVES",
+    "connectButton": "Connect Wallet",
+    "error": {
+        "min": "Min amount is {{amount}} {{assetName}}.",
+        "unsufficient": "Insufficient funds.",
+        "required": "This field is required."
+    },
+    "transactionFee": "Transaction Fee",
+    "transactionFeeTooltip": "A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain.",
+    "finalizePeriod": "Finalize KPI period",
+    "finalisePeriodDesc": "Create a transaction for PWR holders to vote with WAVES DAO results.",
+    "topUp": "Top-Up",
+    "assetBalance": "{{assetName}} Balance",
+    "deposit": "Deposit",
+    "getToken": "Get {{assetName}}",
+    "get": "Get",
+    "withdraw": "Withdraw",
+    "availableClaim": "Available for Claiming",
+    "claimButton": "Claim",
+    "wavesUnlocked": "Your tokens are unlocked.",
+    "cancelWithdrawal": "Get Tokens",
+    "willBeUnlocked": "Your tokens will be unlocked after the start of new KPI period. The exact amount of tokens will be known immediately after this time.",
+    "logout": "Log Out",
+    "MS-0110": "There are unlocked tokens on the smart contract. To get them on your balance click the 'Get' button",
+    "continue": "Continue",
+    "legalCheckbox": "I have read and agreed with the {span.legalDisclaimer}[Legal Disclaimer].",
+    "connectWallet": "Connect Wallet",
+    "keeperWallet": "Keeper Wallet",
+    "seed": "WX Network Seed",
+    "cloud": "WX Network Email",
+    "metaMask": "MetaMask",
+    "signCustomData": {
+        "title": "Sign Custom Data",
+        "desc": "Sign custom data on your {{device}} to continue."
+    },
+    "switchNetwork": {
+        "title": "Switch to {{network}} Network",
+        "desc": "To continue using our services please switch to {{network}} network on your {{device}}."
+    },
+    "connectionRejected": {
+        "title": "Connection Rejected",
+        "desc": "You have rejected connection to {{device}}."
+    },
+    "noAccountsKeeperWallet": {
+        "title": "No Accounts on {{device}}",
+        "desc": "Unfortunately, we were unable to find any accounts on your {{device}}. Please import existing accounts or create a new account on your {{device}} and retry."
+    },
+    "accountOrCreateNew": {
+        "title": "Log In to Account or Create New Account",
+        "desc": "To continue using our services please log in to existing or create a new account on your {{device}}."
+    },
+    "connectionFailed": {
+        "title": "Connection Failed",
+        "descMetaMask": "Unfortunately, we were unable to find the MetaMask extension installed on this browser. Please check if the extension is available or install it. Please note, it is necessary to reload the page after installing MetaMask.",
+        "descKeeperWallet": "Unfortunately, we were unable to find the Keeper Wallet extension installed on this browser. Please check if the extension is available or install it."
+    },
+    "install": "Install",
+    "approveConnection": {
+        "title": "Approve Connection",
+        "desc": "Approve the connection and grant access to wavesdao.tech on your {{device}} wallet to continue."
+    },
+    "switchWithParameters": {
+        "title": "Add {{network}} Network Parameters and Switch to it",
+        "desc": "To continue using our services please add {{network}} network parameters and switch to it on your {{device}} wallet."
+    },
+    "unsupportedAccount": {
+        "title": "Unsupported Account",
+        "desc": "Unfortunately, at this moment we do not support MetaMask's public keys starting with the zero byte. Please retry with another MetaMask account or use another log in method."
+    },
+    "retry": "Retry",
+    "requestHasNotConfirmed": {
+        "title": "The Request Has Not Been Confirmed",
+        "desc": "You did not confirm the request using {{device}}."
+    },
+    "legalDisclaimer": {
+        "title": "Legal Disclaimer",
+        "desc1": "This website and its interface are owned by WavesDAO. The User is a person who has logged in and can donate and/or vote to fund the development of Waves Blockchain-based projects and initiatives. WavesDAO does not control teams (groups of Users) and the information they provide about themselves, tokens, and their projects/initiatives.\n\n Users are advised to conduct their own research before funding any projects and initiatives. Users acknowledge and accept that funding is a risky activity. When the market price of tokens fluctuates greatly, funding potential income may be lower than the income of ordinary token holding, and losses may even occur. By funding the development of Waves Blockchain-based projects and initiatives, Users declare to understand and assume the following risks:",
+        "desc2": "{li}[Collapse in liquidity with respect to a virtual asset;]{li}[Slippage;]{li}[Extreme fluctuations in prevailing fees and uncertainty with respect to other transaction parameters;]{li}[Faults, defects, hacks, exploits, errors, or unforeseen circumstances occurring in respect of the technologies;]{li}[Failure or non-availability of technologies, including the Internet, and technological advancements rendering certain technologies obsolete;]{li}[Dishonesty of other Users, particularly teams that proposed projects and initiatives;]",
+        "desc3": "Attacks on WavesDAO, including without limitation:",
+        "desc4": "{li}[Distributed denial of service;]{li}[Sybil attacks;]{li}[Phishing;]{li}[Social engineering;]{li}[Hacking;]{li}[Smurfing;]{li}[Malware;]{li}[Double spending;]{li}[Majority-mining, consensus-based, or other mining attacks;]{li}[Misinformation campaigns;]{li}[Forks;]{li}[and Spoofing.]",
+        "desc5": "All Users acknowledge, agree, and warrant that they have been warned of all potential risks involved in funding projects and initiatives through WavesDAO infrastructure, as well as that there may be other risks involved, which are not specified herein, and that they fully accept such risks."
+    },
+    "availableForGet": "Available for Get",
+    "havenotfee": "You don't have enough funds to pay the Transaction Fee.",
+    "claim": "Claim {{ticker}}",
+    "amount": "Amount",
+    "tryAgain": "Try Again",
+    "waitingConfirmation": "Waiting for confirmation from {{device}}.",
+    "rejectedByUserDevice": "You did not confirm the request using {{device}}.",
+    "rejectedByUser": "You did not confirm the request.",
+    "wrongNetworkError": "Wrong network is selected in the {{device}}. Choose the proper network and try again.",
+    "wrongUser": "Wrong account is selected in the {{device}}. Activate the proper account and try again.",
+    "somethingWrongWithNode": "Something went wrong. Node error code: {{code}}.",
+    "somethingWrong": "Something went wrong.",
+    "depositTitle": "Deposit {{assetName}}",
+    "depositSubtitle": "Available for Deposit {span.available}[{{amount}} {{assetName}}]",
+    "iReceive": "I receive",
+    "depositWarning": "You can withdraw tokens anytime, but you will be able to get them only after the start of new KPI period.",
+    "iAgree": "I agree.",
+    "depositSubmit": "Deposit {{assetName}}",
+    "withdrawTitle": "Withdraw {{assetName}}",
+    "withdrawSubtitle": "Available for Withdrawal {span.available}[{{amount}} {{assetName}}]",
+    "withdrawReceive": "The exact amount of tokens that you will receive will be known only after the end of the settlement period.",
+    "withdrawWarning": "By clicking on the Withdraw {{stakedAssetName}} button, your {{lpAssetName}} will be locked till the start of new KPI period. You will be able to get funds immediately after this time.",
+    "withdrawSubmit": "Withdraw {{assetName}}",
+    "years": {
+        "some": "year",
+        "one": "years",
+        "any": "years"
+    },
+    "weeks": {
+        "some": "weeks",
+        "oneAccusativeCase": "weeks",
+        "one": "weeks",
+        "any": "weeks"
+    },
+    "months": {
+        "some": "months",
+        "one": "month",
+        "any": "months"
+    },
+    "minutes": {
+        "some": "minutes",
+        "oneAccusativeCase": "minutes",
+        "one": "minutes",
+        "any": "minutes"
+    },
+    "hours": {
+        "some": "hours",
+        "one": "hours",
+        "any": "hours"
+    },
+    "days": {
+        "some": "days",
+        "one": "days",
+        "any": "days"
+    },
+    "blocks": {
+        "some": "blocks",
+        "one": "blocks",
+        "any": "blocks"
+    },
+    "invested": "invested",
+    "donated": "donated",
+    "depositTooltipFinalizing": "Deposit is temporarily unavailable. Finalizing KPI period.",
+    "depositTooltipUnavailable": "Deposit is temporarily unavailable. Ability to deposit will resume after finalizing the current KPI period.",
+    "availableToGet": "Available for Get",
+    "equivalentTo": "Equivalent to"
+}

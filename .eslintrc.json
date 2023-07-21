@@ -1,0 +1,93 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+//    "warnOnUnsupportedTypeScriptVersion": true,
+    "createDefaultProgram": true
+  },
+  "globals": {
+    "WavesApp": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "semi": [2, "always"],
+    "react/react-in-jsx-scope": "off",
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "quote-props": [
+      "error",
+      "consistent-as-needed"
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "operator-assignment": "off",
+    // eslint-plugin-react
+    "react/display-name": ["warn", { "ignoreTranspilerName": true }],
+    "react/prop-types": "off",
+    "react/jsx-no-comment-textnodes": "warn",
+    "react/jsx-no-duplicate-props": "warn",
+    "react/jsx-no-target-blank": "warn",
+    "react/jsx-no-undef": "error",
+    "react/jsx-pascal-case": [
+      "warn",
+      {
+        "allowAllCaps": true,
+        "ignore": []
+      }
+    ],
+    "react/jsx-uses-react": "warn",
+    "react/jsx-uses-vars": "warn",
+    "react/no-danger-with-children": "warn",
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1,
+        "FunctionDeclaration": {
+          "parameters": "first"
+        },
+        "FunctionExpression": {
+          "parameters": "first"
+        }
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 140,
+        "tabWidth": 4,
+        "ignoreComments": true,
+        "ignoreUrls": true
+      }
+    ],
+    "@typescript-eslint/interface-name-prefix": "off",
+    "sort-imports": "off",
+    "no-duplicate-imports": "off",
+    "comma-dangle": ["error", "only-multiline"],
+    "no-nested-ternary": "off"
+  }
+}
