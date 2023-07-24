@@ -1,5 +1,6 @@
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import * as React from 'react';
+import logo from '/src/img/mpt-logo.svg';
 
 export const LogoLine: React.FC = () => {
     return (
@@ -9,7 +10,7 @@ export const LogoLine: React.FC = () => {
                 width="85px"
                 height="85px"
                 minHeight="85px"
-                backgroundImage="url(src/img/mpt-logo.svg)"
+                backgroundImage={`url(${logo})`}
                 sx={{
                     my: '20px'
                 }}

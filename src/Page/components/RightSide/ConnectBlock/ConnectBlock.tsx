@@ -5,6 +5,7 @@ import { Text } from '../../../../uikit/Text/Text';
 import { Button } from '../../../../uikit/Button/Button';
 import { modalManager } from '../../../../services/modalManager';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
+import logo from '/src/img/mpt-logo.svg';
 import metamaskUrl from '/src/img/metamask.svg';
 import keeperUrl from '/src/img/keeper.svg';
 import wxUrl from '/src/img/wx.svg';
@@ -21,7 +22,7 @@ export const ConnectBlock: FC = memo(() => {
                     width="62px"
                     height="62px"
                     minHeight="62px"
-                    backgroundImage="url(src/img/mpt-logo.svg)"
+                    backgroundImage={`url(${logo})`}
                     backgroundSize="100% 100%"
                     sx={{
                         mb: '24px'
