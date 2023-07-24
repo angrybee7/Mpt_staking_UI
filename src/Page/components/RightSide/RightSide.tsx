@@ -13,10 +13,7 @@ export const RightSide: FC = observer(() => {
     return (
         <Box width={['100%', '50%']}>
             {authStore.isAuthorized && <UserInfo setHeightUserInfoBlock={setHeightUserInfoBlock} />}
-            <Flex
-                flexDirection="column"
-                minHeight={`calc(100% - ${heightUserInfoBlock + 24}px)`}
-            >
+            <Flex flexDirection="column" height="100%">
                 {authStore.isAuthorized ? <Dashboard /> : <ConnectBlock />}
             </Flex>
         </Box>

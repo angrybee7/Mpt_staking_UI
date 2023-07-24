@@ -4,9 +4,10 @@ import {
     BoxProps,
 } from '@waves.exchange/wx-react-uikit';
 import { sizes, variants } from './styles';
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode, FC } from 'react';
 import styled from '@emotion/styled';
 import { variant } from 'styled-system';
+import { SerifWrapper } from '../../components/SerifWrapper/SerifWrapper';
 
 export type TVariant = keyof typeof variants;
 
@@ -21,7 +22,7 @@ export type TButtonProps = BoxProps<
 	> &
 	ButtonSpecificProps;
 
-export const Button = styled(Box as unknown as BoxAsElement<'button', TButtonProps>)(
+export const ButtonFC = styled(Box as unknown as BoxAsElement<'button', TButtonProps>)(
     {
         'cursor': 'pointer',
         ':disabled': {
@@ -38,11 +39,21 @@ export const Button = styled(Box as unknown as BoxAsElement<'button', TButtonPro
     })
 );
 
-Button.defaultProps = {
+export const Button: FC<TButtonProps> = ({ children, ...props }) => {
+    const { mx, my, mt, mr, mb, ml, width, maxWidth, ...rest } = props;
+    return (
+        <SerifWrapper sx={{ mx, my, mt, mr, mb, ml, width, maxWidth } as any} variant={props.variant  as any}>
+            <ButtonFC {...rest} width="100%">{children}</ButtonFC>
+        </SerifWrapper>
+    );
+};
+
+Button.displayName = 'Button';
+
+ButtonFC.defaultProps = {
     as: 'button',
     type: 'button',
     border: 0,
-    borderRadius: '44px',
     transition: 'default',
     fontWeight: 500,
     variant: 'primary',
