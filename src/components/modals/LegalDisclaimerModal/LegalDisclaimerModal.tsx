@@ -19,7 +19,10 @@ const LegalDisclaimerModalFC: React.FC<ModalProps> = ({ ...props }) => {
             }}
             {...props}
         >
-            <Box mt="30px" mb="16px">
+            <Box
+                // mt="30px"
+                // mb="16px"
+            >
                 <Text variant="heading2">
                     <Trans i18key="legalDisclaimer.title" />
                 </Text>

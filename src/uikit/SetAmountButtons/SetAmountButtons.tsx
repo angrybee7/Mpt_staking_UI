@@ -24,12 +24,12 @@ export const SetAmountButtons: React.FC<
             transition="0.3s"
             {...rest}
         >
-            {presets.map((preset, i) => (
+            {presets.map((preset) => (
                 <Text
                     key={preset}
                     variant="caption"
                     cursor={isDisabled ? 'default' : 'pointer'}
-                    mx={i === 1 ? '12px' : 0}
+                    // mx={i === 1 ? '12px' : 0}
                     sx={
                         isDisabled
                             ? {}

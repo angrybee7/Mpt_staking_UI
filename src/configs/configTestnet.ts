@@ -16,7 +16,6 @@ export default<TConfig> {
     },
     contracts: {
         factory: '3MpMuGN8rW9EpPwzETAQz88Pe9TQhSwiriq',
-        calculator: '',
         lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
     },
     network: {

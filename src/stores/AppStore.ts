@@ -25,17 +25,17 @@ export class AppStore {
         this.authStore = new AuthStore(this);
         this.contractStore = new ContractStore(this);
 
-        reaction(
-            () => this.assetsStore.assetsData.isLoading,
-            () => {
-                if (!this.assetsStore.assetsData.isLoading) {
-                    this.providerStore = new ProviderStore(this);
-                    this.balanceStore = new BalanceStore(this);
-                    this.nodeHeightStore = new NodeHeightStore(this);
-                    this.ratesStore = new RatesStore(this);
-                }
-            }
-        );
+        // reaction(
+        //     () => this.assetsStore.assetsData.isLoading,
+        //     () => {
+        //         if (!this.assetsStore.assetsData.isLoading) {
+        //             this.providerStore = new ProviderStore(this);
+        //             this.balanceStore = new BalanceStore(this);
+        //             this.nodeHeightStore = new NodeHeightStore(this);
+        //             this.ratesStore = new RatesStore(this);
+        //         }
+        //     }
+        // );
     }
 
 }

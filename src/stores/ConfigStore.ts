@@ -18,7 +18,6 @@ export type TConfig = {
     },
     contracts: {
         factory: string;
-        calculator: string;
         lpToken: string
     },
     network: {

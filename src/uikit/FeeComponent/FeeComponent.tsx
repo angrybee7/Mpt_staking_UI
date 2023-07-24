@@ -40,7 +40,7 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
                 <Text
                     variant="caption"
                     color="#B0BAC7"
-                    mr={tooltipAtEnd ? '0' : '8px'}
+                    // mr={tooltipAtEnd ? '0' : '8px'}
                 >
                     <Trans {...feeText} />
                 </Text>
@@ -57,7 +57,7 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
             </Flex>
             <Box
                 id={`${id}-fee-value`}
-                mr={tooltipAtEnd ? '8px' : '0'}
+                // mr={tooltipAtEnd ? '8px' : '0'}
                 color="text"
             >
                 {feeValue
@@ -66,7 +66,7 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
                             <Text variant="body2">{isPercent ? fee : feeValue?.getTokens()?.toFormat()}</Text>
                             <Text
                                 variant="body2"
-                                ml={!isPercent ? '5px' : null}
+                                // ml={!isPercent ? '5px' : null}
                             >
                                 {isPercent ? '%' : feeValue?.asset?.ticker || feeValue?.asset?.displayName || null}
                             </Text>
