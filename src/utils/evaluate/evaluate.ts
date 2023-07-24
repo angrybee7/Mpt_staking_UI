@@ -1,7 +1,7 @@
-import { IEvaluateParams } from './index';
+import { IEvaluateParams, IEvaluateResponse } from './index';
 
-export const evaluate = ({ address, expr }: IEvaluateParams): Promise<string> => {
-    return fetch(`${evaluate}/${address}`, {
+export const evaluate = (evaluateUrl: string, { address, expr }: IEvaluateParams): Promise<IEvaluateResponse> => {
+    return fetch(`${evaluateUrl}/${address}`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

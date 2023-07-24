@@ -17,14 +17,14 @@ export default<TConfig> {
     contracts: {
         factory: '3MpMuGN8rW9EpPwzETAQz88Pe9TQhSwiriq',
         calculator: '',
-        lpToken: 'mcGWqCMsSC1mw1xrQJVnH4o56o3FArJ9QoThfAudwqM'
+        lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
     },
     network: {
         code: 'T'
     },
     assets: [
         { label: 'WAVES', id: 'WAVES' },
-        { label: 'WAVESDAOLP', id: 'mcGWqCMsSC1mw1xrQJVnH4o56o3FArJ9QoThfAudwqM' },
+        { label: 'WX', id: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc' },
         { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ]
 };

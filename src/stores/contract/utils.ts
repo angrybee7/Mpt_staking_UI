@@ -1,3 +1,5 @@
+import { Money } from '@waves/data-entities';
+
 export const filterObjectCommonContract =  ({ contractAddress }) => {
     return {
         filter: {
@@ -28,4 +30,9 @@ export const filterObjectCommonContract =  ({ contractAddress }) => {
         }
 
     }
+}
+
+
+export const moneyFactory = (zeroMoney: Money) => (amount: number):  Money => {
+    return zeroMoney.cloneWithTokens(amount);
 }
