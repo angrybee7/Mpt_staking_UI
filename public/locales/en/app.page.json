@@ -1,4 +1,7 @@
 {
+    "mptMainTitle": "L2MP Staking",
+    "mptMainDesc": "The Level 2 EVM network built on top of the Waves blockchain marks the initial phase of the Waves 2.0 vision. This network facilitates the interaction of various chains through a streamlined beacon-chain, designed specifically for efficient zero-knowledge proof verification. It focuses on supporting basic transactions, including transfers and native token staking, while utilizing the same cost-effective consensus mechanism across all participating L2s. Furthermore, it enables seamless interchain transfers among these networks.",
+    "mptConnectToLogIn": "Connect Wallet to Log In",
     "daoDesc": "DAO is making profit by financing the development of the projects and initiatives based on Waves blockchain.",
     "bannerText": "Get PWR to gain a full-scale access to governance and affect on community's decisions. Give a POWER to your voice!",
     "bannerBtn": "Get PWR",
