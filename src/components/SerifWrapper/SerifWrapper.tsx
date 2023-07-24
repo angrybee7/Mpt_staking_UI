@@ -7,7 +7,7 @@ type SerifWrapperProps = BoxProps & {
 
 const variants = {
     default: '#C6D8E2',
-    error: '#F30909',
+    error: 'error',
     primary: '#0983F3'
 };
 
