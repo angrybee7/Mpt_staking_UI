@@ -5,8 +5,6 @@ import { IRatesResponse, TRatesHash } from './index';
 import { reaction } from 'mobx';
 import { createBaseAsset, getPair } from '../../utils/dataEntriesUtils';
 import { BigNumber } from '@waves/bignumber';
-import { getInUsd } from '../../utils/usdUtils';
-import { Money } from '@waves/data-entities';
 
 export class RatesStore extends ChildStore {
     rates: FetchTracker<TRatesHash, IRatesResponse>;
@@ -44,20 +42,6 @@ export class RatesStore extends ChildStore {
             id: 'USD',
             precision: 2,
         });
-    }
-
-    public get balanceLpInWavesUsd(): BigNumber {
-        return getInUsd(
-            this.rs.balanceStore.balanceLpInWaves,
-            this.rates.data
-        ).getTokens();
-    }
-
-    public get currentPriceWavesInUsd(): BigNumber {
-        return getInUsd(
-            new Money(0, this.rs.assetsStore.WAVES).cloneWithTokens(1),
-            this.rates.data
-        ).getTokens();
     }
 
     public off() {
