@@ -13,17 +13,11 @@ export default<TConfig> {
         signerCloud: 'https://testnet.wx.network/signer-cloud/',
         stateSearch: 'https://testnet.wx.network/api/v1/state/search',
     },
-    contracts: {
-        factory: '3MuS6qVvhBR6wSynFRdcE3fVqmGBjoc7Hhx',
-        calculator: '',
-        lpToken: 'mcGWqCMsSC1mw1xrQJVnH4o56o3FArJ9QoThfAudwqM'
-    },
+    contracts: {},
     network: {
         code: 'T'
     },
     assets: [
-        { label: 'WAVES', id: 'WAVES' },
-        { label: 'WAVESDAOLP', id: 'mcGWqCMsSC1mw1xrQJVnH4o56o3FArJ9QoThfAudwqM' },
-        { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
+        { label: 'WAVES', id: 'WAVES' }
     ]
 };

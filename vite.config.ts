@@ -6,7 +6,6 @@ import react from '@vitejs/plugin-react';
 import htmlPlugin from 'vite-plugin-html-config';
 import openGraphConfig from './openGraphConfig.js';
 
-
 dns.setDefaultResultOrder('verbatim');
 
 
