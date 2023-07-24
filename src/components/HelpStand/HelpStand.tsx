@@ -7,7 +7,7 @@ export const HelpStand: FC = () => {
         <Flex flexDirection="column" bg="#404040" p="20px">
             <Flex width="300px" flexDirection="column" color="text">
                 <Flex>
-                    <Text mr="8px">Help</Text>
+                    <Text>Help</Text>
                     <Help>
                         <Box minWidth="250px">
               A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain.

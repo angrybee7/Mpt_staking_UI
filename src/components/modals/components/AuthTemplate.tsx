@@ -83,7 +83,7 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({
             </Text>
             {isShowRetry && (
                 <Button
-                    variantSize='large'
+                    // variantSize='large'
                     variant="primary"
                     onClick={handleRetry}
                     width="100%"

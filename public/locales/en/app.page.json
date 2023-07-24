@@ -10,6 +10,7 @@
     "mptMainDesc7": " Furthermore, 100 million L2MP tokens are reserved for Waves ecosystem incentives, including swaps for WXG assets and Waves DAO rewards. 300 million tokens are allocated for staking rewards, which will be distributed to L2MP stakers over a 6-month period. This allocation aims to facilitate early swaps into L2MP, aiming to increase the utility of XTN and reduce its excessive supply.",
     "mptConnectToLogIn": "Connect Wallet to Log In",
     "comingSoon": "Coming soon",
+    "enterAmount": "Enter amount",
     "error": {
         "min": "Min amount is {{amount}} {{assetName}}.",
         "unsufficient": "Insufficient funds.",
