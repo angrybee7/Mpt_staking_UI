@@ -1,4 +1,15 @@
 {
+    "mptMainTitle": "L2MP Staking",
+    "mptMainDesc": "The Level 2 EVM network built on top of the Waves blockchain marks the initial phase of the Waves 2.0 vision. This network facilitates the interaction of various chains through a streamlined beacon-chain, designed specifically for efficient zero-knowledge proof verification. It focuses on supporting basic transactions, including transfers and native token staking, while utilizing the same cost-effective consensus mechanism across all participating L2s. Furthermore, it enables seamless interchain transfers among these networks.",
+    "mptMainDesc1": "Unlike other approaches, our optimization strategy involves enhancing the L1 layer for L2 interactions. Rather than optimizing L2 to align with a particular L1, we introduce a Layer Zero, or L0 network. The primary purpose of this network is to serve as the foundational layer, delivering consensus and facilitating interchain interaction capabilities for multiple interconnected chains.",
+    "mptMainDesc2": "The initial phase towards establishing a comprehensive network involves launching an L2 network that interacts with the existing Waves blockchain while supporting the Ethereum Virtual Machine (EVM). The concepts employed in this network will be expanded to other L2 chains, including L2-L1 interaction and L2 consensus through re-staking, which utilizes validators' stake locked on L1.",
+    "mptMainDesc3": "To realize the envisioned architecture, we need to enhance the Waves layer with provable finality, ensuring transactions cannot be reversed after a specific number of blocks. Additionally, we will implement a 'fractal consensus' model where L2 consensus essentially mirrors the consensus mechanism of L1. In this approach, L2 consensus relies on stake locked on L1. To achieve this, we separate the consensus layer from the processing layer, allowing L2 to solely focus on processing tasks while delegating consensus responsibilities to L1.",
+    "mptMainDesc4": "To establish the network, an intermediary token called Mining Power Token (L2MP) is introduced. L2MP allows users to secure a portion of the future supply of the L2 native token. The L2 native token serves as the fee asset on L2, with transaction fees paid in this token. Additionally, it plays a role in the L2 DAO. Initially, the L2 native token will have zero supply, creating scarcity during the system's early launch phase.",
+    "mptMainDesc5": "L2MP holders can participate in the mining of the L2 native token by staking their L2MP to one of the Waves L1 nodes. During the bootstrapping phase of the EVM L2, only L2MP holders will be eligible for L2 token mining. 50% of the total 10 million supply will be distributed based solely on L2MP balances over a one-year period after the launch. After this period, staked Waves can be used for L2 validation, and the inflation of the L2 token will be reduced by 50% annually until the total supply reaches 10 million tokens.",
+    "mptMainDesc6": "The total supply of L2MP is 1 billion tokens. Out of this, 600 million tokens are reserved for XTN holders, who can swap their XTN for L2MP on a 1:1 basis without any restrictions, including vested XTN on vires.finance. Unvested accounts on vires.finance can also swap their balances into L2MP based on a ratio of 1 USD WXG = 1 L2MP.",
+    "mptMainDesc7": " Furthermore, 100 million L2MP tokens are reserved for Waves ecosystem incentives, including swaps for WXG assets and Waves DAO rewards. 300 million tokens are allocated for staking rewards, which will be distributed to L2MP stakers over a 6-month period. This allocation aims to facilitate early swaps into L2MP, aiming to increase the utility of XTN and reduce its excessive supply.",
+    "mptConnectToLogIn": "Connect Wallet to Log In",
+    "comingSoon": "Coming soon",
     "error": {
         "min": "Min amount is {{amount}} {{assetName}}.",
         "unsufficient": "Insufficient funds.",
@@ -9,7 +20,6 @@
     "logout": "Log Out",
     "continue": "Continue",
     "legalCheckbox": "I have read and agreed with the {span.legalDisclaimer}[Legal Disclaimer].",
-    "connectWallet": "Connect Wallet",
     "keeperWallet": "Keeper Wallet",
     "seed": "WX Network Seed",
     "cloud": "WX Network Email",

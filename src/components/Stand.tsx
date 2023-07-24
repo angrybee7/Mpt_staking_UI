@@ -13,6 +13,7 @@ import { FormattedInputStand } from './FormattedInputStand/FormattedInputStand';
 import { SetAmountButtonsStand } from './SetAmountButtonsStand/SetAmountButtonsStand';
 import { InputErrorsStand } from './InputErrorsStand/InputErrorsStand';
 import { translate } from '@waves/ui-translator';
+import { SerifWrapperExamples } from './SerifWrapper/SerifWrapperExamples.tsx';
 
 const StandFC: FC = () => (
     <Box>
@@ -33,6 +34,7 @@ const StandFC: FC = () => (
         <FormattedInputStand />
         <SetAmountButtonsStand />
         <InputErrorsStand />
+        <SerifWrapperExamples />
     </Box>
 );
 
