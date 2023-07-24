@@ -40,9 +40,9 @@ export const LabelComponent: React.FC<TFlexProps & LabelComponentProps> = ({
                     <Box
                         width="6px"
                         height="6px"
-                        borderRadius="50%"
+                        // borderRadius="50%"
                         backgroundColor={markerColor}
-                        mr="6px"
+                        // mr="6px"
                     />
                 ) : null}
                 <Text

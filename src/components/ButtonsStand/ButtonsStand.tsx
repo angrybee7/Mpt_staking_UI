@@ -25,7 +25,7 @@ export const ButtonsStand: React.FC = () => {
                 </Button>
             </Flex>
 
-            <Flex mb={20}>
+            {/* <Flex mb={20}>
                 <Button variant="success" ml={20} onClick={() => console.log('success hey')}>
 					Success
                 </Button>
@@ -33,7 +33,7 @@ export const ButtonsStand: React.FC = () => {
                 <Button variant="success" disabled ml={20} onClick={() => console.log('success hey')}>
 					Success disabled
                 </Button>
-            </Flex>
+            </Flex> */}
         </Flex>
     );
 };

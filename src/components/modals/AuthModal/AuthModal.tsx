@@ -44,7 +44,12 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
 
     return (
         <ModalStyled {...props}>
-            <Box mt="30px" textAlign="center" color="standard.$0" mb="24px">
+            <Box
+                // mt="30px"
+                textAlign="center"
+                color="standard.$0"
+                // mb="24px"
+            >
                 <Text variant="heading2">
                     <Trans i18key="connectWallet" />
                 </Text>
@@ -106,7 +111,7 @@ const AuthModalFC: React.FC<ModalProps> = (props) => {
                     </Text>
                 </Checkbox>
                 <Button
-                    variantSize="large"
+                    // variantSize="large"ы
                     variant="primary"
                     width="100%"
                     onClick={handleContinue}
