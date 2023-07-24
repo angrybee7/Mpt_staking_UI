@@ -7,7 +7,9 @@ export const CheckboxStand: FC = () => {
     return (
         <Flex flexDirection="column" bg="#404040">
             <Flex mb={20} p="20px">
-                <Box mr={20}>
+                <Box
+                    // mr={20}
+                >
                     <Checkbox
                         controlBoxStyles={{ baseStyles: { marginRight: '8px' } }}
                         isChecked={checked}

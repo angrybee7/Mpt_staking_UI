@@ -8,7 +8,7 @@ import { DotLoader, Flex } from '@waves.exchange/wx-react-uikit';
 import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { Page } from './Page/Page';
 import { AppStore } from './stores/AppStore';
-// import { Stand } from './components/Stand';
+import { Stand } from './components/Stand';
 
 export const AppStoreContext = createContext<AppStore>(null);
 
@@ -20,7 +20,7 @@ function App() {
         <AppStoreContext.Provider value={appStore}>
             <ThemeProvider theme={theme}>
                 <TranslateProvider i18n={i18n}>
-                     {/*<Stand />*/}
+                    <Stand />
                     <ModalContainer />
                     <Observer>
                         {(): ReactElement => {

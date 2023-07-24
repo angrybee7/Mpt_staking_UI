@@ -10,7 +10,7 @@ export const ModalStyled: React.FC<ModalProps & BoxProps> = ({
     return (
         <Modal {...props}>
             <Box
-                p={24}
+                // p={24}
                 backgroundImage={[`url(${'bgMobileModal'})`, `url(${''})`]}
                 backgroundSize="contain"
                 backgroundColor="wdBg"

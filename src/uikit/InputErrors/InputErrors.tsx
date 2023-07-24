@@ -14,7 +14,12 @@ export const InputErrors: React.FC<InputErrorsProps> = React.memo(
     ({ error, minAmount, assetName }) => {
         return (
             <>
-                <Text variant="caption" color="wdred" display="block" mt="8px">
+                <Text
+                    variant="caption"
+                    color="error"
+                    display="block"
+                    sx={{ mt: '8px' }}
+                >
                     {error === 'minAmount' && minAmount
                         ? (
                             <Trans
