@@ -11,19 +11,11 @@ export const RightSide: FC = observer(() => {
     const [heightUserInfoBlock, setHeightUserInfoBlock] = useState(0);
 
     return (
-        <Box width={['100%', '60%']}>
+        <Box width={['100%', '50%']}>
             {authStore.isAuthorized && <UserInfo setHeightUserInfoBlock={setHeightUserInfoBlock} />}
             <Flex
                 flexDirection="column"
                 minHeight={`calc(100% - ${heightUserInfoBlock + 24}px)`}
-                sx={{
-                    mt: '24px',
-                    py: ['16px', '32px'],
-                    px: ['16px', '24px'],
-                    borderRadius: '12px',
-                    backgroundColor: 'rgba(0, 16, 56, 0.7)',
-                    backdropFilter: 'blur(8px)',
-                }}
             >
                 {authStore.isAuthorized ? <Dashboard /> : <ConnectBlock />}
             </Flex>

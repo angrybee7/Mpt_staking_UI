@@ -7,13 +7,13 @@ import { RightSide } from './components/RightSide/RightSide';
 
 const PageFC: FC = () => {
     return (
-        <Box height="100%" position="relative" sx={{ px: ['6px', '40px'] }}>
-            <MainBg />
+        <Box height="100%" position="relative" sx={{ px: ['0', '40px'] }}>
+            {/* <MainBg /> */}
             <Flex
                 position="relative"
-                height="100%"
+                minHeight="100%"
                 width="100%"
-                flexDirection={['column', 'row']}
+                flexDirection={['column-reverse', 'row']}
             >
                 <LeftSide />
                 <RightSide />
