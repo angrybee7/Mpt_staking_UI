@@ -10,7 +10,7 @@ import { KeeperNoAccounts } from './modalStates/KeeperNoAccounts';
 import { KeeperNoLogin } from './modalStates/KeeperNoLogin';
 import { KeeperNotInstalled } from './modalStates/KeeperNotInstalled';
 import { AuthTemplateProps } from '../components/AuthTemplate';
-import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
+import { AUTH_DEVICE_STATES } from '../../../hooks/useAuth.ts';
 import { translate } from '@waves/ui-translator';
 
 export interface KeeperAuthModalProps {

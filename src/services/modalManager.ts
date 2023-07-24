@@ -32,7 +32,7 @@ class ModalManager {
     public modalWasClosed = new Signal<TCloseMessage>();
     public openedModals: TModalName[] = [];
 
-    openModal = <T>(modalName: TModalName, props?: T, fadeDuration = 200): Promise<TCloseEventType> => {
+    openModal = (modalName: TModalName, props?: unknown, fadeDuration = 200): Promise<TCloseEventType> => {
         this.openSignal.dispatch({ modalName, props, fadeDuration });
         if (this.openedModals.includes(modalName)) {
             return Promise.reject(`${modalName} is already open`);

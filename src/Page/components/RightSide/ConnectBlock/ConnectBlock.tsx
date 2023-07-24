@@ -1,19 +1,53 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { Flex, Box } from '@waves.exchange/wx-react-uikit';
 import { Trans } from '@waves/ui-translator';
-import { Text } from '../../../../uikit/Text/Text';
-import { Button } from '../../../../uikit/Button/Button';
-import { modalManager } from '../../../../services/modalManager';
-import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES';
+import { Button, Checkbox, Text } from 'uikit';
 import logo from '/src/img/mpt-logo.svg';
 import metamaskUrl from '/src/img/metamask.svg';
 import keeperUrl from '/src/img/keeper.svg';
 import wxUrl from '/src/img/wx.svg';
+import { PROVIDER_TYPES, PROVIDER_TYPES_VALUES } from '../../../../stores/AuthStore.ts';
+import { useAuth } from '../../../../hooks/useAuth.ts';
+import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES.ts';
+import { modalManager } from '../../../../services/modalManager.ts';
+
+enum ERROR {
+    uncheckedTerms = 'uncheckedTerms',
+    uncheckedProvider = 'uncheckedProvider',
+}
 
 export const ConnectBlock: FC = memo(() => {
-    const onConnectClick = () => {
-        modalManager.openModal(MODAL_NAMES.authModal);
-    };
+    const [checked, setChecked] = useState<boolean>(false);
+    const [selectedProvider, setSelectedProvider] = useState<PROVIDER_TYPES_VALUES>();
+    const [errors, setErrors] = useState<Array<ERROR>>([]);
+    const { login } = useAuth();
+
+    const handleContinue = useCallback(() => {
+        const errors = [];
+        if (!checked) {
+            errors.push(ERROR.uncheckedTerms);
+        }
+        if (!selectedProvider) {
+            errors.push(ERROR.uncheckedProvider);
+        }
+        setErrors(errors);
+        if (errors.length) {
+            return;
+        }
+        login(selectedProvider);
+    }, [checked, selectedProvider]);
+
+    const onCheckTerms = useCallback((e): void => {
+        setChecked(e.target.checked);
+        setErrors([]);
+    }, []);
+
+    const onDisclaimerClick = useCallback((e): void => {
+        if (e.target.classList.contains('legalDisclaimer')) {
+            e.preventDefault();
+            modalManager.openModal(MODAL_NAMES.legalDisclaimer, undefined, 500);
+        }
+    }, []);
 
     return (
         <>
@@ -72,7 +106,8 @@ export const ConnectBlock: FC = memo(() => {
                         <Box borderLeft={[null, '1px solid #C6DAE6']} sx={{ pl: [null, '20px'] }}>
                             <Button
                                 variant="transparent"
-                                disabled={true}
+                                variantSize="large"
+                                onClick={() => setSelectedProvider(PROVIDER_TYPES.metamask)}
                                 mb={20}
                                 maxWidth="330px"
                                 display="flex"
@@ -86,11 +121,14 @@ export const ConnectBlock: FC = memo(() => {
                                     backgroundPosition="center center"
                                     sx={{ mr: '12px' }}
                                 />
-                                <Trans i18key="comingSoon" />
+                                <Text fontWeight={300}>
+                                    <Trans i18key="metaMask" />
+                                </Text>
                             </Button>
                             <Button
                                 variant="transparent"
-                                disabled={true}
+                                variantSize="large"
+                                onClick={() => setSelectedProvider(PROVIDER_TYPES.keeper)}
                                 mb={20}
                                 maxWidth="330px"
                                 display="flex"
@@ -104,11 +142,15 @@ export const ConnectBlock: FC = memo(() => {
                                     backgroundPosition="center center"
                                     sx={{ mr: '12px' }}
                                 />
-                                <Trans i18key="comingSoon" />
+                                <Text fontWeight={300}>
+                                    <Trans i18key="keeperWallet" />
+                                </Text>
                             </Button>
                             <Button
                                 variant="transparent"
-                                disabled={true}
+                                variantSize="large"
+                                onClick={() => setSelectedProvider(PROVIDER_TYPES.web)}
+                                mb={20}
                                 maxWidth="330px"
                                 display="flex"
                                 sx={{ alignItems: 'center' }}
@@ -121,9 +163,63 @@ export const ConnectBlock: FC = memo(() => {
                                     backgroundPosition="center center"
                                     sx={{ mr: '12px' }}
                                 />
-                                <Trans i18key="comingSoon" />
+                                <Text fontWeight={300}>
+                                    <Trans i18key="seed" />
+                                </Text>
+                            </Button>
+                            <Button
+                                variant="transparent"
+                                variantSize="large"
+                                onClick={() => setSelectedProvider(PROVIDER_TYPES.cloud)}
+                                maxWidth="330px"
+                                display="flex"
+                                sx={{ alignItems: 'center' }}
+                            >
+                                <Box
+                                    width="28px"
+                                    height="28px"
+                                    backgroundImage={`url(${wxUrl})`}
+                                    backgroundRepeat="no-repeat"
+                                    backgroundPosition="center center"
+                                    sx={{ mr: '12px' }}
+                                />
+                                <Text fontWeight={300}>
+                                    <Trans i18key="cloud" />
+                                </Text>
                             </Button>
                         </Box>
+
+                        <Checkbox
+                            controlBoxStyles={{ baseStyles: { mr: '8px' } }}
+                            isChecked={checked}
+                            isInvalid={false}
+                            onChange={onCheckTerms}
+                            color="text"
+                            mt="24px"
+                        >
+                            <Text
+                                onClick={onDisclaimerClick}
+                                sx={{
+                                    '.legalDisclaimer': {
+                                        color: 'main',
+                                        cursor: 'pointer',
+                                    },
+                                }}
+                            >
+                                <Trans i18key="legalCheckbox" />
+                            </Text>
+                        </Checkbox>
+
+                        {errors.map((error) => <Text key={error}>{error}</Text>)}
+                        <Button
+                            variantSize="large"
+                            variant="transparent"
+                            maxWidth="200px"
+                            onClick={handleContinue}
+                            mt={24}
+                        >
+                            <Trans i18key="continue" />
+                        </Button>
                     </Box>
                 </Flex>
                 <Box width="100%" flex={1} borderLeft="1px solid #C6DAE6" />

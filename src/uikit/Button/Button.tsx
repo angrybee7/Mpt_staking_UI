@@ -10,10 +10,12 @@ import { variant } from 'styled-system';
 import { SerifWrapper } from '../../components/SerifWrapper/SerifWrapper';
 
 export type TVariant = keyof typeof variants;
+export type TVariantSize = keyof typeof sizes;
 
 type ButtonSpecificProps = {
-	variant?: TVariant;
 	children: ReactNode
+    variant?: TVariant;
+    variantSize?: TVariantSize;
 };
 
 export type TButtonProps = BoxProps<
@@ -42,8 +44,17 @@ export const ButtonFC = styled(Box as unknown as BoxAsElement<'button', TButtonP
 export const Button: FC<TButtonProps> = ({ children, ...props }) => {
     const { mx, my, mt, mr, mb, ml, width, maxWidth, ...rest } = props;
     return (
-        <SerifWrapper sx={{ mx, my, mt, mr, mb, ml, width, maxWidth } as any} variant={props.variant  as any}>
-            <ButtonFC {...rest} width="100%">{children}</ButtonFC>
+        <SerifWrapper
+            sx={{ mx, my, mt, mr, mb, ml, width, maxWidth } as any}
+            variant={props.variant  as any}
+        >
+            <ButtonFC
+                {...rest}
+                width="100%"
+                fontFamily="Sfmono"
+            >
+                {children}
+            </ButtonFC>
         </SerifWrapper>
     );
 };
