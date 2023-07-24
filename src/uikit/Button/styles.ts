@@ -59,10 +59,10 @@ export const sizes = {
         paddingRight: '24px',
     },
     large: {
-        fontSize: '14px',
-        lineHeight: '38px',
-        height: '48px',
-        paddingLeft: '50px',
-        paddingRight: '50px',
+        fontSize: '18px',
+        lineHeight: '26px',
+        height: '50px',
+        paddingLeft: '22px',
+        paddingRight: '22px',
     },
 };

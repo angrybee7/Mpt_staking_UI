@@ -19,7 +19,7 @@ const StandFC: FC = () => (
     <Box>
         <Box
             onClick={() => {
-                modalManager.openModal(MODAL_NAMES.authModal, undefined, 500);
+                modalManager.openModal(MODAL_NAMES.legalDisclaimer, undefined, 500);
             }}
         >
             Waves Dao

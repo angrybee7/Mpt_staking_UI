@@ -1,9 +1,9 @@
-import { modalManager } from '../../../../services/modalManager';
-import { MODAL_NAMES } from '../../../ModalContainer/MODAL_NAMES';
+import { modalManager } from '../services/modalManager.ts';
+import { MODAL_NAMES } from '../components/ModalContainer/MODAL_NAMES.ts';
 import { useContext, useRef, useState } from 'react';
-import { KeeperAuthModalProps } from '../../KeeperAuthModal/KeeperAuthModal';
-import { AppStoreContext } from '../../../../App';
-import { PROVIDER_TYPES_VALUES } from '../../../../stores/AuthStore';
+import { KeeperAuthModalProps } from '../components/modals/KeeperAuthModal/KeeperAuthModal.tsx';
+import { AppStoreContext } from '../App.tsx';
+import { PROVIDER_TYPES_VALUES } from '../stores/AuthStore.ts';
 
 export enum AUTH_DEVICE_STATES {
     notInstalled = 'notInstalled',
@@ -16,7 +16,7 @@ export enum AUTH_DEVICE_STATES {
 }
 
 interface IUseAuth {
-    login: () => Promise<void>;
+    login: (electedProvider: PROVIDER_TYPES_VALUES) => Promise<void>;
     deviceState: AUTH_DEVICE_STATES | undefined;
 }
 
@@ -30,12 +30,14 @@ const getModalNameBySelectedProvider = (selectedProvider: PROVIDER_TYPES_VALUES)
     return `${selectedProvider}Auth` as MODAL_NAMES;
 };
 
-export const useAuth = (selectedProvider: PROVIDER_TYPES_VALUES): IUseAuth => {
+export const useAuth = (): IUseAuth => {
     const { authStore } = useContext(AppStoreContext);
     const [deviceState, setDeviceState] = useState<AUTH_DEVICE_STATES | undefined>();
     const prevState = useRef<AUTH_DEVICE_STATES | undefined>();
+    let selectedProvider: PROVIDER_TYPES_VALUES;
 
-    const login = async (): Promise<void> => {
+    const login = async (_selectedProvider?: PROVIDER_TYPES_VALUES): Promise<void> => {
+        selectedProvider = _selectedProvider;
         try {
             await authStore.login(selectedProvider);
             await modalManager.closeModal(getModalNameBySelectedProvider(selectedProvider), 'close');

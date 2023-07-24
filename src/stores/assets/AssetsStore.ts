@@ -13,11 +13,11 @@ export class AssetsStore extends ChildStore {
         super(rs);
         const config = this.rs.configStore.config;
         const assetsIds = config.assets.map(a => a.id);
-        // this.assetsData = new FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>({
-        //     fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
-        //     parser: this.assetsParser,
-        //     autoFetch: true
-        // });
+        this.assetsData = new FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>({
+            fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
+            parser: this.assetsParser,
+            autoFetch: true
+        });
     }
 
     public get XTN(): AssetWithMeta {

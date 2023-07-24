@@ -4,7 +4,7 @@ import { ModalProps } from '../../Modal/Modal';
 import { Box } from '@waves.exchange/wx-react-uikit';
 import { ModalStyled } from '../../Modal/ModalStyled';
 import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
-import { AUTH_DEVICE_STATES } from '../AuthModal/hooks/useAuth';
+import { AUTH_DEVICE_STATES } from '../../../hooks/useAuth.ts';
 import { translate } from '@waves/ui-translator';
 import { metamaskCalm, metamaskRed } from './icons';
 import { getMetamaskDeviceName } from '../../../utils/helpersInformationDevices';
