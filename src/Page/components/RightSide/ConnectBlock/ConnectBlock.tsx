@@ -80,7 +80,7 @@ export const ConnectBlock: FC = memo(() => {
             </Flex>
             <Flex
                 flexDirection="column"
-                backgroundColor="#F6FAFB"
+                backgroundColor="bg"
                 borderTop={['1px solid #C6DAE6', 'none']}
                 borderBottom={['1px solid #C6DAE6', 'none']}
                 sx={{

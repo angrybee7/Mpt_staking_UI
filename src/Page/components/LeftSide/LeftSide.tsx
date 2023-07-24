@@ -10,7 +10,7 @@ export const LeftSide: FC = memo(() => {
             width={['100%', '50%']}
             sx={{
                 pr: ['0', '40px'],
-                backgroundColor: ['#F6FAFB', 'transparent'],
+                backgroundColor: ['bg', 'transparent'],
                 pb: ['24px', '0'],
             }}
         >
@@ -32,7 +32,7 @@ export const LeftSide: FC = memo(() => {
                 <SerifWrapper
                     py='24px'
                     px='24px'
-                    backgroundColor='#F6FAFB'
+                    backgroundColor='bg'
                     color='#1E1E1E'
                     fontSize='14px'
                     lineHeight='18px'
