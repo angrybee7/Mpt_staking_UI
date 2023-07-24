@@ -14,6 +14,7 @@ export type TConfig = {
         signerWeb: string,
         signerCloud: string,
         stateSearch: string
+        evaluate: string;
     },
     contracts: {
         factory: string;

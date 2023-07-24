@@ -12,9 +12,10 @@ export default<TConfig> {
         signerWeb: 'https://testnet.wx.network/signer/',
         signerCloud: 'https://testnet.wx.network/signer-cloud/',
         stateSearch: 'https://testnet.wx.network/api/v1/state/search',
+        evaluate: 'https://nodes-testnet.wx.network/utils/script/evaluate',
     },
     contracts: {
-        factory: '3MuS6qVvhBR6wSynFRdcE3fVqmGBjoc7Hhx',
+        factory: '3MpMuGN8rW9EpPwzETAQz88Pe9TQhSwiriq',
         calculator: '',
         lpToken: 'mcGWqCMsSC1mw1xrQJVnH4o56o3FArJ9QoThfAudwqM'
     },

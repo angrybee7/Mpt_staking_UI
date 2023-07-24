@@ -1,6 +1,6 @@
 import BigNumber from '@waves/bignumber';
-import { timeUnitsTranslations } from './timeUnitsTranslations';
-import { timeUnitsTransAccusativeCase } from './timeUnitsTransAccusativeCase';
+import { timeUnitsTranslations } from './timeUnitsTranslations.ts';
+import { timeUnitsTransAccusativeCase } from './timeUnitsTransAccusativeCase.ts';
 
 interface IGetTranslationProps {
     value: number;
