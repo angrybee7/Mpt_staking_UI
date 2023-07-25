@@ -2,7 +2,7 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
-} from '../utils/BaseInputFormStore';
+} from '../../../stores/utils/BaseInputFormStore.ts';
 import { Money } from '@waves/data-entities';
 
 export class UnstakeStore extends BaseInputFormStore {
@@ -39,6 +39,10 @@ export class UnstakeStore extends BaseInputFormStore {
     };
 
     public get maxAmount(): Money | undefined {
+        return this.rs.contractStore.userContractData.data.availableToWithdraw;
+    }
+
+    public get currentTokenBalance(): Money | undefined {
         return this.rs.contractStore.userContractData.data.availableToWithdraw;
     }
 }

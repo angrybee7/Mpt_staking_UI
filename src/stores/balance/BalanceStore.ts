@@ -12,10 +12,10 @@ import { Money } from '@waves/data-entities';
 const POLLING_TIME = 10_000;
 
 export class BalanceStore extends ChildStore {
-    private wavesBalance:
+    public wavesBalance:
         | FetchTracker<Record<string, IBalance>, IWavesBalanceResponse>
         | undefined;
-    private otherBalance:
+    public otherBalance:
         | FetchTracker<Record<string, IBalance>, TNodeBalanceResponse>
         | undefined;
 
@@ -51,7 +51,7 @@ export class BalanceStore extends ChildStore {
         );
     }
 
-    public get wavesLpBalance(): IBalance['balance'] {
+    public get lpBalance(): IBalance['balance'] {
         return this.balances[this.rs.assetsStore.LPToken.id]?.balance;
     }
 

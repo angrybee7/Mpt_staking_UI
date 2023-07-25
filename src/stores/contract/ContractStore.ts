@@ -4,7 +4,6 @@ import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
-import BigNumber from '@waves/bignumber';
 import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
 import { when } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
@@ -53,7 +52,8 @@ export class ContractStore extends ChildStore {
                     fetcher: (evaluateUrl) =>
                         evaluate(evaluateUrl, { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }),
                     parser: this.userDataParser,
-                    autoFetch: true
+                    autoFetch: true,
+                    refreshInterval: COMMON_DATA_POLLING_TIME
                 })
             },
         )

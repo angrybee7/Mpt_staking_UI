@@ -2,7 +2,7 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
-} from '../utils/BaseInputFormStore';
+} from '../../../stores/utils/BaseInputFormStore.ts';
 import BigNumber from '@waves/bignumber';
 import { Money } from '@waves/data-entities';
 
