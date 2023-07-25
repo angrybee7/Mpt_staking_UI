@@ -2,16 +2,25 @@ import * as React from 'react';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 import { ModalProps } from '../../Modal/Modal';
 import { Box } from '@waves.exchange/wx-react-uikit';
-import { ModalStyled } from '../../Modal/ModalStyled';
+import { ModalStyled, TModalStyledVariant } from '../../Modal/ModalStyled';
 import { AuthTemplate, AuthTemplateProps } from '../components/AuthTemplate';
 import { AUTH_DEVICE_STATES } from '../../../hooks/useAuth.ts';
 import { translate } from '@waves/ui-translator';
-import { metamaskCalm, metamaskRed } from './icons';
 import { getMetamaskDeviceName } from '../../../utils/helpersInformationDevices';
 
 export interface MetamaskAuthModalProps {
     modalState: AUTH_DEVICE_STATES;
     onRetry?: AuthTemplateProps['onRetry'];
+}
+
+function getModalStateVariant(modalState: AUTH_DEVICE_STATES): TModalStyledVariant {
+    switch (modalState) {
+        case AUTH_DEVICE_STATES.notInstalled:
+        case AUTH_DEVICE_STATES.connectionRejected:
+            return 'error';
+        default:
+            return 'default';
+    }
 }
 
 const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
@@ -31,12 +40,13 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                     backgroundSize: 'cover',
                 },
             }}
+            stateVariant={getModalStateVariant(modalState)}
         >
             {(() => {
                 switch (modalState) {
                     case AUTH_DEVICE_STATES.notInstalled:
                         return <AuthTemplate
-                            icon={metamaskRed}
+                            device={getMetamaskDeviceName()}
                             title={{
                                 i18key: 'connectionFailed.title',
                                 i18Params: { device: getMetamaskDeviceName() },
@@ -47,11 +57,11 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                             }}
                             onRetry={onRetry}
                             isShowRetry={false}
-                            device={getMetamaskDeviceName()}
+                            variant="error"
                         />;
                     case AUTH_DEVICE_STATES.approveConnection:
                         return <AuthTemplate
-                            icon={metamaskCalm}
+                            device={getMetamaskDeviceName()}
                             title={{
                                 i18key: 'approveConnection.title',
                                 i18Params: { device: getMetamaskDeviceName() },
@@ -64,7 +74,7 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                         />;
                     case AUTH_DEVICE_STATES.signCustom:
                         return <AuthTemplate
-                            icon={metamaskCalm}
+                            device={getMetamaskDeviceName()}
                             title={{ i18key: 'signCustomData.title' }}
                             text={{
                                 i18key: 'signCustomData.desc',
@@ -74,7 +84,7 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                         />;
                     case AUTH_DEVICE_STATES.switchNetwork:
                         return <AuthTemplate
-                            icon={metamaskCalm}
+                            device={getMetamaskDeviceName()}
                             title={{
                                 i18key: 'switchNetwork.title',
                                 i18Params: { network: 'Waves' },
@@ -90,7 +100,7 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                         />;
                     case AUTH_DEVICE_STATES.connectionRejected:
                         return <AuthTemplate
-                            icon={metamaskRed}
+                            device={getMetamaskDeviceName()}
                             title={{
                                 i18key: 'connectionRejected.title',
                                 i18Params: { device: getMetamaskDeviceName() },
@@ -100,6 +110,7 @@ const MetamaskAuthModalFC: React.FC<MetamaskAuthModalProps & ModalProps> = ({
                                 i18Params: { device: getMetamaskDeviceName() },
                             }}
                             onRetry={onRetry}
+                            variant="error"
                         />;
                     default:
                         return <Box>something went wrong</Box>;
