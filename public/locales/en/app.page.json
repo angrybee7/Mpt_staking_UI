@@ -8,6 +8,7 @@
     "mptMainDesc5": "L2MP holders can participate in the mining of the L2 native token by staking their L2MP to one of the Waves L1 nodes. During the bootstrapping phase of the EVM L2, only L2MP holders will be eligible for L2 token mining. 50% of the total 10 million supply will be distributed based solely on L2MP balances over a one-year period after the launch. After this period, staked Waves can be used for L2 validation, and the inflation of the L2 token will be reduced by 50% annually until the total supply reaches 10 million tokens.",
     "mptMainDesc6": "The total supply of L2MP is 1 billion tokens. Out of this, 600 million tokens are reserved for XTN holders, who can swap their XTN for L2MP on a 1:1 basis without any restrictions, including vested XTN on vires.finance. Unvested accounts on vires.finance can also swap their balances into L2MP based on a ratio of 1 USD WXG = 1 L2MP.",
     "mptMainDesc7": " Furthermore, 100 million L2MP tokens are reserved for Waves ecosystem incentives, including swaps for WXG assets and Waves DAO rewards. 300 million tokens are allocated for staking rewards, which will be distributed to L2MP stakers over a 6-month period. This allocation aims to facilitate early swaps into L2MP, aiming to increase the utility of XTN and reduce its excessive supply.",
+    "mptMainDesc8": "You can swap XTN to L2MP and stake them [here](https://waves-dapp.com/3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa).",
     "mptConnectToLogIn": "Connect Wallet to Log In",
     "comingSoon": "Coming soon",
     "enterAmount": "Enter amount",
