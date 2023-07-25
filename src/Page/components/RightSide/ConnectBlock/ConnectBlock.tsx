@@ -153,6 +153,7 @@ export const ConnectBlock: FC = memo(() => {
                                 mb={20}
                                 maxWidth="330px"
                                 display="flex"
+                                isActive={true}
                                 sx={{ alignItems: 'center' }}
                             >
                                 <Box

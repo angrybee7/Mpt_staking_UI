@@ -16,6 +16,7 @@ type ButtonSpecificProps = {
 	children: ReactNode
     variant?: TVariant;
     variantSize?: TVariantSize;
+    isActive?: boolean;
 };
 
 export type TButtonProps = BoxProps<
@@ -42,10 +43,11 @@ export const ButtonFC = styled(Box as unknown as BoxAsElement<'button', TButtonP
 );
 
 export const Button: FC<TButtonProps> = ({ children, ...props }) => {
-    const { mx, my, mt, mr, mb, ml, width, maxWidth, disabled, ...rest } = props;
+    const { mx, my, mt, mr, mb, ml, width, maxWidth, disabled, isActive, ...rest } = props;
+    const activeStyles = { ...(isActive ? { backgroundColor: '#EBF5FF' } : {}) };
     return (
         <SerifWrapper
-            sx={{ mx, my, mt, mr, mb, ml, width, maxWidth } as any}
+            sx={{ mx, my, mt, mr, mb, ml, width, maxWidth, ...activeStyles } as any}
             variant={'primary'}
             disabled={disabled}
         >
