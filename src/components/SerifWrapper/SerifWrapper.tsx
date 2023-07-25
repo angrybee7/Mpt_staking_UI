@@ -3,6 +3,7 @@ import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 
 type SerifWrapperProps = BoxProps & {
 	variant?: 'primary' | 'error' | 'default';
+    disabled?: boolean;
 }
 
 const variants = {
@@ -11,7 +12,7 @@ const variants = {
     primary: '#0983F3'
 };
 
-export const SerifWrapper: React.FC<SerifWrapperProps> = ({ variant = 'default', children, ...props }) => {
+export const SerifWrapper: React.FC<SerifWrapperProps> = ({ variant = 'default', disabled, children, ...props }) => {
     const { sx, ...rest } = props;
 
     return (
@@ -19,7 +20,7 @@ export const SerifWrapper: React.FC<SerifWrapperProps> = ({ variant = 'default',
             position="relative"
             borderRight="1px solid"
             borderLeft="1px solid"
-            borderColor={variants[variant] || variants.default}
+            borderColor={(disabled || !variants[variant]) ? variants.default : variants[variant]}
             sx={{
                 '&::before': {
                     content: '""',
@@ -31,7 +32,7 @@ export const SerifWrapper: React.FC<SerifWrapperProps> = ({ variant = 'default',
                     left: '0',
                     borderTop: '2px solid',
                     borderBottom: '2px solid',
-                    borderColor: variants[variant] || variants.default
+                    borderColor: (disabled || !variants[variant]) ? variants.default : variants[variant]
                 },
                 '&::after': {
                     content: '""',
@@ -43,7 +44,7 @@ export const SerifWrapper: React.FC<SerifWrapperProps> = ({ variant = 'default',
                     right: '0',
                     borderTop: '2px solid',
                     borderBottom: '2px solid',
-                    borderColor: variants[variant] || variants.default
+                    borderColor: (disabled || !variants[variant]) ? variants.default : variants[variant]
                 },
                 ...(sx ? props.sx as object : null)
             }}

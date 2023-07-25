@@ -76,7 +76,7 @@ export const useAuth = (): IUseAuth => {
             prevState.current = _deviceState;
             await modalManager.abortAll();
             setTimeout(() => {
-                modalManager.openModal<KeeperAuthModalProps>(modalName, {
+                modalManager.openModal(modalName, {
                     modalState: _deviceState,
                     onRetry: () => login()
                 });
