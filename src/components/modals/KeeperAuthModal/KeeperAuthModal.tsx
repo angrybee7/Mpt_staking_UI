@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MODAL_NAMES } from '../../ModalContainer/MODAL_NAMES';
 import { ModalProps } from '../../Modal/Modal';
 import { Box } from '@waves.exchange/wx-react-uikit';
-import { ModalStyled } from '../../Modal/ModalStyled';
+import { ModalStyled, TModalStyledVariant } from '../../Modal/ModalStyled';
 import { KeeperSignCustom } from './modalStates/KeeperSignCustom';
 import { KeeperSwitchNetwork } from './modalStates/KeeperSwitchNetwork';
 import { KeeperConnectionRejected } from './modalStates/KeeperConnectionRejected';
@@ -18,6 +18,17 @@ export interface KeeperAuthModalProps {
     onRetry?: AuthTemplateProps['onRetry'];
 }
 
+function getModalStateVariant(modalState: AUTH_DEVICE_STATES): TModalStyledVariant {
+    switch (modalState) {
+        case AUTH_DEVICE_STATES.notInstalled:
+        case AUTH_DEVICE_STATES.connectionRejected:
+        case AUTH_DEVICE_STATES.noAccounts:
+            return 'error';
+        default:
+            return 'default';
+    }
+}
+
 const KeeperAuthModalFC: React.FC<KeeperAuthModalProps & ModalProps> = ({
     onRetry,
     modalState,
@@ -29,12 +40,7 @@ const KeeperAuthModalFC: React.FC<KeeperAuthModalProps & ModalProps> = ({
             modalName={MODAL_NAMES.keeperAuth}
             willClose={willClose}
             willOpen={willOpen}
-            sx={{
-                '& > div': {
-                    backgroundPosition: 'bottom',
-                    backgroundSize: 'cover',
-                },
-            }}
+            stateVariant={getModalStateVariant(modalState)}
         >
             {(() => {
                 switch (modalState) {

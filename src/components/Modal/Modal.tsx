@@ -38,7 +38,7 @@ function getWidth(variant: TVariant, isMobile: boolean): string {
             return '840px';
         case 'small':
         default:
-            return '460px';
+            return '600px';
     }
 }
 

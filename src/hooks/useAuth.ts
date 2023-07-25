@@ -36,7 +36,7 @@ export const useAuth = (): IUseAuth => {
     const prevState = useRef<AUTH_DEVICE_STATES | undefined>();
     let selectedProvider: PROVIDER_TYPES_VALUES;
 
-    const login = async (_selectedProvider?: PROVIDER_TYPES_VALUES): Promise<void> => {
+    const login = async (_selectedProvider: PROVIDER_TYPES_VALUES): Promise<void> => {
         selectedProvider = _selectedProvider;
         try {
             await authStore.login(selectedProvider);
@@ -78,7 +78,7 @@ export const useAuth = (): IUseAuth => {
             setTimeout(() => {
                 modalManager.openModal(modalName, {
                     modalState: _deviceState,
-                    onRetry: () => login()
+                    onRetry: () => login(selectedProvider)
                 });
             }, 200);
         }

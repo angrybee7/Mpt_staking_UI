@@ -5,8 +5,8 @@ import { modalManager } from '../../services/modalManager';
 import { SerifWrapper } from '../SerifWrapper/SerifWrapper.tsx';
 import { iconClose } from '../../img/icons/iconClose.tsx';
 
-type TVariant = 'default' | 'error';
-type TModalStyled = ModalProps & BoxProps & { stateVariant?: TVariant }
+export type TModalStyledVariant = 'default' | 'error';
+type TModalStyled = ModalProps & BoxProps & { stateVariant?: TModalStyledVariant }
 
 export const ModalStyled: React.FC<TModalStyled> = ({
     children,
@@ -22,7 +22,7 @@ export const ModalStyled: React.FC<TModalStyled> = ({
                 backgroundRepeat="no-repeat"
             >
                 <SerifWrapper
-                    variant={stateVariant as TVariant}
+                    variant={stateVariant as TModalStyledVariant}
                     px={26}
                 >
                     <Icon

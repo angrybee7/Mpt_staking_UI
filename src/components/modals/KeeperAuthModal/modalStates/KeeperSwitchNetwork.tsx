@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { AuthTemplate, AuthTemplateProps } from '../../components/AuthTemplate';
-import { keeperCalm } from './icons';
 import { getKeeperWalletDeviceName } from '../../../../utils/helpersInformationDevices';
 import { AppStoreContext } from '../../../../App';
 import { remapNetwork } from '../../../../stores/ConfigStore';
@@ -15,7 +14,7 @@ export const KeeperSwitchNetwork: React.FC<KeeperSwitchNetworkProps> = ({
     const { configStore } = React.useContext(AppStoreContext);
     return (
         <AuthTemplate
-            icon={keeperCalm}
+            device={getKeeperWalletDeviceName()}
             title={{
                 i18key: 'switchNetwork.title',
                 i18Params: { network: remapNetwork[configStore.network] },

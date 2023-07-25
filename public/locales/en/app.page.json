@@ -53,7 +53,7 @@
     "install": "Install",
     "approveConnection": {
         "title": "Approve Connection",
-        "desc": "Approve the connection and grant access to wavesdao.tech on your {{device}} wallet to continue."
+        "desc": "Approve the connection and grant access to rideonwaves.io on your {{device}} wallet to continue."
     },
     "switchWithParameters": {
         "title": "Add {{network}} Network Parameters and Switch to it",
@@ -75,6 +75,7 @@
     "havenotfee": "You don't have enough funds to pay the Transaction Fee.",
     "tryAgain": "Try Again",
     "waitingConfirmation": "Waiting for confirmation from {{device}}...",
+    "waiting": "Waiting…",
     "rejectedByUserDevice": "You did not confirm the request using {{device}}.",
     "rejectedByUser": "You did not confirm the request.",
     "wrongNetworkError": "Wrong network is selected in the {{device}}. Choose the proper network and try again.",
