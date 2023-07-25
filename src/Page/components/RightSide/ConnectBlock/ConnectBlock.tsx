@@ -49,6 +49,11 @@ export const ConnectBlock: FC = memo(() => {
         }
     }, []);
 
+    const onSetProvider = useCallback((provider: PROVIDER_TYPES): void => {
+        setSelectedProvider(provider);
+        setErrors([]);
+    }, []);
+
     return (
         <>
             <Flex sx={{ flexDirection: 'column', alignItems: 'center', py: '32px', px: '32px', display: ['flex', 'none'] }}>
@@ -80,7 +85,7 @@ export const ConnectBlock: FC = memo(() => {
             </Flex>
             <Flex
                 flexDirection="column"
-                backgroundColor="#F6FAFB"
+                backgroundColor="bg"
                 borderTop={['1px solid #C6DAE6', 'none']}
                 borderBottom={['1px solid #C6DAE6', 'none']}
                 sx={{
@@ -107,7 +112,8 @@ export const ConnectBlock: FC = memo(() => {
                             <Button
                                 variant="transparent"
                                 variantSize="large"
-                                onClick={() => setSelectedProvider(PROVIDER_TYPES.metamask)}
+                                isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                onClick={() => onSetProvider(PROVIDER_TYPES.metamask)}
                                 mb={20}
                                 maxWidth="330px"
                                 display="flex"
@@ -128,7 +134,8 @@ export const ConnectBlock: FC = memo(() => {
                             <Button
                                 variant="transparent"
                                 variantSize="large"
-                                onClick={() => setSelectedProvider(PROVIDER_TYPES.keeper)}
+                                isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                onClick={() => onSetProvider(PROVIDER_TYPES.keeper)}
                                 mb={20}
                                 maxWidth="330px"
                                 display="flex"
@@ -149,7 +156,8 @@ export const ConnectBlock: FC = memo(() => {
                             <Button
                                 variant="transparent"
                                 variantSize="large"
-                                onClick={() => setSelectedProvider(PROVIDER_TYPES.web)}
+                                isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                onClick={() => onSetProvider(PROVIDER_TYPES.web)}
                                 mb={20}
                                 maxWidth="330px"
                                 display="flex"
@@ -171,7 +179,8 @@ export const ConnectBlock: FC = memo(() => {
                             <Button
                                 variant="transparent"
                                 variantSize="large"
-                                onClick={() => setSelectedProvider(PROVIDER_TYPES.cloud)}
+                                isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                onClick={() => onSetProvider(PROVIDER_TYPES.cloud)}
                                 maxWidth="330px"
                                 display="flex"
                                 sx={{ alignItems: 'center' }}
@@ -193,7 +202,7 @@ export const ConnectBlock: FC = memo(() => {
                         <Checkbox
                             controlBoxStyles={{ baseStyles: { mr: '8px' } }}
                             isChecked={checked}
-                            isInvalid={false}
+                            isInvalid={errors.includes(ERROR.uncheckedTerms)}
                             onChange={onCheckTerms}
                             color="text"
                             mt="24px"
@@ -211,10 +220,9 @@ export const ConnectBlock: FC = memo(() => {
                             </Text>
                         </Checkbox>
 
-                        {errors.map((error) => <Text key={error}>{error}</Text>)}
                         <Button
                             variantSize="large"
-                            variant="transparent"
+                            variant="primary"
                             maxWidth="200px"
                             onClick={handleContinue}
                             mt={24}

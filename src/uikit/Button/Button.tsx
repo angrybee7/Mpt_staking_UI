@@ -42,14 +42,26 @@ export const ButtonFC = styled(Box as unknown as BoxAsElement<'button', TButtonP
     })
 );
 
-export const Button: FC<TButtonProps> = ({ children, ...props }) => {
-    const { mx, my, mt, mr, mb, ml, width, maxWidth, disabled, isActive, ...rest } = props;
+export const Button: FC<TButtonProps & { isInvalid?: boolean }> = ({ children, isInvalid, ...props }) => {
+    const {
+        mx,
+        my,
+        mt,
+        mr,
+        mb,
+        ml,
+        width,
+        maxWidth,
+        disabled,
+        isActive,
+        ...rest
+    } = props;
     const activeStyles = { ...(isActive ? { backgroundColor: '#EBF5FF' } : {}) };
     return (
         <SerifWrapper
             sx={{ mx, my, mt, mr, mb, ml, width, maxWidth, ...activeStyles } as any}
-            variant={'primary'}
-            disabled={disabled}
+            variant={isInvalid ? 'error' : 'primary'}
+s            disabled={disabled}
         >
             <ButtonFC
                 {...rest}

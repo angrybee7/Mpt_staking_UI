@@ -21,15 +21,15 @@ export class AssetsStore extends ChildStore {
     }
 
     public get XTN(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data['XTN'];
+        return this.assetsData.data['XTN'];
     }
 
     public get WAVES(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data['WAVES'];
+        return this.assetsData.data['WAVES'];
     }
 
     public get LPToken(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data[this.rs.configStore.config.contracts.lpToken];
+        return this.assetsData.data[this.rs.configStore.config.contracts.lpToken];
     }
 
     private assetsParser = ({ data }: IAssetsResponse): Record<string, AssetWithMeta> => {

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { AuthTemplate, AuthTemplateProps } from '../../components/AuthTemplate';
-import { keeperRed } from './icons';
 import { getKeeperWalletDeviceName } from '../../../../utils/helpersInformationDevices';
 
 interface KeeperConnectionRejectedProps {
@@ -12,7 +11,7 @@ export const KeeperConnectionRejected: React.FC<
 > = ({ onRetry }) => {
     return (
         <AuthTemplate
-            icon={keeperRed}
+            device={getKeeperWalletDeviceName()}
             title={{
                 i18key: 'connectionRejected.title',
                 i18Params: { device: getKeeperWalletDeviceName() },
@@ -22,6 +21,7 @@ export const KeeperConnectionRejected: React.FC<
                 i18Params: { device: getKeeperWalletDeviceName() },
             }}
             onRetry={onRetry}
+            variant='error'
         />
     );
 };

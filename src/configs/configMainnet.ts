@@ -12,6 +12,7 @@ export default<TConfig> {
         signerWeb: 'https://wx.network/signer/',
         signerCloud: 'https://wx.network/signer-cloud/',
         stateSearch: 'https://wx.network/api/v1/state/search',
+        evaluate: 'https://nodes.wavesplatform.com/utils/script/evaluate',
     },
     contracts: {},
     network: {

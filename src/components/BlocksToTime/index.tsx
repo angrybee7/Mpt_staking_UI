@@ -1,4 +1,4 @@
-import { getTimeUnitStr } from './helpers';
+import { getTimeUnitStr } from './helpers.ts';
 
 interface IOptions {
     split?: string; // разделитель

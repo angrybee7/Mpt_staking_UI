@@ -8,11 +8,12 @@ export const variants = {
             opacity: '.8',
         },
         ':active': {
-            opacity: '.7',
+            color: 'rgba(238, 245, 255, 1)',
         },
         ':disabled': {
             color: 'rgba(151, 168, 178, 1)',
             opacity: '.5',
+            'boxShadow': 'unset',
         },
     },
     transparent: {

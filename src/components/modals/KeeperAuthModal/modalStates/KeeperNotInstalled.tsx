@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { AuthTemplate, AuthTemplateProps } from '../../components/AuthTemplate';
-import { keeperCalm } from './icons';
 import { getKeeperWalletDeviceName } from '../../../../utils/helpersInformationDevices';
 
 interface KeeperNotInstalledProps {
@@ -12,7 +11,6 @@ export const KeeperNotInstalled: React.FC<KeeperNotInstalledProps> = ({
 }) => {
     return (
         <AuthTemplate
-            icon={keeperCalm}
             title={{
                 i18key: 'connectionFailed.title',
             }}
@@ -22,6 +20,7 @@ export const KeeperNotInstalled: React.FC<KeeperNotInstalledProps> = ({
             onRetry={onRetry}
             isShowRetry={false}
             device={getKeeperWalletDeviceName()}
+            variant='error'
         />
     );
 };

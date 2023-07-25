@@ -29,7 +29,7 @@ function App() {
                                     height="100vh"
                                     alignItems="center"
                                     justifyContent="center"
-                                    bg="wdBg"
+                                    bg="bg"
                                 >
                                     <DotLoader />
                                 </Flex>

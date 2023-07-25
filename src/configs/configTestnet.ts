@@ -12,12 +12,18 @@ export default<TConfig> {
         signerWeb: 'https://testnet.wx.network/signer/',
         signerCloud: 'https://testnet.wx.network/signer-cloud/',
         stateSearch: 'https://testnet.wx.network/api/v1/state/search',
+        evaluate: 'https://nodes-testnet.wavesnodes.com/utils/script/evaluate',
     },
-    contracts: {},
+    contracts: {
+        factory: '3MpMuGN8rW9EpPwzETAQz88Pe9TQhSwiriq',
+        lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
+    },
     network: {
         code: 'T'
     },
     assets: [
-        { label: 'WAVES', id: 'WAVES' }
+        { label: 'WAVES', id: 'WAVES' },
+        { label: 'WX', id: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc' },
+        { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ]
 };

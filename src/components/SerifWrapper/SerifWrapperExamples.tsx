@@ -14,7 +14,7 @@ export const SerifWrapperExamples: React.FC = () => {
 			<SerifWrapper
 				mb={32}
 				p={24}
-				backgroundColor="#F6FAFB"
+				backgroundColor="bg"
 			>
 				<Text color="#1E1E1E">
 					<Trans i18key="legalDisclaimer.desc1" />
@@ -23,7 +23,7 @@ export const SerifWrapperExamples: React.FC = () => {
 
 			<SerifWrapper
 				mb={32}
-				backgroundColor="#F6FAFB"
+				backgroundColor="bg"
 				width="fit-content"
 			>
 				<Button
@@ -40,7 +40,7 @@ export const SerifWrapperExamples: React.FC = () => {
 			<SerifWrapper
 				mb={32}
 				p={24}
-				backgroundColor="#F6FAFB"
+				backgroundColor="bg"
 			>
 				<Input
 					value={value}

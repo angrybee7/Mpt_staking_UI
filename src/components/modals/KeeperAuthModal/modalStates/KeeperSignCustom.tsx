@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { AuthTemplate, AuthTemplateProps } from '../../components/AuthTemplate';
-import { keeperCalm } from './icons';
 import { getKeeperWalletDeviceName } from '../../../../utils/helpersInformationDevices';
 
 interface KeeperSignCustomProps {
@@ -12,7 +11,7 @@ export const KeeperSignCustom: React.FC<KeeperSignCustomProps> = ({
 }) => {
     return (
         <AuthTemplate
-            icon={keeperCalm}
+            device={getKeeperWalletDeviceName()}
             title={{
                 i18key: 'signCustomData.title',
                 i18Params: { device: getKeeperWalletDeviceName() },

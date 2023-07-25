@@ -38,7 +38,7 @@ function getWidth(variant: TVariant, isMobile: boolean): string {
             return '840px';
         case 'small':
         default:
-            return '460px';
+            return '600px';
     }
 }
 
@@ -130,12 +130,8 @@ export const Modal: React.FC<ModalProps> = ({
                 maxHeight={['calc(100% - 60px)', 'calc(100% - 60px)', 'calc(100% - 60px)', '90%']}
                 maxWidth={['100%', '100%', '100%', '100%', '80%']}
                 mx="auto"
-                borderBottomLeftRadius={[null, '20px']}
-                borderBottomRightRadius={[null, '20px']}
-                borderTopRightRadius={20}
-                borderTopLeftRadius={20}
                 overflow="auto"
-                bg={'#1841bd'}
+                bg="bg"
                 sx={{
                     transition: `${fadeLength}ms`,
                     ...modalStyles,
