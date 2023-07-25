@@ -13,23 +13,23 @@ export class AssetsStore extends ChildStore {
         super(rs);
         const config = this.rs.configStore.config;
         const assetsIds = config.assets.map(a => a.id);
-        // this.assetsData = new FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>({
-        //     fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
-        //     parser: this.assetsParser,
-        //     autoFetch: true
-        // });
+        this.assetsData = new FetchTracker<Record<string, AssetWithMeta>, IAssetsResponse>({
+            fetchUrl: `${config.apiUrl.assets}?ids=${assetsIds.join('&ids=')}`,
+            parser: this.assetsParser,
+            autoFetch: true
+        });
     }
 
     public get XTN(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data['XTN'];
+        return this.assetsData.data['XTN'];
     }
 
     public get WAVES(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data['WAVES'];
+        return this.assetsData.data['WAVES'];
     }
 
     public get LPToken(): AssetWithMeta {
-        return this.rs.assetsStore.assetsData.data[this.rs.configStore.config.contracts.lpToken];
+        return this.assetsData.data[this.rs.configStore.config.contracts.lpToken];
     }
 
     private assetsParser = ({ data }: IAssetsResponse): Record<string, AssetWithMeta> => {

@@ -3,7 +3,7 @@ import { FetchTracker } from '../utils/FetchTracker.ts';
 import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
-import { filterObjectCommonContract, moneyFactory } from './utils.ts';
+import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
 import BigNumber from '@waves/bignumber';
 import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
 import { when } from 'mobx';
@@ -41,7 +41,7 @@ export class ContractStore extends ChildStore {
         when(
             () => this.commonContractData.isLoading !== true,
             () => {
-                console.log(this.annual);
+                // console.log(this.annual);
             }
         );
 
@@ -67,7 +67,9 @@ export class ContractStore extends ChildStore {
         if (!emissionPerBlock || !totalAssetAmount) {
             return '0';
         }
-        return emissionPerBlock.div(totalAssetAmount).mul(100).toFixed(2);
+        return (emissionPerBlock.getTokens().mul(BLOCKS_PER_YEAR).div(totalAssetAmount.getTokens()))
+            .mul(100)
+            .toFixed(2);
     }
 
     private userDataParser = (data: IEvaluateResponse): IUserContractData => {
@@ -95,9 +97,9 @@ export class ContractStore extends ChildStore {
         const parseEntries = (key: string, value: string | number): Partial<ICommonContractData> => {
             switch (true) {
                 case key.includes('totalAssetAmount'):
-                    return { totalAssetAmount: new BigNumber(value) };
+                    return { totalAssetAmount: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
                 case key.includes('emissionPerBlock'):
-                    return { emissionPerBlock: new BigNumber(value) };
+                    return { emissionPerBlock: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
                 default:
                     return {};
             }

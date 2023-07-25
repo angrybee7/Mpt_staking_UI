@@ -1,9 +1,8 @@
-import BigNumber from '@waves/bignumber';
 import { Money } from '@waves/data-entities';
 
 interface ICommonContractData {
-    totalAssetAmount: BigNumber;
-    emissionPerBlock: BigNumber;
+    totalAssetAmount: Money;
+    emissionPerBlock: Money;
 }
 
 

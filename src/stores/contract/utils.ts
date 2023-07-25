@@ -36,3 +36,6 @@ export const filterObjectCommonContract =  ({ contractAddress }) => {
 export const moneyFactory = (zeroMoney: Money) => (amount: number):  Money => {
     return zeroMoney.cloneWithTokens(amount);
 }
+
+export const BLOCKS_PER_DAY = 60 * 24;
+export const BLOCKS_PER_YEAR = BLOCKS_PER_DAY * 365;
