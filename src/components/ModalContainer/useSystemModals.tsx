@@ -8,7 +8,7 @@ import { MetamaskAuthModal } from '../modals/MetamaskAuthModal/MetamaskAuthModal
 const modals = {
     [MODAL_NAMES.keeperAuth]: KeeperAuthModal,
     [MODAL_NAMES.metamaskAuth]: MetamaskAuthModal,
-    [MODAL_NAMES.legalDisclaimer]: LegalDisclaimerModal
+    [MODAL_NAMES.legalDisclaimer]: LegalDisclaimerModal,
 };
 
 export const useSystemModals = (
