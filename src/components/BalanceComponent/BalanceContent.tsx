@@ -34,7 +34,7 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
         >
             <Flex
                 data-testid="balance-content-component"
-                mb={bottomContent ? '6px' : '0'}
+                mb="4px"
                 alignItems="center"
             >
                 {mainContent ? (

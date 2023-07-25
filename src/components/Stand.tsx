@@ -14,6 +14,7 @@ import { SetAmountButtonsStand } from './SetAmountButtonsStand/SetAmountButtonsS
 import { InputErrorsStand } from './InputErrorsStand/InputErrorsStand';
 import { translate } from '@waves/ui-translator';
 import { SerifWrapperExamples } from './SerifWrapper/SerifWrapperExamples.tsx';
+import { BalanceStand } from './BalanceComponent/BalanceStand.tsx';
 
 const StandFC: FC = () => (
     <Box>
@@ -25,6 +26,7 @@ const StandFC: FC = () => (
             Waves Dao
         </Box>
         <ButtonsStand />
+        <BalanceStand />
         <CheckboxStand />
         <TextStand />
         <DiagramStand />

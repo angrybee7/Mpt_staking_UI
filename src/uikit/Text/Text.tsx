@@ -12,19 +12,20 @@ const variants = {
         fontWeight: '800',
     },
     heading2: {
-        fontSize: '22px',
-        lineHeight: '31px',
-        fontWeight: '700',
+        fontSize: '28px',
+        lineHeight: '30px',
+        fontWeight: '500',
     },
     heading3: {
-        fontSize: '20px',
-        lineHeight: '30px',
-        fontWeight: '600',
+        fontSize: '15px',
+        lineHeight: '20px',
+        fontWeight: '500',
     },
     text1: {
-        fontSize: '14px',
-        lineHeight: '20px',
-        fontWeight: '600',
+        fontSize: '13px',
+        lineHeight: '18px',
+        fontWeight: '500',
+        fontFamily: 'Sfmono-light'
     },
     text2: {
         fontSize: '12px',
