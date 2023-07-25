@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { Flex, Text } from '@waves.exchange/wx-react-uikit';
-import { FormattedInput } from '../../uikit/FormattedInput/FormattedInput';
-import { SetAmountButtons } from '../../uikit/SetAmountButtons/SetAmountButtons';
-import { InputErrors } from '../../uikit/InputErrors/InputErrors';
+import { FormattedInput } from 'uikit';
+import { InputErrors } from 'uikit';
 import logo from '/src/img/mpt-logo.svg';
 
 export const FormattedInputStand: FC = () => {

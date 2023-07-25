@@ -7,4 +7,5 @@ export * from './FeeComponent/FeeComponent';
 export * from './FormattedInput/FormattedInput';
 export * from './Help/Help';
 export * from './InputErrors/InputErrors';
-export * from './SetAmountButtons/SetAmountButtons';
+export * from './ErrorMessage/ErrorMessage';
+export * from './MultiErrorComponent/MultiErrorComponent.tsx';
