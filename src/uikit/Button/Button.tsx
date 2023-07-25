@@ -61,7 +61,7 @@ export const Button: FC<TButtonProps & { isInvalid?: boolean }> = ({ children, i
         <SerifWrapper
             sx={{ mx, my, mt, mr, mb, ml, width, maxWidth, ...activeStyles } as any}
             variant={isInvalid ? 'error' : 'primary'}
-s            disabled={disabled}
+            disabled={disabled}
         >
             <ButtonFC
                 {...rest}
