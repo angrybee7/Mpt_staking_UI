@@ -111,7 +111,7 @@ export class FetchTracker<T, K> {
         }
     }
 
-    off(): void {
+    public off(): void {
         if (this.poll) {
             this.poll.destroy();
         }

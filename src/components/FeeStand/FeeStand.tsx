@@ -6,7 +6,6 @@ export const FeeStand: FC = () => {
     return (
         <Flex
             flexDirection="column"
-            bg="#404040"
             p="20px"
         >
             <Flex

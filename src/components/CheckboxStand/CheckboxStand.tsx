@@ -5,11 +5,9 @@ import { Checkbox } from '../../uikit/Checkbox/Checkbox';
 export const CheckboxStand: FC = () => {
     const [checked, setChecked] = useState(false);
     return (
-        <Flex flexDirection="column" bg="#404040">
+        <Flex flexDirection="column">
             <Flex mb={20} p="20px">
-                <Box
-                    // mr={20}
-                >
+                <Box sx={{ mr: '20px' }}>
                     <Checkbox
                         controlBoxStyles={{ baseStyles: { marginRight: '8px' } }}
                         isChecked={checked}

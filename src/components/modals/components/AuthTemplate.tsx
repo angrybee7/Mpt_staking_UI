@@ -1,36 +1,34 @@
 import * as React from 'react';
 import { ITransProps, Trans } from '@waves/ui-translator';
-import { IIcon } from '@waves.exchange/wx-react-uikit/dist/esm/components/Icon/Icon';
 import {
-    DotLoader,
     ExternalLink,
     Flex,
-    Icon,
 } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../../uikit/Text/Text';
-import { Button } from '../../../uikit/Button/Button';
+import { Text } from 'uikit';
+import { Button } from 'uikit';
 import {
     TYPE_DEVICES_NAMES,
     getKeeperWalletDeviceName,
     getMetamaskDeviceName,
 } from '../../../utils/helpersInformationDevices';
+import { DeviceIcon } from "./DeviceIcon.tsx";
 
 export interface AuthTemplateProps {
-    icon: IIcon;
     title: ITransProps;
     text: ITransProps;
-    device?: TYPE_DEVICES_NAMES;
+    device: TYPE_DEVICES_NAMES;
     onRetry?: () => Promise<any>;
     isShowRetry?: boolean;
+    variant?: 'default' | 'error';
 }
 
 export const AuthTemplate: React.FC<AuthTemplateProps> = ({
-    icon,
     title,
     text,
     onRetry,
     device,
     isShowRetry = true,
+    variant = 'default'
 }) => {
     const wrapperRef = React.createRef<HTMLDivElement>();
     const [isPending, setIsPending] = React.useState(false);
@@ -69,46 +67,58 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({
     return (
         <Flex
             flexDirection="column"
-            alignItems="center"
-            color="standard.$0"
-            mt="30px"
+            color="text"
             ref={wrapperRef}
         >
-            <Icon icon={icon} size={82} mb="24px" />
-            <Text variant="heading2" mb="24px" textAlign="center">
+            <DeviceIcon
+                device={device}
+                variant={variant}
+                mt={14}
+                mb={24}
+            />
+            <Text
+                fontSize={18}
+                lineHeight="26px"
+                fontWeight={700}
+                mb="24px"
+            >
                 <Trans {...title} />
             </Text>
-            <Text variant="text2" mb="24px" textAlign="center">
+            <Text
+                variant="text1"
+                mb="24px"
+                textAlign="justify"
+                fontWeight={400}
+            >
                 <Trans {...text} />
             </Text>
             {isShowRetry && (
                 <Button
-                    // variantSize='large'
+                    variantSize="large"
                     variant="primary"
                     onClick={handleRetry}
-                    width="100%"
+                    width="200px"
                     disabled={isPending}
                 >
                     {isPending ? (
-                        <Flex
-                            flex={1}
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <DotLoader />
-                        </Flex>
+                        <Trans i18key="waiting" />
                     ) : (
                         <Trans i18key="retry" />
                     )}
                 </Button>
             )}
-            {currentUrlForDownload && (
+            {!isShowRetry && currentUrlForDownload && (
                 <ExternalLink
                     width="100%"
                     href={currentUrlForDownload}
                     rel="noopener noreferrer"
                 >
-                    <Button variant="primary" width="100%" position="relative">
+                    <Button
+                        variantSize="large"
+                        variant="primary"
+                        width="200px"
+                        position="relative"
+                    >
                         <Trans i18key="install" />
                     </Button>
                 </ExternalLink>

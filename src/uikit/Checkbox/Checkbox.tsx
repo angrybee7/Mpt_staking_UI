@@ -8,9 +8,10 @@ export const Checkbox: FC<ICheckboxProps> = ({ children, controlBoxStyles, ...pr
             controlBoxStyles={{
                 baseStyles: {
                     ...controlBoxStyles.baseStyles,
-                    'backgroundColor': props.isChecked ? '#1F5AF6 !important' : 'transparent',
-                    'borderColor': props.isChecked ? '#1F5AF6 !important' : (props.isInvalid ? 'textnegative' : '#E0E3E8 !important'),
+                    'borderColor': props.isInvalid ? 'error' : '#0983F3 !important',
                     'opacity': props.isDisabled ? '0.5' : '1',
+                    'width': '26px',
+                    'height': '26px',
                     ':hover': {
                         opacity: 0.8,
                     },

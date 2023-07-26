@@ -29,12 +29,7 @@ export const BalanceComponent: React.FC<BalanceComponentProps> = ({
     ...rest
 }) => {
     return (
-        <Box
-            backgroundColor="rgba(0, 6, 22, 0.5)"
-            py="16px"
-            borderRadius="8px"
-            {...(rest as any)}
-        >
+        <Box {...(rest as any)}>
             {label ? (
                 <LabelComponent
                     label={label}

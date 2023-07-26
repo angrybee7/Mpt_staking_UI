@@ -32,9 +32,9 @@ export class BaseInputFormStore extends BaseFormStore {
     }
 
     public reset(): void {
-       super.reset();
-       this.updateAmountError(undefined);
-       this.inputString = undefined;
+        super.reset();
+        this.updateAmountError(undefined);
+        this.inputString = undefined;
     }
 
     public get currentTokenBalance(): Money | undefined {

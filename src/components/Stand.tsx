@@ -10,29 +10,31 @@ import { FeeStand } from './FeeStand/FeeStand';
 import { HelpStand } from './HelpStand/HelpStand';
 import { TooltipStand } from './TooltipStand/TooltipStand';
 import { FormattedInputStand } from './FormattedInputStand/FormattedInputStand';
-import { SetAmountButtonsStand } from './SetAmountButtonsStand/SetAmountButtonsStand';
 import { InputErrorsStand } from './InputErrorsStand/InputErrorsStand';
 import { translate } from '@waves/ui-translator';
 import { SerifWrapperExamples } from './SerifWrapper/SerifWrapperExamples.tsx';
+import { BalanceStand } from './BalanceComponent/BalanceStand.tsx';
+import { ErrorMessageStand } from './ErrorMessageStand/ErrorMessageStand.tsx';
 
 const StandFC: FC = () => (
     <Box>
         <Box
             onClick={() => {
-                modalManager.openModal(MODAL_NAMES.authModal, undefined, 500);
+                modalManager.openModal(MODAL_NAMES.legalDisclaimer, undefined, 500);
             }}
         >
             Waves Dao
         </Box>
         <ButtonsStand />
+        <BalanceStand />
         <CheckboxStand />
+        <ErrorMessageStand />
         <TextStand />
         <DiagramStand />
         <FeeStand />
         <HelpStand />
         <TooltipStand />
         <FormattedInputStand />
-        <SetAmountButtonsStand />
         <InputErrorsStand />
         <SerifWrapperExamples />
     </Box>

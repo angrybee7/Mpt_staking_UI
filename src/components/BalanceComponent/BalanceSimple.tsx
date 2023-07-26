@@ -33,7 +33,7 @@ export const BalanceSimple: React.FC<BalanceSimpleProps> = ({
                     <Text
                         as="div"
                         variant={getSize(variantsArray, 'balance') as TTextVariant}
-                        color={getColor(variantsArray, 'balance') as TColor}
+                        color={Number(balance) === 0 ? 'textsec' : getColor(variantsArray, 'balance') as TColor}
                     >
                         {balance}
                     </Text>
@@ -42,7 +42,8 @@ export const BalanceSimple: React.FC<BalanceSimpleProps> = ({
                             as="div"
                             variant={getSize(variantsArray, 'ticker') as TTextVariant}
                             color={getColor(variantsArray, 'ticker') as TColor}
-                            ml="4px"
+                            alignSelf="flex-end"
+                            ml="8px"
                         >
                             {ticker}
                         </Text>

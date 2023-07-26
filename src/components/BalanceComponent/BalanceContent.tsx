@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Flex } from '@waves.exchange/wx-react-uikit';
-import { getAlign, getColor, getSize } from './helpers';
-import { WithSkeleton } from '../../components/WithSkeleton';
+import { getAlign } from './helpers';
+// import { WithSkeleton } from '../../components/WithSkeleton';
 import { BalanceSimple, BalanceSimpleProps } from './BalanceSimple';
-import { BalanceIcon } from './BalanceIcon';
-import { TColor, TTextVariant, Text } from '../../uikit';
+// import { BalanceIcon } from './BalanceIcon';
+// import { TColor, TTextVariant, Text } from '../../uikit';
 
 export type TBalanceContentSize = 'medium';
 export type BalanceContentProps = BalanceSimpleProps & {
@@ -19,13 +19,13 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
     iconUrl,
     balance,
     ticker,
-    equivalent,
+    // equivalent,
     variant: variantsArray,
     skeleton = { pending: false, type: 'text' },
     align = 'left',
-    mainContent,
-    bottomContent,
-    rightContent,
+    // mainContent,
+    // bottomContent,
+    // rightContent,
 }) => {
     return (
         <Flex
@@ -34,10 +34,10 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
         >
             <Flex
                 data-testid="balance-content-component"
-                mb={bottomContent ? '6px' : '0'}
+                mb="4px"
                 alignItems="center"
             >
-                {mainContent ? (
+                {/* {mainContent ? (
                     <>
                         <BalanceIcon
                             iconUrl={iconUrl}
@@ -50,16 +50,16 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
                             })}
                         </WithSkeleton>
                     </>
-                ) : (
-                    <BalanceSimple
-                        iconUrl={iconUrl}
-                        skeleton={skeleton}
-                        balance={balance}
-                        ticker={ticker}
-                        variant={variantsArray}
-                    />
-                )}
-                {rightContent ? (
+                ) : ( */}
+                <BalanceSimple
+                    iconUrl={iconUrl}
+                    skeleton={skeleton}
+                    balance={balance}
+                    ticker={ticker}
+                    variant={variantsArray}
+                />
+                {/* )} */}
+                {/* {rightContent ? (
                     rightContent({
                         variant: getSize(variantsArray, 'equivalent'),
                         color: getColor(variantsArray, 'equivalent'),
@@ -74,13 +74,13 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
                     >
                         {equivalent}
                     </Text>
-                ) : null}
+                ) : null} */}
             </Flex>
-            {bottomContent &&
+            {/* {bottomContent &&
                 bottomContent({
                     variant: 'text2',
                     color: 'wdtextsec',
-                })}
+                })} */}
         </Flex>
     );
 };

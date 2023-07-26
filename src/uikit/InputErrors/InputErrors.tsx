@@ -16,9 +16,9 @@ export const InputErrors: React.FC<InputErrorsProps> = React.memo(
             <>
                 <Text
                     variant="caption"
-                    color="wdred"
+                    color="error"
                     display="block"
-                    // mt="8px"
+                    sx={error ? { mt: '8px' } : null}
                 >
                     {error === 'minAmount' && minAmount
                         ? (

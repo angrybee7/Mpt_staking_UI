@@ -20,7 +20,6 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
     feeText = { i18key: 'transactionFee' },
     tooltipText = { i18key: 'transactionFeeTooltip' },
     isPercent = false,
-    tooltipAtEnd = false,
     tooltipAlign = 'left',
     id,
     ...rest
@@ -30,62 +29,37 @@ export const FeeComponent: React.FC<TFeeComponentProps> = ({
         <Flex
             id={id}
             alignItems="center"
-            justifyContent={tooltipAtEnd ? 'flex-end' : 'space-between'}
             {...rest}
         >
-            <Flex
-                mr="8px"
-                alignItems="center"
-            >
+            <Flex mr="8px" alignItems="center">
                 <Text
-                    variant="caption"
-                    color="#B0BAC7"
-                    // mr={tooltipAtEnd ? '0' : '8px'}
+                    variant="15px"
+                    lineHeight="20px"
+                    fontFamily="Sfmono-light"
+                    color="text"
                 >
                     <Trans {...feeText} />
-                </Text>
-                {!tooltipAtEnd && (
-                    <Help tooltipAlign={tooltipAlign}>
-                        <Box
-                            id={`${id}-text`}
-                            minWidth="250px"
-                        >
-                            <Trans {...tooltipText} />
-                        </Box>
-                    </Help>
-                )}
-            </Flex>
-            <Box
-                id={`${id}-fee-value`}
-                // mr={tooltipAtEnd ? '8px' : '0'}
-                color="text"
-            >
-                {feeValue
-                    ? (
-                        <>
-                            <Text variant="body2">{isPercent ? fee : feeValue?.getTokens()?.toFormat()}</Text>
-                            <Text
-                                variant="body2"
-                                // ml={!isPercent ? '5px' : null}
-                            >
-                                {isPercent ? '%' : feeValue?.asset?.ticker || feeValue?.asset?.displayName || null}
-                            </Text>
-                        </>
-                    )
-                    : (
-                        <Text color="text">...</Text>
-                    )}
-            </Box>
-            {tooltipAtEnd && (
-                <Help tooltipAlign="right">
-                    <Box
-                        id={`${id}-text`}
-                        minWidth="250px"
-                    >
+                </Text>{':'}
+                <Box id={`${id}-fee-value`} sx={{ mx: '8px' }} color="main">
+                    {feeValue
+                        ? (
+                            <>
+                                <Text fontSize="15px" lineHeight="20px">{isPercent ? fee : feeValue?.getTokens()?.toFormat()}</Text>
+                                <Text fontSize="15px" lineHeight="20px" sx={{ ml: '4px' }}>
+                                    {isPercent ? '%' : feeValue?.asset?.ticker || feeValue?.asset?.displayName || null}
+                                </Text>
+                            </>
+                        )
+                        : (
+                            <Text color="text">...</Text>
+                        )}
+                </Box>
+                <Help tooltipAlign={tooltipAlign}>
+                    <Box id={`${id}-text`} minWidth="250px">
                         <Trans {...tooltipText} />
                     </Box>
                 </Help>
-            )}
+            </Flex>
         </Flex>
     );
 };

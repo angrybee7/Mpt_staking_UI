@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Diagram } from '../../uikit/Diagram/Diagram';
+import { Diagram } from 'uikit';
 
 export const DiagramStand: FC = () => {
     const dataProps = [{ color: '#03A500', value: 0.5 }, { color: '#1F5AF6', value: 0.5 }, { color: '#E74F61', value: 5 }];

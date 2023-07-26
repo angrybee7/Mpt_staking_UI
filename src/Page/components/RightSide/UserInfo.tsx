@@ -12,11 +12,11 @@ import metamask from '/src/img/metamask.svg';
 import keeper from '/src/img/keeper.svg';
 import wx from '/src/img/wx.svg';
 import { Text } from 'uikit';
-import { Button } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { AppStoreContext } from '../../../App';
 import { observer } from 'mobx-react-lite';
 import { shortAddress } from '../../../utils';
+import { SerifWrapper } from '../../../components/SerifWrapper/SerifWrapper.tsx';
 
 export const UserInfo: FC<{
     setHeightUserInfoBlock: Dispatch<SetStateAction<number>>;
@@ -32,48 +32,58 @@ export const UserInfo: FC<{
 
     return (
         <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            ref={wrapper}
+            flexDirection="column"
+            backgroundColor="bg"
+            borderTop={['1px solid #C6DAE6', 'none']}
+            pt="32px"
             sx={{
-                py: ['16px', '24px'],
-                px: ['16px', '24px'],
-                borderBottomLeftRadius: '12px',
-                borderBottomRightRadius: '12px',
-                borderTopLeftRadius: ['12px', '0'],
-                borderTopRightRadius: ['12px', '0'],
-                backgroundColor: 'rgba(0, 16, 56, 0.7)',
-                backdropFilter: 'blur(8px)',
+                px: ['20px', '60px'],
             }}
         >
-            <Flex minWidth={[null, '120px']} alignItems="center">
-                <Box
-                    width="28px"
-                    height="28px"
-                    backgroundImage={`url(${userTypes[authStore.user.type]})`}
-                    backgroundPosition="center"
-                    backgroundRepeat="no-repeat"
-                />
-                <Text
-                    variant="text1"
-                    color="text"
-                    ml="8px"
-                    display={['block', 'none']}
-                >
-                    {shortedAddress}
-                </Text>
-            </Flex>
-            <Text variant="text1" color="text" display={['none', 'block']}>
-                {authStore.user?.address}
-            </Text>
-            <Button
-                variant="transparent"
-                px={['14px !important', '32px !important']}
-                sx={{ display: 'flex', alignItems: 'center' }}
-                onClick={authStore.logout.bind(authStore)}
+            <SerifWrapper
+                py={16}
+                px={23}
+                backgroundColor="#ffffff"
             >
-                <Trans i18key="logout" />
-            </Button>
+                <Flex
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                    <Flex alignItems="center">
+                        <Box
+                            width="28px"
+                            height="28px"
+                            backgroundImage={`url(${userTypes[authStore.user.type]})`}
+                            backgroundPosition="center"
+                            backgroundRepeat="no-repeat"
+                        />
+                        <Text
+                            fontSize={15}
+                            lineHeight="21px"
+                            fontWeight={300}
+                            color="text"
+                            ml="12px"
+                        >
+                            <Box display={['inline-block', 'none']}>
+                                {shortedAddress}
+                            </Box>
+                            <Box display={['none', 'inline-block']}>
+                                {authStore.user?.address}
+                            </Box>
+                        </Text>
+                    </Flex>
+                    <Text
+                        fontSize={15}
+                        lineHeight="21px"
+                        fontWeight={500}
+                        color="#0983F3"
+                        cursor="pointer"
+                        onClick={authStore.logout.bind(authStore)}
+                    >
+                        <Trans i18key="logout" />
+                    </Text>
+                </Flex>
+            </SerifWrapper>
         </Flex>
     );
 });
