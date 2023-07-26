@@ -70,7 +70,7 @@ export class BaseFormStore {
     public get activeErrors(): Array<ITransProps> {
         const errors = [];
         if (this.isConfirmClicked && !this.isEnoughMoney) {
-            errors.push({ i18key: 'noEnoughFee' });
+            errors.push({ i18key: 'havenotfee' });
         }
         if (this.signError) {
             errors.push(this.signError);
