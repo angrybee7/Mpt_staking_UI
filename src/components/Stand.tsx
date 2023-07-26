@@ -13,6 +13,7 @@ import { FormattedInputStand } from './FormattedInputStand/FormattedInputStand';
 import { InputErrorsStand } from './InputErrorsStand/InputErrorsStand';
 import { translate } from '@waves/ui-translator';
 import { SerifWrapperExamples } from './SerifWrapper/SerifWrapperExamples.tsx';
+import { BalanceStand } from './BalanceComponent/BalanceStand.tsx';
 import { ErrorMessageStand } from './ErrorMessageStand/ErrorMessageStand.tsx';
 
 const StandFC: FC = () => (
@@ -25,6 +26,7 @@ const StandFC: FC = () => (
             Waves Dao
         </Box>
         <ButtonsStand />
+        <BalanceStand />
         <CheckboxStand />
         <ErrorMessageStand />
         <TextStand />
