@@ -39,7 +39,7 @@ export const UnstakeForm: React.FC = () => {
                                     '0.00'
                                 }
                                 label={{ i18key: 'availableForUnstaking' }}
-                                ticker={unstakeStore.currentTokenBalance?.asset?.displayName}
+                                ticker={rs.assetsStore.LPToken?.displayName}
                                 mb={unstakeStore.currentTokenBalance?.getTokens().gt(0) ? '16px' : null}
                             />
                             {unstakeStore.currentTokenBalance && unstakeStore.currentTokenBalance.getTokens().gt(0) ?
