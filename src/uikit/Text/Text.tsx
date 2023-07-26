@@ -13,7 +13,7 @@ const variants = {
     },
     heading2: {
         fontSize: '28px',
-        lineHeight: '30px',
+        lineHeight: '32px',
         fontWeight: '500',
     },
     heading3: {
