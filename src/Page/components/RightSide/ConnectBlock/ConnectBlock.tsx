@@ -113,6 +113,7 @@ export const ConnectBlock: FC = memo(() => {
                                 variant="transparent"
                                 variantSize="large"
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                isActive={selectedProvider === PROVIDER_TYPES.metamask}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.metamask)}
                                 mb={20}
                                 maxWidth="330px"
@@ -135,6 +136,7 @@ export const ConnectBlock: FC = memo(() => {
                                 variant="transparent"
                                 variantSize="large"
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                isActive={selectedProvider === PROVIDER_TYPES.keeper}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.keeper)}
                                 mb={20}
                                 maxWidth="330px"
@@ -157,6 +159,7 @@ export const ConnectBlock: FC = memo(() => {
                                 variant="transparent"
                                 variantSize="large"
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                isActive={selectedProvider === PROVIDER_TYPES.web}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.web)}
                                 mb={20}
                                 maxWidth="330px"
@@ -179,6 +182,7 @@ export const ConnectBlock: FC = memo(() => {
                                 variant="transparent"
                                 variantSize="large"
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                isActive={selectedProvider === PROVIDER_TYPES.cloud}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.cloud)}
                                 maxWidth="330px"
                                 display="flex"

@@ -52,7 +52,7 @@ export class AssetsStore extends ChildStore {
                 ticker: data.data.ticker || '',
                 hasScript: data.data.hasScript,
             })), {
-                icon:`${ this.rs.configStore.config.apiUrl.assetsIcons}/${data.data.id}.svg`,
+                icon:`${this.rs.configStore.config.apiUrl.assetsIcons}/${data.data.id}.svg`,
                 meta: {
                     ... data.metadata,
                     oracleData: data.metadata.oracle_data,
