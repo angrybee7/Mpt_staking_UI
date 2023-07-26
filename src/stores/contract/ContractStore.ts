@@ -5,7 +5,7 @@ import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
 import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
-import { when } from 'mobx';
+import { reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
 import { ITuple, parseTupleData } from '../../utils/evaluate/utils.ts';
@@ -37,24 +37,21 @@ export class ContractStore extends ChildStore {
             autoFetch: true,
         });
 
-        when(
-            () => this.commonContractData.isLoading !== true,
-            () => {
-                // console.log(this.annual);
-            }
-        );
-
-        when(
+        reaction(
             () => this.rs.authStore.isAuthorized,
             () => {
-                this.userContractData.setOptions({
-                    fetchUrl: evaluateUrl,
-                    fetcher: (evaluateUrl) =>
-                        evaluate(evaluateUrl, { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }),
-                    parser: this.userDataParser,
-                    autoFetch: true,
-                    refreshInterval: COMMON_DATA_POLLING_TIME
-                })
+                if (this.rs.authStore.isAuthorized) {
+                    this.userContractData.setOptions({
+                        fetchUrl: evaluateUrl,
+                        fetcher: (evaluateUrl) =>
+                            evaluate(evaluateUrl, { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }),
+                        parser: this.userDataParser,
+                        autoFetch: true,
+                        refreshInterval: COMMON_DATA_POLLING_TIME
+                    })
+                } else {
+                    this.userContractData.off();
+                }
             },
         )
     }
