@@ -15,7 +15,7 @@ export default<TConfig> {
         evaluate: 'https://nodes-testnet.wavesnodes.com/utils/script/evaluate',
     },
     contracts: {
-        factory: '3MpMuGN8rW9EpPwzETAQz88Pe9TQhSwiriq',
+        factory: '3Mvsbd5G4Xoyy4ib7gLCVSix21CyMr4K7jb',
 		swap: '3MyXFjhxofZUKbHj3p8TUgZwDEPNzq7YNo3',
         lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
     },
