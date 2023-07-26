@@ -7,8 +7,8 @@ import { ResponsiveValue } from 'styled-system';
 
 const variants = {
     heading1: {
-        fontSize: '30px',
-        lineHeight: '42px',
+        fontSize: '48px',
+        lineHeight: '68px',
         fontWeight: '800',
     },
     heading2: {
@@ -17,6 +17,11 @@ const variants = {
         fontWeight: '500',
     },
     heading3: {
+        fontSize: '18px',
+        lineHeight: '25px',
+        fontWeight: '500',
+    },
+    heading4: {
         fontSize: '15px',
         lineHeight: '20px',
         fontWeight: '500',
@@ -38,7 +43,7 @@ export type TTextVariant =
     | keyof typeof variants
     | (Array<keyof typeof variants | undefined | null> & 'heading1')
     | 'heading2'
-    | 'heading3'
+    | 'heading4'
     | 'text1'
     | 'text2';
 

@@ -44,6 +44,7 @@ export const BalanceSimple: React.FC<BalanceSimpleProps> = ({
                             color={getColor(variantsArray, 'ticker') as TColor}
                             alignSelf="flex-end"
                             ml="8px"
+                            pb={variantsArray.includes('large') ? '10px' : '0'}
                         >
                             {ticker}
                         </Text>
