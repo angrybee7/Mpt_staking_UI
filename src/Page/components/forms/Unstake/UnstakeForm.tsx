@@ -79,7 +79,7 @@ export const UnstakeForm: React.FC = () => {
                                                 }
                                                 i18Params={{ device: devices[rs.authStore.user.type] }}
                                             />
-                                            {unstakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null}
+                                            {/* {unstakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null} */}
                                         </Flex>
                                     </Button>
                                 </> :

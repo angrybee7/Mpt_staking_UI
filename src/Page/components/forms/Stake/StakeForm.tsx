@@ -97,7 +97,7 @@ export const StakeForm: React.FC = () => {
                                                 }
                                                 i18Params={{ device: devices[rs.authStore.user.type] }}
                                             />
-                                            {stakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null}
+                                            {/* {stakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null} */}
                                         </Flex>
                                     </Button>
                                 </> :
