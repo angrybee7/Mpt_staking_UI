@@ -22,8 +22,9 @@ export const Dashboard: FC = observer(() => {
                 <>
                     <Box
                         width="100%"
-                        height={['0', 'auto']}
-                        flex={1}
+                        // height={['0', 'auto']}
+                        height={['0', rs.balanceStore.lpBalance?.getTokens().gt(0) ? '30px' : '108px']}
+                        // flex={1}
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
