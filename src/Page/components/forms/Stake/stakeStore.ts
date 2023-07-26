@@ -5,6 +5,7 @@ import {
 } from '../../../../stores/utils/BaseInputFormStore.ts';
 import BigNumber from '@waves/bignumber';
 import { Money } from '@waves/data-entities';
+import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 
 export class StakeStore extends BaseInputFormStore {
     constructor(params: BaseInputFormStoreParams) {
@@ -30,6 +31,7 @@ export class StakeStore extends BaseInputFormStore {
     }
 
     public invoke = () => {
+        this.updateFormState(FORM_STATE.pending);
         const inputResult = this.checkInput();
         if (!inputResult) {
             return;
