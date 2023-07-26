@@ -115,7 +115,6 @@ export const ConnectBlock: FC = memo(() => {
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.metamask)}
                                 mb={20}
-                                isActive={selectedProvider === PROVIDER_TYPES.metamask}
                                 maxWidth="330px"
                                 display="flex"
                                 sx={{ alignItems: 'center' }}
@@ -138,7 +137,6 @@ export const ConnectBlock: FC = memo(() => {
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.keeper)}
                                 mb={20}
-                                isActive={selectedProvider === PROVIDER_TYPES.keeper}
                                 maxWidth="330px"
                                 display="flex"
                                 sx={{ alignItems: 'center' }}
@@ -161,7 +159,6 @@ export const ConnectBlock: FC = memo(() => {
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.web)}
                                 mb={20}
-                                isActive={selectedProvider === PROVIDER_TYPES.web}
                                 maxWidth="330px"
                                 display="flex"
                                 sx={{ alignItems: 'center' }}
@@ -183,7 +180,6 @@ export const ConnectBlock: FC = memo(() => {
                                 variantSize="large"
                                 isInvalid={errors.includes(ERROR.uncheckedProvider)}
                                 onClick={() => onSetProvider(PROVIDER_TYPES.cloud)}
-                                isActive={selectedProvider === PROVIDER_TYPES.cloud}
                                 maxWidth="330px"
                                 display="flex"
                                 sx={{ alignItems: 'center' }}
