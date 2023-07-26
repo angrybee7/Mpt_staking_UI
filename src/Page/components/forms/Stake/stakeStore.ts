@@ -3,8 +3,6 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../stores/utils/BaseInputFormStore.ts';
-import BigNumber from '@waves/bignumber';
-import { Money } from '@waves/data-entities';
 
 export class StakeStore extends BaseInputFormStore {
     constructor(params: BaseInputFormStoreParams) {
