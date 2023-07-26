@@ -14,11 +14,17 @@ export default<TConfig> {
         stateSearch: 'https://wx.network/api/v1/state/search',
         evaluate: 'https://nodes.wavesplatform.com/utils/script/evaluate',
     },
-    contracts: {},
+    contracts: {
+		factory: '3PEV7YB8caXLgQPCuKHtWtFSDTjgtbAxgqZ',
+		swap: '3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa',
+		lpToken: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg',
+	},
     network: {
         code: 'W'
     },
     assets: [
-        { label: 'WAVES', id: 'WAVES' }
+        { label: 'WAVES', id: 'WAVES' },
+        { label: 'L2MP', id: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg' },
+		{ label: 'XTN', id: 'DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p' },
     ]
 };
