@@ -20,7 +20,7 @@ function App() {
         <AppStoreContext.Provider value={appStore}>
             <ThemeProvider theme={theme}>
                 <TranslateProvider i18n={i18n}>
-                    <Stand />
+                    {/*<Stand />*/}
                     <ModalContainer />
                     <Observer>
                         {(): ReactElement => {
