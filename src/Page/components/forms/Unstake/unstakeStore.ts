@@ -2,7 +2,7 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
-} from '../../../stores/utils/BaseInputFormStore.ts';
+} from '../../../../stores/utils/BaseInputFormStore.ts';
 import { Money } from '@waves/data-entities';
 
 export class UnstakeStore extends BaseInputFormStore {
@@ -13,7 +13,7 @@ export class UnstakeStore extends BaseInputFormStore {
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-    } {
+        } {
         return {
             call: {
                 function: 'withdraw',

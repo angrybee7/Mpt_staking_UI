@@ -31,50 +31,61 @@ export const UserInfo: FC<{
     }, []);
 
     return (
-        <SerifWrapper
-            py={16}
-            px={23}
+        <Flex
+            flexDirection="column"
+            backgroundColor="bg"
+            borderTop={['1px solid #C6DAE6', 'none']}
+            pt="32px"
+            sx={{
+                px: ['20px', '60px'],
+            }}
         >
-            <Flex
-                alignItems="center"
-                justifyContent="space-between"
+            <SerifWrapper
+                py={16}
+                px={23}
+                backgroundColor="#ffffff"
             >
-                <Flex alignItems="center">
-                    <Box
-                        width="28px"
-                        height="28px"
-                        backgroundImage={`url(${userTypes[authStore.user.type]})`}
-                        backgroundPosition="center"
-                        backgroundRepeat="no-repeat"
-                    />
+                <Flex
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                    <Flex alignItems="center">
+                        <Box
+                            width="28px"
+                            height="28px"
+                            backgroundImage={`url(${userTypes[authStore.user.type]})`}
+                            backgroundPosition="center"
+                            backgroundRepeat="no-repeat"
+                        />
+                        <Text
+                            fontSize={15}
+                            lineHeight="21px"
+                            fontWeight={300}
+                            color="text"
+                            ml="12px"
+                        >
+                            <Box display={['inline-block', 'none']}>
+                                {shortedAddress}
+                            </Box>
+                            <Box display={['none', 'inline-block']}>
+                                {authStore.user?.address}
+                            </Box>
+                        </Text>
+                    </Flex>
                     <Text
                         fontSize={15}
                         lineHeight="21px"
-                        fontWeight={300}
-                        color="text"
-                        ml="12px"
+                        fontWeight={500}
+                        color="#0983F3"
+                        cursor="pointer"
+                        onClick={authStore.logout.bind(authStore)}
                     >
-                        <Box display={['inline-block', 'none']}>
-                            {shortedAddress}
-                        </Box>
-                        <Box display={['none', 'inline-block']}>
-                            {authStore.user?.address}
-                        </Box>
+                        <Trans i18key="logout" />
                     </Text>
                 </Flex>
-                <Text
-                    fontSize={15}
-                    lineHeight="21px"
-                    fontWeight={500}
-                    color="#0983F3"
-                    cursor="pointer"
-                    onClick={authStore.logout.bind(authStore)}
-                >
-                    <Trans i18key="logout" />
-                </Text>
-            </Flex>
-        </SerifWrapper>
-    )
+            </SerifWrapper>
+        </Flex>
+    );
 });
 
 UserInfo.displayName = 'UserInfo';
