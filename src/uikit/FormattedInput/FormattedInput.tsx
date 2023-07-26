@@ -12,7 +12,7 @@ type FormattedInputProps = InputWithTagProps & BoxProps & {
     lengthLimit?: number;
     maxValue?: number;
     onMax?: () => void;
-    
+
 };
 
 export const FormattedInput: React.FC<FormattedInputProps> = (props) => {
@@ -80,6 +80,7 @@ export const FormattedInput: React.FC<FormattedInputProps> = (props) => {
             </Text>
             {typeof onMax === 'function' ?
                 <Text
+                    onClick={onMax}
                     position="absolute"
                     top="50%"
                     right="24px"
