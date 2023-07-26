@@ -11,12 +11,12 @@ export const RightSide: FC = observer(() => {
     const [heightUserInfoBlock, setHeightUserInfoBlock] = useState(0);
 
     return (
-        <Box width={['100%', '50%']}>
+        <Flex flexDirection="column" width={['100%', '50%']}>
             {authStore.isAuthorized && <UserInfo setHeightUserInfoBlock={setHeightUserInfoBlock} />}
-            <Flex flexDirection="column" height="100%">
+            <Flex flexDirection="column" flex={1}>
                 {authStore.isAuthorized ? <Dashboard /> : <ConnectBlock />}
             </Flex>
-        </Box>
+        </Flex>
     );
 });
 

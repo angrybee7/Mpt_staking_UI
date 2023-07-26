@@ -9,11 +9,11 @@ import { SerifWrapper } from '../../../../components/SerifWrapper/SerifWrapper';
 export const SwapModule: React.FC = () => {
 
     return (
-        <SerifWrapper mt={50}>
+        <SerifWrapper>
             <Accordion >
                 <AccordionItem>
                     <AccordionHeader boxShadow={'none'}>
-                        <Text>
+                        <Text variant="heading2">
                             <Trans i18key='swap'/>
                         </Text>
                     </AccordionHeader>

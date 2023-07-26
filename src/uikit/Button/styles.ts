@@ -13,7 +13,7 @@ export const variants = {
         ':disabled': {
             color: 'rgba(151, 168, 178, 1)',
             opacity: '.5',
-            'boxShadow': 'unset',
+            boxShadow: 'unset',
         },
     },
     transparent: {
@@ -45,7 +45,7 @@ export const sizes = {
     large: {
         fontSize: '18px',
         lineHeight: '26px',
-        height: '50px',
+        height: '52px',
         paddingLeft: '22px',
         paddingRight: '22px',
     },

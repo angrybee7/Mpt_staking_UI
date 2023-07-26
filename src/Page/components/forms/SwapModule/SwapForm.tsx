@@ -84,7 +84,7 @@ export const SwapForm: React.FC = () => {
                                 <Trans i18key={'swapCheckbox'} />
                             </Checkbox>
                             <Flex mt={16}>
-                                <Text color="text" mr={4}><Trans i18key={'iReceive'} />:</Text>
+                                <Text color="text" mr={4}><Trans i18key={'youReceive'} />:</Text>
                                 <Text color="main">{swapStore.currentAmount.getTokens().toFormat()} {assetsStore.LPToken.displayName}</Text>
                             </Flex>
                             <FeeComponent my="16px" />

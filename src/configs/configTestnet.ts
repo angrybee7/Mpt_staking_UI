@@ -16,6 +16,7 @@ export default<TConfig> {
     },
     contracts: {
         factory: '3MpMuGN8rW9EpPwzETAQz88Pe9TQhSwiriq',
+		swap: '3MyXFjhxofZUKbHj3p8TUgZwDEPNzq7YNo3',
         lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
     },
     network: {
