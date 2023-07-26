@@ -10,6 +10,14 @@ import { SerifWrapper } from '../../../../components/SerifWrapper/SerifWrapper.t
 import { Text } from '../../../../uikit/Text/Text';
 import { BalanceComponent } from '../../../../components/BalanceComponent/BalanceComponent.tsx';
 import { Trans } from '@waves/ui-translator';
+import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
+import { USER_TYPES } from '../../../../stores/AuthStore.ts';
+import { DotsAnimation } from '../../../../components/DotSpinner/DotSpinner.tsx';
+
+export const devices = {
+    [USER_TYPES.keeper]: 'Keeper Wallet',
+    [USER_TYPES.metamask]: 'MetaMask'
+};
 
 export const StakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
@@ -24,6 +32,7 @@ export const StakeForm: React.FC = () => {
     return (
         <Observer>
             {(): ReactElement => {
+                const balance = rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance;
                 return (
                     <SerifWrapper px="24px" py="24px" as='form'>
                         <Text as="div" variant="heading2" mb="16px">
@@ -33,10 +42,10 @@ export const StakeForm: React.FC = () => {
                             <Flex
                                 flexDirection={['column', 'row']}
                                 justifyContent="space-between"
-                                mb={rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance?.getTokens().gt(0) ? '16px' : null}
+                                mb={balance?.getTokens().gt(0) ? '16px' : null}
                             >
                                 <BalanceComponent
-                                    balance={rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance?.getTokens().toFormat()}
+                                    balance={balance?.getTokens().gt(0) ? balance?.getTokens()?.toFormat() : '0.00'}
                                     label={{ i18key: 'availableForStaking' }}
                                     ticker={rs.assetsStore.LPToken.displayName}
                                     align="left"
@@ -51,8 +60,7 @@ export const StakeForm: React.FC = () => {
                                     align="left"
                                 />
                             </Flex>
-                            {rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance &&
-                                rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance?.getTokens().gt(0) ?
+                            {balance && balance?.getTokens().gt(0) ?
                                 <>
                                     <FormattedInput
                                         value={stakeStore.inputString}
@@ -78,9 +86,19 @@ export const StakeForm: React.FC = () => {
                                         variant="primary"
                                         variantSize="large"
                                         onClick={stakeStore.invoke}
-                                        maxWidth={['300px', '166px']}
+                                        disabled={stakeStore.formState === FORM_STATE.pending}
+                                        maxWidth={stakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '166px']}
                                     >
-                                        <Trans i18key="stake" />
+                                        <Flex justifyContent="center">
+                                            <Trans
+                                                i18key={stakeStore.formState === FORM_STATE.pending ?
+                                                    devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
+                                                    'stake'
+                                                }
+                                                i18Params={{ device: devices[rs.authStore.user.type] }}
+                                            />
+                                            {stakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null}
+                                        </Flex>
                                     </Button>
                                 </> :
                                 null

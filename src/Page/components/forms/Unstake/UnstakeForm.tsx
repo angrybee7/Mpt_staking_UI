@@ -10,6 +10,9 @@ import { SerifWrapper } from '../../../../components/SerifWrapper/SerifWrapper';
 import { Trans } from '@waves/ui-translator';
 import { BalanceRow } from '../../../../components/BalanceComponent/BalanceRow';
 import { Text } from '../../../../uikit/Text/Text';
+import { devices } from '../Stake/StakeForm.tsx';
+import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
+import { DotsAnimation } from '../../../../components/DotSpinner/DotSpinner.tsx';
 
 export const UnstakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
@@ -31,7 +34,10 @@ export const UnstakeForm: React.FC = () => {
                         </Text>
                         <Flex flexDirection="column">
                             <BalanceRow
-                                balance={unstakeStore.currentTokenBalance?.getTokens()?.toFormat()}
+                                balance={unstakeStore.currentTokenBalance?.getTokens()?.gt(0) ?
+                                    unstakeStore.currentTokenBalance?.getTokens()?.toFormat() :
+                                    '0.00'
+                                }
                                 label={{ i18key: 'availableForUnstaking' }}
                                 ticker={unstakeStore.currentTokenBalance?.asset?.displayName}
                                 mb={unstakeStore.currentTokenBalance?.getTokens().gt(0) ? '16px' : null}
@@ -62,9 +68,19 @@ export const UnstakeForm: React.FC = () => {
                                         variant="primary"
                                         variantSize="large"
                                         onClick={unstakeStore.invoke}
-                                        maxWidth={['300px', '166px']}
+                                        disabled={unstakeStore.formState === FORM_STATE.pending}
+                                        maxWidth={unstakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '166px']}
                                     >
-                                        <Trans i18key="unstake" />
+                                        <Flex justifyContent="center">
+                                            <Trans
+                                                i18key={unstakeStore.formState === FORM_STATE.pending ?
+                                                    devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
+                                                    'unstake'
+                                                }
+                                                i18Params={{ device: devices[rs.authStore.user.type] }}
+                                            />
+                                            {unstakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null}
+                                        </Flex>
                                     </Button>
                                 </> :
                                 null

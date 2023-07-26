@@ -4,6 +4,7 @@ import {
     BaseInputFormStoreParams,
 } from '../../../../stores/utils/BaseInputFormStore.ts';
 import { Money } from '@waves/data-entities';
+import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 
 export class UnstakeStore extends BaseInputFormStore {
     constructor(params: BaseInputFormStoreParams) {
@@ -27,6 +28,7 @@ export class UnstakeStore extends BaseInputFormStore {
     }
 
     public invoke = () => {
+        this.updateFormState(FORM_STATE.pending);
         const inputResult = this.checkInput();
         if (!inputResult) {
             return;
