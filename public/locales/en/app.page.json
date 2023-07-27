@@ -90,7 +90,7 @@
     "somethingWrongWithNode": "Something went wrong. Node error code: {{code}}.",
     "somethingWrong": "Something went wrong.",
     "swap": "Swap",
-    "availableToSwap": "Available for Swap:",
+    "availableToSwap": "Available for Swap",
     "youReceive": "You Receive",
     "swapCheckbox": "Stake straight after the swap.",
     "swapAndStake": "Swap & Stake"
