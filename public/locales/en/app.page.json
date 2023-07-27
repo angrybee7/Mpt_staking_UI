@@ -81,12 +81,17 @@
     },
     "havenotfee": "You don't have enough funds to pay the Transaction Fee.",
     "tryAgain": "Try Again",
-    "waitingConfirmation": "Waiting for confirmation from {{device}}...",
-    "waiting": "Waiting...",
+    "waitingConfirmation": "Waiting for confirmation from {{device}}",
+    "waiting": "Waiting",
     "rejectedByUserDevice": "You did not confirm the request using {{device}}.",
     "rejectedByUser": "You did not confirm the request.",
     "wrongNetworkError": "Wrong network is selected in the {{device}}. Choose the proper network and try again.",
     "wrongUser": "Wrong account is selected in the {{device}}. Activate the proper account and try again.",
     "somethingWrongWithNode": "Something went wrong. Node error code: {{code}}.",
-    "somethingWrong": "Something went wrong."
+    "somethingWrong": "Something went wrong.",
+    "swap": "Swap",
+    "availableToSwap": "Available for Swap",
+    "youReceive": "You Receive",
+    "swapCheckbox": "Stake straight after the swap.",
+    "swapAndStake": "Swap & Stake"
 }

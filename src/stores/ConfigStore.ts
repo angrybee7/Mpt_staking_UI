@@ -18,6 +18,7 @@ export type TConfig = {
     },
     contracts: {
         factory: string;
+        swap: string;
         lpToken: string
     },
     network: {
