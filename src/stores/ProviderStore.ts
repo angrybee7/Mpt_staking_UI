@@ -26,9 +26,11 @@ export class ProviderStore extends ChildStore {
     public sendInvoke({
         call,
         payment = [],
+        dApp
     }: {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
+        dApp?: string;
     }): Promise<any> {
         return this.signer.login().then((user) => {
             if (user.address !== this.rs.authStore.user?.address) {
@@ -38,6 +40,7 @@ export class ProviderStore extends ChildStore {
                 .invoke(
                     normalizeTxTimestamp({
                         ...this.invokeTxCommonParams,
+                        dApp: dApp ? dApp : this.invokeTxCommonParams.dApp,
                         call,
                         payment,
                         timestamp: Date.now(),

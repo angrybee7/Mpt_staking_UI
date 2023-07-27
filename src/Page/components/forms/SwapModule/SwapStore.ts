@@ -1,30 +1,36 @@
-import { BaseInputFormStore, BaseInputFormStoreParams } from '../../../../stores/utils/BaseInputFormStore.ts';
+import {
+    BaseInputFormStore,
+    BaseInputFormStoreParams,
+} from '../../../../stores/utils/BaseInputFormStore.ts';
 import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { action, makeObservable, observable } from 'mobx';
 
 export class SwapStore extends BaseInputFormStore {
-
     public autoStake = false;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             autoStake: observable,
-            setAutostake: action
-        })
+            setAutoStake: action,
+        });
     }
 
     public get tx(): {
+        dApp: string;
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
     } {
         return {
+            dApp: this.rs.configStore.config.contracts.swap,
             call: {
                 function: 'swap',
-                args: this.autoStake ? [{
-                    type: 'boolean',
-                    value: true
-                }] : [],
+                args: [
+                    {
+                        type: 'boolean',
+                        value: this.autoStake,
+                    },
+                ]
             },
             payment: [
                 {
@@ -47,7 +53,12 @@ export class SwapStore extends BaseInputFormStore {
         });
     };
 
-    public setAutostake(value: boolean): void {
+    public setAutoStake(value: boolean): void {
         this.autoStake = value;
+    }
+
+    public reset(): void {
+        super.reset();
+        this.setAutoStake(false);
     }
 }
