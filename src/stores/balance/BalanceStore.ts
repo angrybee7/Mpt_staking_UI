@@ -55,6 +55,10 @@ export class BalanceStore extends ChildStore {
         return this.balances[this.rs.assetsStore.LPToken.id]?.balance;
     }
 
+    public get xtnBalance(): IBalance['balance'] {
+        return this.balances[this.rs.assetsStore.XTN.id]?.balance;
+    }
+
     public off() {
         this.wavesBalance?.off();
         this.otherBalance?.off();

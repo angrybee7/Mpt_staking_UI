@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { StakeForm } from '../../forms/Stake/StakeForm.tsx';
 import { AppStoreContext } from '../../../../App.tsx';
 import { UnstakeForm } from '../../forms/Unstake/UnstakeForm.tsx';
+import { SwapModule } from '../../forms/SwapModule/SwapModule';
 
 export const Dashboard: FC = observer(() => {
     const rs = useContext(AppStoreContext);
@@ -22,9 +23,14 @@ export const Dashboard: FC = observer(() => {
                 <>
                     <Box
                         width="100%"
-                        // height={['0', 'auto']}
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
+                    <SwapModule hasXtn={rs.balanceStore.xtnBalance?.getTokens().gt(0)}/>
+                    <Box
+                        width="100%"
                         height={['0', rs.balanceStore.lpBalance?.getTokens().gt(0) ? '30px' : '108px']}
-                        // flex={1}
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />

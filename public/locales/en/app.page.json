@@ -88,5 +88,10 @@
     "wrongNetworkError": "Wrong network is selected in the {{device}}. Choose the proper network and try again.",
     "wrongUser": "Wrong account is selected in the {{device}}. Activate the proper account and try again.",
     "somethingWrongWithNode": "Something went wrong. Node error code: {{code}}.",
-    "somethingWrong": "Something went wrong."
+    "somethingWrong": "Something went wrong.",
+    "swap": "Swap",
+    "availableToSwap": "Available for Swap:",
+    "youReceive": "You Receive",
+    "swapCheckbox": "Stake straight after the swap.",
+    "swapAndStake": "Swap & Stake"
 }

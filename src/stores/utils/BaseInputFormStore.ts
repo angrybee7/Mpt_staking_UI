@@ -35,6 +35,7 @@ export class BaseInputFormStore extends BaseFormStore {
         super.reset();
         this.updateAmountError(undefined);
         this.inputString = undefined;
+        this.currentAmount = this.currentAmount.cloneWithTokens(0);
     }
 
     public get currentTokenBalance(): Money | undefined {
