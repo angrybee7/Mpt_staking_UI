@@ -1,11 +1,11 @@
 import React, { FC, createContext } from 'react';
-import { TVariant } from './Accordion';
+import { TAccordionVariant } from './Accordion';
 
 export interface IAccordionItemContext {
     isExpanded: boolean;
     isDisabled: boolean;
     onToggle: () => void;
-    variant: TVariant;
+    variant: TAccordionVariant;
 }
 
 interface IAccordionItemProvider {
