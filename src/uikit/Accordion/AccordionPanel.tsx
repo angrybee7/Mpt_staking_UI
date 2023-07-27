@@ -19,7 +19,7 @@ export const AccordionPanel: React.FC<BoxProps> = ({ children, ...rest }) => {
     const styles = isExpanded
         ? {
             ...commonStyles,
-            maxHeight: 500,
+            // maxHeight: 500,
             py: 12,
             pb: '24px',
         }
@@ -40,7 +40,7 @@ export const AccordionPanel: React.FC<BoxProps> = ({ children, ...rest }) => {
             {...rest}
         >
             <Box
-                maxHeight={476}
+                // maxHeight={476}
                 pr={6}
                 overflowY="auto"
                 sx={{

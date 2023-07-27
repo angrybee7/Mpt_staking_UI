@@ -127,12 +127,9 @@ export const SwapForm: React.FC = () => {
                                 activeErrors={swapStore.activeErrors}
                             />
                             <Button
-                                wrapperProps={{
-                                    display: 'inline-block'
-                                }}
                                 variant="primary"
                                 onClick={swapStore.invoke}
-                                minWidth={['300px', '166px']}
+                                maxWidth={swapStore.formState === FORM_STATE.pending ? 'none' : ['300px', '200px']}
                                 variantSize="large"
                                 disabled={swapStore.formState === FORM_STATE.pending}
                             >

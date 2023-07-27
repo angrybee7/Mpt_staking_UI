@@ -69,7 +69,7 @@ export const UnstakeForm: React.FC = () => {
                                         variantSize="large"
                                         onClick={unstakeStore.invoke}
                                         disabled={unstakeStore.formState === FORM_STATE.pending}
-                                        maxWidth={unstakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '166px']}
+                                        maxWidth={unstakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '200px']}
                                     >
                                         <Flex justifyContent="center">
                                             <Trans

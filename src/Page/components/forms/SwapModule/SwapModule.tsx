@@ -15,7 +15,7 @@ export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
     return (
         <SerifWrapper>
             {hasXtn ? (
-                <Accordion defaultIndex={1}>
+                <Accordion defaultIndex={0}>
                     <AccordionItem mb={0} isDisabled={!hasXtn}>
                         <AccordionHeader boxShadow={'none'}>
                             <Text variant="heading2">

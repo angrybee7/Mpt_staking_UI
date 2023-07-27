@@ -87,7 +87,7 @@ export const StakeForm: React.FC = () => {
                                         variantSize="large"
                                         onClick={stakeStore.invoke}
                                         disabled={stakeStore.formState === FORM_STATE.pending}
-                                        maxWidth={stakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '166px']}
+                                        maxWidth={stakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '200px']}
                                     >
                                         <Flex justifyContent="center">
                                             <Trans
