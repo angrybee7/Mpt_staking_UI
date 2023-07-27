@@ -12,6 +12,7 @@ import {
     getMetamaskDeviceName,
 } from '../../../utils/helpersInformationDevices';
 import { DeviceIcon } from "./DeviceIcon.tsx";
+import { DotSpinner } from '../../DotSpinner/DotSpinner.tsx';
 
 export interface AuthTemplateProps {
     title: ITransProps;
@@ -101,7 +102,7 @@ export const AuthTemplate: React.FC<AuthTemplateProps> = ({
                     disabled={isPending}
                 >
                     {isPending ? (
-                        <Trans i18key="waiting" />
+                        <><Trans i18key="waiting" /><DotSpinner display="inline" /></>
                     ) : (
                         <Trans i18key="retry" />
                     )}

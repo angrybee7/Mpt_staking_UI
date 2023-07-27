@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex } from '@waves.exchange/wx-react-uikit';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Button, FeeComponent, FormattedInput, InputErrors, MultiErrorComponent } from '../../../../uikit';
 import { StakeStore } from './stakeStore.ts';
 import { AppStoreContext } from '../../../../App.tsx';
@@ -12,7 +12,7 @@ import { BalanceComponent } from '../../../../components/BalanceComponent/Balanc
 import { Trans } from '@waves/ui-translator';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 import { USER_TYPES } from '../../../../stores/AuthStore.ts';
-import { DotsAnimation } from '../../../../components/DotSpinner/DotSpinner.tsx';
+import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner';
 
 export const devices = {
     [USER_TYPES.keeper]: 'Keeper Wallet',
@@ -34,7 +34,7 @@ export const StakeForm: React.FC = () => {
             {(): ReactElement => {
                 const balance = rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance;
                 return (
-                    <SerifWrapper px="24px" py="24px" as='form'>
+                    <SerifWrapper px={['16px', '24px']} py="24px" as='form'>
                         <Text as="div" variant="heading2" mb="16px">
                             <Trans i18key="stake" />
                         </Text>
@@ -89,16 +89,16 @@ export const StakeForm: React.FC = () => {
                                         disabled={stakeStore.formState === FORM_STATE.pending}
                                         maxWidth={stakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '200px']}
                                     >
-                                        <Flex justifyContent="center">
+                                        <Box fontSize={[devices[rs.authStore.user.type] ? '14px' : null, 'inherit']}>
                                             <Trans
                                                 i18key={stakeStore.formState === FORM_STATE.pending ?
-                                                    devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
+                                                    (devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting') :
                                                     'stake'
                                                 }
                                                 i18Params={{ device: devices[rs.authStore.user.type] }}
                                             />
-                                            {/* {stakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null} */}
-                                        </Flex>
+                                            {stakeStore.formState === FORM_STATE.pending ? <DotSpinner display="inline" /> : null}
+                                        </Box>
                                     </Button>
                                 </> :
                                 null

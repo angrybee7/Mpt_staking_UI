@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex } from '@waves.exchange/wx-react-uikit';
+import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { Button, FeeComponent, FormattedInput, InputErrors, MultiErrorComponent } from '../../../../uikit';
 import { AppStoreContext } from '../../../../App';
 import { Observer } from 'mobx-react-lite';
@@ -12,7 +12,7 @@ import { BalanceRow } from '../../../../components/BalanceComponent/BalanceRow';
 import { Text } from '../../../../uikit/Text/Text';
 import { devices } from '../Stake/StakeForm.tsx';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
-import { DotsAnimation } from '../../../../components/DotSpinner/DotSpinner.tsx';
+import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner.tsx';
 
 export const UnstakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
@@ -28,7 +28,7 @@ export const UnstakeForm: React.FC = () => {
         <Observer>
             {(): ReactElement => {
                 return (
-                    <SerifWrapper px="24px" py="24px" as='form'>
+                    <SerifWrapper px={['16px', '24px']} py="24px" as='form'>
                         <Text as="div" variant="heading2" sx={{ mb: '16px' }}>
                             <Trans i18key="unstake" />
                         </Text>
@@ -71,7 +71,7 @@ export const UnstakeForm: React.FC = () => {
                                         disabled={unstakeStore.formState === FORM_STATE.pending}
                                         maxWidth={unstakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '200px']}
                                     >
-                                        <Flex justifyContent="center">
+                                        <Box fontSize={[devices[rs.authStore.user.type] ? '14px' : null, 'inherit']}>
                                             <Trans
                                                 i18key={unstakeStore.formState === FORM_STATE.pending ?
                                                     devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
@@ -79,8 +79,8 @@ export const UnstakeForm: React.FC = () => {
                                                 }
                                                 i18Params={{ device: devices[rs.authStore.user.type] }}
                                             />
-                                            {/* {unstakeStore.formState === FORM_STATE.pending ? <DotsAnimation /> : null} */}
-                                        </Flex>
+                                            {unstakeStore.formState !== FORM_STATE.pending ? <DotSpinner display="inline" /> : null}
+                                        </Box>
                                     </Button>
                                 </> :
                                 null
