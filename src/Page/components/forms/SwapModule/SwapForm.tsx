@@ -128,11 +128,11 @@ export const SwapForm: React.FC = () => {
                             />
                             <Button
                                 wrapperProps={{
-                                    display: ['block', 'inline-block']
+                                    display: 'inline-block'
                                 }}
                                 variant="primary"
                                 onClick={swapStore.invoke}
-                                minWidth={['100%', '156px']}
+                                minWidth={['300px', '166px']}
                                 variantSize="large"
                                 disabled={swapStore.formState === FORM_STATE.pending}
                             >

@@ -3,13 +3,13 @@ import {
     IAccordionItemContext,
 } from './AccordionItemContext';
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-import { TVariant } from './Accordion';
+import { TAccordionVariant } from './Accordion';
 import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 
 export type IAccordionItem = BoxProps & {
     isOpen?: boolean;
     isDisabled?: boolean;
-    variant?: TVariant;
+    variant?: TAccordionVariant;
     onChange?: (isExpanded: boolean) => void;
 };
 
