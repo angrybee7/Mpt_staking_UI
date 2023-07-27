@@ -10,6 +10,7 @@ import { Trans } from '@waves/ui-translator';
 import { SwapForm } from './SwapForm.tsx';
 import { SerifWrapper } from '../../../../components/SerifWrapper/SerifWrapper';
 import { Box } from '@waves.exchange/wx-react-uikit';
+import { BalanceRow } from '../../../../components/BalanceComponent/BalanceRow.tsx';
 
 export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
     return (
@@ -28,18 +29,15 @@ export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
                     </AccordionItem>
                 </Accordion>
             ) : (
-                <Box p={26}>
-                    <Text variant="heading2">
+                <Box sx={{ py: '24px', px:['16px', '24px'] }}>
+                    <Text as="div" variant="heading2" mb="16px">
                         <Trans i18key="swap" />
                     </Text>
-                    <Box>
-                        <Text variant="heading3" color="text">
-                            <Trans i18key={'availableToSwap'} />
-                        </Text>
-                        <Text color="textsec" ml={4}>
-                            0.00 XTN
-                        </Text>
-                    </Box>
+                    <BalanceRow
+                        balance={'0.00'}
+                        label={{ i18key: 'availableToSwap' }}
+                        ticker="XTN"
+                    />
                 </Box>
             )}
         </SerifWrapper>

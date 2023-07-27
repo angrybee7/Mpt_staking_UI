@@ -98,7 +98,7 @@ export const ConnectBlock: FC = memo(() => {
                     px: ['20px', '40px'],
                 }}
             >
-                <Box width="100%" flex={1} maxHeight="40vh" borderLeft="1px solid #C6DAE6" />
+                <Box width="100%" flex={1} maxHeight="20vh" borderLeft="1px solid #C6DAE6" />
                 <Observer>
                     {(): ReactElement => (
                         <BalanceComponent

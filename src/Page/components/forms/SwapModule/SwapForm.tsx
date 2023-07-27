@@ -19,12 +19,14 @@ import { Money } from '@waves/data-entities';
 import { SwapStore } from './SwapStore.ts';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 import { devices } from '../Stake/StakeForm.tsx';
+import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner.tsx';
+import { BalanceRow } from '../../../../components/BalanceComponent/BalanceRow.tsx';
 
 const SwapItem: React.FC<{ asset: AssetWithMeta }> = ({ asset }) => {
     return (
         <SerifWrapper
             py={12}
-            px={24}
+            px={[16, 24]}
             flex={1}
             mb={1}
             variant="primary"
@@ -72,16 +74,15 @@ export const SwapForm: React.FC = () => {
                             </Text>
                             <SwapItem asset={assetsStore.LPToken} />
                         </Flex>
-                        <Flex my={16}>
-                            <Text variant="heading3" color="text">
-                                <Trans i18key={'availableToSwap'} />
-                            </Text>
-                            <Text color="main" ml={4}>
-                                {balanceStore.xtnBalance
-                                    ?.getTokens()
-                                    .toFormat() || 0.0}
-                            </Text>
-                        </Flex>
+                        <BalanceRow
+                            balance={balanceStore.xtnBalance?.getTokens()?.gt(0) ?
+                                balanceStore.xtnBalance?.getTokens()?.toFormat() :
+                                '0.00'
+                            }
+                            label={{ i18key: 'availableToSwap' }}
+                            ticker={rs.assetsStore.LPToken?.displayName}
+                            mb={balanceStore.xtnBalance?.getTokens().gt(0) ? '16px' : null}
+                        />
                         <Box>
                             <FormattedInput
                                 value={swapStore.inputString}
@@ -133,7 +134,7 @@ export const SwapForm: React.FC = () => {
                                 variantSize="large"
                                 disabled={swapStore.formState === FORM_STATE.pending}
                             >
-                                <Flex justifyContent="center">
+                                <Box fontSize={[devices[rs.authStore.user.type] ? '14px' : null, 'inherit']}>
                                     <Trans
                                         i18key={swapStore.formState === FORM_STATE.pending ?
                                             devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
@@ -143,7 +144,8 @@ export const SwapForm: React.FC = () => {
                                         }
                                         i18Params={{ device: devices[rs.authStore.user.type] }}
                                     />
-                                </Flex>
+                                    {swapStore.formState === FORM_STATE.pending ? <DotSpinner display="inline" /> : null}
+                                </Box>
                             </Button>
                         </Box>
                     </Box>
