@@ -9,7 +9,7 @@ import { TColor, TTextVariant, Text } from '../../uikit';
 
 export type BalanceSimpleProps = {
     variant?: Array<TBalanceContentSize>;
-    balance?: string;
+    balance?: string | React.ReactNode;
     ticker?: string;
     iconUrl?: string;
     skeleton?: { pending: boolean } & SkeletonProps;
