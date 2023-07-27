@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useState } from 'react';
+import { FC, ReactElement, memo, useCallback, useContext, useState } from 'react';
 import { Flex, Box } from '@waves.exchange/wx-react-uikit';
 import { Trans } from '@waves/ui-translator';
 import { Button, Checkbox, Text } from 'uikit';
@@ -10,6 +10,10 @@ import { PROVIDER_TYPES, PROVIDER_TYPES_VALUES } from '../../../../stores/AuthSt
 import { useAuth } from '../../../../hooks/useAuth.ts';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES.ts';
 import { modalManager } from '../../../../services/modalManager.ts';
+import { BalanceComponent } from '../../../../components/BalanceComponent/BalanceComponent.tsx';
+import { AppStoreContext } from '../../../../App.tsx';
+import { Observer } from 'mobx-react-lite';
+import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner';
 
 enum ERROR {
     uncheckedTerms = 'uncheckedTerms',
@@ -20,6 +24,7 @@ export const ConnectBlock: FC = memo(() => {
     const [checked, setChecked] = useState<boolean>(false);
     const [selectedProvider, setSelectedProvider] = useState<PROVIDER_TYPES_VALUES>();
     const [errors, setErrors] = useState<Array<ERROR>>([]);
+    const { contractStore } = useContext(AppStoreContext);
     const { login } = useAuth();
 
     const handleContinue = useCallback(() => {
@@ -94,6 +99,26 @@ export const ConnectBlock: FC = memo(() => {
                 }}
             >
                 <Box width="100%" flex={1} maxHeight="40vh" borderLeft="1px solid #C6DAE6" />
+                <Observer>
+                    {(): ReactElement => (
+                        <BalanceComponent
+                            balance={contractStore.commonContractData.isFirstLoad ?
+                                <DotSpinner color="text" fontSize="32px" /> :
+                                contractStore.annual
+                            }
+                            label={{ i18key: 'estimatedAnnualInterest' }}
+                            labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}
+                            ticker={contractStore.commonContractData.isFirstLoad ? '' : '%'}
+                            align="left"
+                            mt="24px"
+                            mb={[null, '24px']}
+                            variant={['large']}
+                            pl="20px"
+                            borderLeft="1px solid #C6DAE6"
+                        />
+                    )}
+                </Observer>
+                <Box width="100%" height="40px" borderLeft="1px solid #C6DAE6" display={['none', 'block']} />
                 <Flex flexDirection="column" sx={{ py: '24px' }}>
                     <Text
                         as="div"

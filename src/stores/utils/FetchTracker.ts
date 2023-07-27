@@ -35,6 +35,7 @@ export class FetchTracker<T, K> {
             data: observable,
             isLoading: observable,
             error: observable,
+            isFirstLoad: observable,
             setOptions: action,
         });
 

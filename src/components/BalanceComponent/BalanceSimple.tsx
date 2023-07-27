@@ -9,7 +9,7 @@ import { TColor, TTextVariant, Text } from '../../uikit';
 
 export type BalanceSimpleProps = {
     variant?: Array<TBalanceContentSize>;
-    balance?: string;
+    balance?: string | React.ReactNode;
     ticker?: string;
     iconUrl?: string;
     skeleton?: { pending: boolean } & SkeletonProps;
@@ -44,6 +44,7 @@ export const BalanceSimple: React.FC<BalanceSimpleProps> = ({
                             color={getColor(variantsArray, 'ticker') as TColor}
                             alignSelf="flex-end"
                             ml="8px"
+                            pb={variantsArray.includes('large') ? '10px' : '0'}
                         >
                             {ticker}
                         </Text>
