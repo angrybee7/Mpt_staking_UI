@@ -81,7 +81,7 @@ export const SwapForm: React.FC = () => {
                             }
                             label={{ i18key: 'availableToSwap' }}
                             ticker={rs.assetsStore.LPToken?.displayName}
-                            mb={balanceStore.xtnBalance?.getTokens().gt(0) ? '16px' : null}
+                            my={16}
                         />
                         <Box>
                             <FormattedInput
