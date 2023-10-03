@@ -11,6 +11,7 @@ import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import metamask from '/src/img/metamask.svg';
 import keeper from '/src/img/keeper.svg';
 import wx from '/src/img/wx.svg';
+import ledger from '/src/img/ledger.svg';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { AppStoreContext } from '../../../App';
@@ -22,7 +23,7 @@ export const UserInfo: FC<{
     setHeightUserInfoBlock: Dispatch<SetStateAction<number>>;
 }> = observer(({ setHeightUserInfoBlock }) => {
     const { authStore } = useContext(AppStoreContext);
-    const userTypes = { metamask, keeper, wx };
+    const userTypes = { metamask, keeper, wx, ledger };
     const shortedAddress = useMemo(() => shortAddress(authStore.user.address), []);
     const wrapper = useRef<HTMLDivElement>(null);
 

@@ -32,6 +32,7 @@
     "seed": "WX Network Seed",
     "cloud": "WX Network Email",
     "metaMask": "MetaMask",
+    "ledger": "Ledger",
     "signCustomData": {
         "title": "Sign Custom Data",
         "desc": "Sign custom data on your {{device}} to continue."

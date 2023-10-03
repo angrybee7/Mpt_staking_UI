@@ -6,6 +6,7 @@ import logo from '/src/img/mpt-logo.svg';
 import metamaskUrl from '/src/img/metamask.svg';
 import keeperUrl from '/src/img/keeper.svg';
 import wxUrl from '/src/img/wx.svg';
+import ledgerUrl from '/src/img/ledger.svg';
 import { PROVIDER_TYPES, PROVIDER_TYPES_VALUES } from '../../../../stores/AuthStore.ts';
 import { useAuth } from '../../../../hooks/useAuth.ts';
 import { MODAL_NAMES } from '../../../../components/ModalContainer/MODAL_NAMES.ts';
@@ -134,6 +135,29 @@ export const ConnectBlock: FC = memo(() => {
                     </Text>
                     <Box borderLeft={[null, '1px solid #C6DAE6']} sx={{ pl: [null, '20px'] }}>
                         <Box borderLeft={[null, '1px solid #C6DAE6']} sx={{ pl: [null, '20px'] }}>
+                            <Button
+                                variant="transparent"
+                                variantSize="large"
+                                isInvalid={errors.includes(ERROR.uncheckedProvider)}
+                                isActive={selectedProvider === PROVIDER_TYPES.ledger}
+                                onClick={() => onSetProvider(PROVIDER_TYPES.ledger)}
+                                mb={20}
+                                maxWidth="330px"
+                                display="flex"
+                                sx={{ alignItems: 'center' }}
+                            >
+                                <Box
+                                    width="28px"
+                                    height="28px"
+                                    backgroundImage={`url(${ledgerUrl})`}
+                                    backgroundRepeat="no-repeat"
+                                    backgroundPosition="center center"
+                                    sx={{ mr: '12px' }}
+                                />
+                                <Text fontWeight={300}>
+                                    <Trans i18key="ledger" />
+                                </Text>
+                            </Button>
                             <Button
                                 variant="transparent"
                                 variantSize="large"

@@ -23,7 +23,7 @@
     "@waves/bignumber": "^1.1.1",
     "@waves/data-entities": "^2.0.7",
     "@waves/provider-keeper": "^2.0.5",
-    "@waves/provider-ledger": "^0.2.0",
+    "@waves/provider-ledger": "^0.2.1",
     "@waves/provider-metamask": "^1.1.6",
     "@waves/signer": "^1.1.0",
     "@waves/ts-types": "^1.0.12",
