@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Button, FeeComponent, FormattedInput, InputErrors, MultiErrorComponent } from '../../../../uikit';
+import {
+    Button,
+    FeeComponent,
+    FormattedInput,
+    InputErrors,
+    MultiErrorComponent,
+    Text
+} from 'uikit';
 import { StakeStore } from './stakeStore.ts';
 import { AppStoreContext } from '../../../../App.tsx';
 import { Observer } from 'mobx-react-lite';
 import { ReactElement } from 'react';
 import { Money } from '@waves/data-entities';
 import { SerifWrapper } from '../../../../components/SerifWrapper/SerifWrapper.tsx';
-import { Text } from '../../../../uikit/Text/Text';
 import { BalanceComponent } from '../../../../components/BalanceComponent/BalanceComponent.tsx';
 import { Trans } from '@waves/ui-translator';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
@@ -16,7 +22,8 @@ import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner';
 
 export const devices = {
     [USER_TYPES.keeper]: 'Keeper Wallet',
-    [USER_TYPES.metamask]: 'MetaMask'
+    [USER_TYPES.metamask]: 'MetaMask',
+    [USER_TYPES.ledger]: 'Ledger',
 };
 
 export const StakeForm: React.FC = () => {

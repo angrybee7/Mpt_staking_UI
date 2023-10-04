@@ -174,6 +174,8 @@ export class AuthStore extends ChildStore  {
                 return USER_TYPES.keeper;
             case PROVIDER_TYPES.metamask:
                 return USER_TYPES.metamask;
+            case PROVIDER_TYPES.ledger:
+                return USER_TYPES.ledger;
             default:
                 return USER_TYPES.wx;
         }
