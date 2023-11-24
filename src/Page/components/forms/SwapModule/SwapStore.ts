@@ -6,7 +6,7 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { action, makeObservable, observable } from 'mobx';
 
 export class SwapStore extends BaseInputFormStore {
-    public autoStake = false;
+    public autoStake = true;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
