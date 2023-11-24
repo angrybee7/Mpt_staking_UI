@@ -94,5 +94,9 @@
     "availableToSwap": "Available for Swap",
     "youReceive": "You Receive",
     "swapCheckbox": "Stake straight after the swap.",
-    "swapAndStake": "Swap & Stake"
+    "swapAndStake": "Swap & Stake",
+    "availableForClaim": "Available for Claiming",
+    "accrued": "Accrued:",
+    "claim": "Claim",
+    "claimIsUnavailable": "Claim is currently unavailable as funds are staked. You will be able to claim funds with interest after the L2 network launch."
 }

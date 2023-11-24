@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Button, FeeComponent, FormattedInput, InputErrors, MultiErrorComponent } from '../../../../uikit';
+import {
+    Button,
+    FeeComponent,
+    FormattedInput,
+    InputErrors,
+    MultiErrorComponent,
+    Text
+} from 'uikit';
 import { AppStoreContext } from '../../../../App';
 import { Observer } from 'mobx-react-lite';
 import { ReactElement } from 'react';
@@ -9,7 +16,6 @@ import { UnstakeStore } from './unstakeStore.ts';
 import { SerifWrapper } from '../../../../components/SerifWrapper/SerifWrapper';
 import { Trans } from '@waves/ui-translator';
 import { BalanceRow } from '../../../../components/BalanceComponent/BalanceRow';
-import { Text } from '../../../../uikit/Text/Text';
 import { devices } from '../Stake/StakeForm.tsx';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner.tsx';

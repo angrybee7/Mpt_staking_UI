@@ -5,6 +5,7 @@ import { StakeForm } from '../../forms/Stake/StakeForm.tsx';
 import { AppStoreContext } from '../../../../App.tsx';
 import { UnstakeForm } from '../../forms/Unstake/UnstakeForm.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule';
+import { ClaimForm } from '../../forms/Claim/ClaimForm.tsx';
 
 export const Dashboard: FC = observer(() => {
     const rs = useContext(AppStoreContext);
@@ -34,8 +35,28 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
+                    {
+                        rs.contractStore.availableForClaim?.getTokens().isPositive() ?
+                            (
+                                <>
+                                    <ClaimForm />
+                                    <Box
+                                        width="100%"
+                                        height={['0', '30px']}
+                                        borderLeft={['none', '1px solid #C6DAE6']}
+                                        sx={{ my: ['12px', '16px'] }}
+                                    />
+                                </>
+                            ) :
+                            null
+                    }
                     <StakeForm />
-                    <Box width="100%" height={['0', '30px']} borderLeft={['none', '1px solid #C6DAE6']} sx={{ my: ['12px', '16px'] }} />
+                    <Box
+                        width="100%"
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
                     <UnstakeForm />
                     <Box
                         width="100%"

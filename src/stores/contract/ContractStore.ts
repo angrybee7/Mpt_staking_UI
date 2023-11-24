@@ -5,7 +5,7 @@ import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
 import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
-import { reaction } from 'mobx';
+import { computed, makeObservable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
 import { ITuple, parseTupleData } from '../../utils/evaluate/utils.ts';
@@ -23,6 +23,10 @@ export class ContractStore extends ChildStore {
         const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
         const contractAddress = this.rs.configStore.config.contracts.factory;
+
+        makeObservable(this, {
+            availableForClaim: computed,
+        })
 
         this.commonContractData = new FetchTracker<any, any>({
             fetchUrl: searchUrl,
@@ -67,6 +71,11 @@ export class ContractStore extends ChildStore {
         return (emissionPerBlock.getTokens().mul(BLOCKS_PER_YEAR).div(totalAssetAmount.getTokens()))
             .mul(100)
             .toFixed(2);
+    }
+
+    public get availableForClaim(): Money {
+        // todo
+        return new Money(50000000000, this.rs.assetsStore.LPToken);
     }
 
     private userDataParser = (data: IEvaluateResponse): IUserContractData => {
