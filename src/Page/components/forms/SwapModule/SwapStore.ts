@@ -4,15 +4,19 @@ import {
 } from '../../../../stores/utils/BaseInputFormStore.ts';
 import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { action, makeObservable, observable } from 'mobx';
+import { INode } from '../../../../stores/contract/nodesUtils.ts';
 
 export class SwapStore extends BaseInputFormStore {
     public autoStake = true;
+    public node: INode = this.rs.contractStore.userNode;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             autoStake: observable,
-            setAutoStake: action,
+            setAutoStake: action.bound,
+            node: observable,
+            setNode: action.bound,
         });
     }
 
@@ -21,6 +25,8 @@ export class SwapStore extends BaseInputFormStore {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
     } {
+        // todo
+        console.info(this.node?.address);
         return {
             dApp: this.rs.configStore.config.contracts.swap,
             call: {
@@ -60,5 +66,9 @@ export class SwapStore extends BaseInputFormStore {
     public reset(): void {
         super.reset();
         this.setAutoStake(false);
+    }
+
+    public setNode(node: INode): void {
+        this.node = node;
     }
 }

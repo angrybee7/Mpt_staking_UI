@@ -19,6 +19,11 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 	isError,
 	...selectProps
 }) => {
+	React.useEffect((): void => {
+		if (nodes?.length === 1) {
+			onChangeNode(nodes[0]);
+		}
+	}, [onChangeNode, nodes]);
 	return (
 		<Select
 			renderSelected={({ opened }): React.ReactElement => {

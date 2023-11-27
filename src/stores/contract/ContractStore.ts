@@ -150,7 +150,7 @@ export class ContractStore extends ChildStore {
         getNodes()
             .then((nodes) => {
                 this.nodes = nodes;
-                // this.userNode = nodes && nodes[1];
+                this.userNode = nodes && nodes[1];
             })
     }
 }
