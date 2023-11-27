@@ -5,11 +5,12 @@ import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
 import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
-import { computed, makeObservable, reaction } from 'mobx';
+import { action, computed, makeObservable, observable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
 import { ITuple, parseTupleData } from '../../utils/evaluate/utils.ts';
 import { Money } from '@waves/data-entities';
+import { getNodes, INode } from './nodesUtils.ts';
 
 const COMMON_DATA_POLLING_TIME = 60_000;
 
@@ -17,6 +18,8 @@ export class ContractStore extends ChildStore {
 
     public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IEvaluateResponse> = new FetchTracker();
+    public nodes: Array<INode> = [];
+    public userNode: INode;
 
     constructor(rs: AppStore) {
         super(rs);
@@ -26,6 +29,10 @@ export class ContractStore extends ChildStore {
 
         makeObservable(this, {
             availableForClaim: computed,
+            nodes: observable,
+            setNodes: action.bound,
+            userNode: observable,
+            setUserNode: action.bound,
         })
 
         this.commonContractData = new FetchTracker<any, any>({
@@ -53,6 +60,7 @@ export class ContractStore extends ChildStore {
                         autoFetch: true,
                         refreshInterval: COMMON_DATA_POLLING_TIME
                     })
+                    this.initNodes();
                 } else {
                     this.userContractData.off();
                 }
@@ -76,6 +84,22 @@ export class ContractStore extends ChildStore {
     public get availableForClaim(): Money {
         // todo
         return new Money(50000000000, this.rs.assetsStore.LPToken);
+    }
+
+    public get totalStaked(): Money {
+        const zeroMoney = new Money(0, this.rs.assetsStore.LPToken);
+        return zeroMoney.cloneWithTokens(
+            this.availableForClaim.getTokens()
+                .add(this.userContractData.data.availableToWithdraw?.getTokens() || 0)
+        )
+    }
+
+    public setNodes(nodes: Array<INode>): void {
+        this.nodes = nodes;
+    }
+
+    public setUserNode(node: INode): void {
+        this.userNode = node;
     }
 
     private userDataParser = (data: IEvaluateResponse): IUserContractData => {
@@ -121,4 +145,12 @@ export class ContractStore extends ChildStore {
             }
         );
     };
+
+    private initNodes(): void {
+        getNodes()
+            .then((nodes) => {
+                this.nodes = nodes;
+                // this.userNode = nodes && nodes[1];
+            })
+    }
 }

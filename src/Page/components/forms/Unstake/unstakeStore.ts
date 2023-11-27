@@ -45,4 +45,8 @@ export class UnstakeStore extends BaseInputFormStore {
     public get currentTokenBalance(): Money | undefined {
         return this.rs.contractStore.userContractData.data.availableToWithdraw;
     }
+
+    public get totalStaked(): Money | undefined {
+        return this.rs.contractStore.totalStaked;
+    }
 }

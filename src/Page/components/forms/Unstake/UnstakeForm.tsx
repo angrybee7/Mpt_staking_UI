@@ -40,6 +40,16 @@ export const UnstakeForm: React.FC = () => {
                         </Text>
                         <Flex flexDirection="column">
                             <BalanceRow
+                                balance={unstakeStore.totalStaked?.getTokens()?.gt(0) ?
+                                    unstakeStore.totalStaked?.getTokens()?.toFormat() :
+                                    '0.00'
+                                }
+                                label={{ i18key: 'totalStaking' }}
+                                ticker={rs.assetsStore.LPToken?.displayName}
+                                helpTrans={{ i18key: 'totalStakingHelp' }}
+                                mb={16}
+                            />
+                            <BalanceRow
                                 balance={unstakeStore.currentTokenBalance?.getTokens()?.gt(0) ?
                                     unstakeStore.currentTokenBalance?.getTokens()?.toFormat() :
                                     '0.00'
