@@ -6,6 +6,7 @@ import {
     FormattedInput,
     InputErrors,
     MultiErrorComponent,
+    NodeSelect,
     Text
 } from 'uikit';
 import { StakeStore } from './stakeStore.ts';
@@ -28,6 +29,7 @@ export const devices = {
 
 export const StakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
+    const { contractStore } = rs;
 
     const stakeStore = React.useMemo(() => {
         return new StakeStore({
@@ -87,6 +89,20 @@ export const StakeForm: React.FC = () => {
                                         placeholder='000000000000'
                                     />
                                     <InputErrors error={stakeStore.amountError?.error}/>
+                                    {
+                                        !contractStore.userNode || contractStore.userContractData?.data?.availableToWithdraw?.getTokens().isPositive() ?
+                                            <NodeSelect
+                                                nodes={
+                                                    rs.contractStore.nodes.filter((node) => {
+                                                        return node.address !== stakeStore.node?.address;
+                                                    })
+                                                }
+                                                selectedNode={stakeStore.node}
+                                                onChangeNode={stakeStore.setNode}
+                                                mt={16}
+                                            /> :
+                                            null
+                                    }
                                     <FeeComponent my="16px" />
                                     <MultiErrorComponent activeErrors={stakeStore.activeErrors} />
                                     <Button

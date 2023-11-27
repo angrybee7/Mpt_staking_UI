@@ -3,10 +3,18 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../stores/utils/BaseInputFormStore.ts';
+import { INode } from '../../../../stores/contract/nodesUtils.ts';
+import { action, makeObservable, observable } from 'mobx';
 
 export class StakeStore extends BaseInputFormStore {
+
+    public node: INode = this.rs.contractStore.userNode;
     constructor(params: BaseInputFormStoreParams) {
         super(params);
+        makeObservable(this, {
+            node: observable,
+            setNode: action.bound,
+        });
     }
 
     public get tx(): {
@@ -38,4 +46,8 @@ export class StakeStore extends BaseInputFormStore {
             this.reset();
         });
     };
+
+    public setNode(node: INode): void {
+        this.node = node;
+    }
 }
