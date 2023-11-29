@@ -3,29 +3,50 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../stores/utils/BaseInputFormStore.ts';
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable, reaction } from 'mobx';
 import { INode } from '../../../../stores/utils/fetchNodeList.ts';
+import { InputErrorsProps } from 'uikit';
 
 export class StakeStore extends BaseInputFormStore {
 
     public node: INode = this.rs.contractStore.userNode;
+
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             node: observable,
             setNode: action.bound,
         });
+
+        let initialUserNode = this.rs.contractStore.userNode;
+        reaction(
+            () => this.rs.contractStore.userNode,
+            () => {
+                if (!this.node || initialUserNode) {
+                    this.node = this.rs.contractStore.userNode;
+                }
+                if (!initialUserNode) {
+                    initialUserNode = this.rs.contractStore.userNode;
+                }
+            }
+        )
     }
 
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-        } {
-        return {
-            call: {
+    } {
+        const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
+            {
+                function: 'stakeAndSetStakingNode',
+                args: [{ type: 'string', value: this.node.address }],
+            } as InvokeScriptCall<string> :
+            {
                 function: 'stake',
                 args: [],
-            },
+            };
+        return {
+            call,
             payment: [
                 {
                     assetId: this.currentAmount.asset.id,
@@ -35,9 +56,18 @@ export class StakeStore extends BaseInputFormStore {
         };
     }
 
+    public get nodeSelectError(): InputErrorsProps {
+        if (!this.rs.contractStore.userNode && this.isConfirmClicked && !this.node) {
+            return ({ error: 'required' });
+        } else {
+            return undefined;
+        }
+    }
+
     public invoke = () => {
         const inputResult = this.checkInput();
-        if (!inputResult) {
+        const selectResult = this.checkSelect();
+        if (!inputResult || !selectResult) {
             return;
         }
         this.sendTransaction(() =>
@@ -49,5 +79,9 @@ export class StakeStore extends BaseInputFormStore {
 
     public setNode(node: INode): void {
         this.node = node;
+    }
+
+    protected checkSelect(): boolean {
+        return !!this.rs.contractStore.userNode || !!this.node;
     }
 }
