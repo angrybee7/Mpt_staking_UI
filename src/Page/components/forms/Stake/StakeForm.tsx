@@ -20,6 +20,9 @@ import { Trans } from '@waves/ui-translator';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 import { USER_TYPES } from '../../../../stores/AuthStore.ts';
 import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner';
+import { LabelComponent } from '../../../../components/LabelComponent/LabelComponent.tsx';
+import { stylesByVariant } from '../../../../components/BalanceComponent/helpers.ts';
+import { BlocksToTime } from '../../../../components/BlocksToTime/index.tsx';
 
 export const devices = {
     [USER_TYPES.keeper]: 'Keeper Wallet',
@@ -48,11 +51,7 @@ export const StakeForm: React.FC = () => {
                             <Trans i18key="stake" />
                         </Text>
                         <Flex flexDirection="column">
-                            <Flex
-                                flexDirection={['column', 'row']}
-                                justifyContent="space-between"
-                                mb={balance?.getTokens().gt(0) ? '16px' : null}
-                            >
+                            <Flex flexDirection={['column', 'row']} justifyContent="space-between">
                                 <BalanceComponent
                                     balance={balance?.getTokens().gt(0) ? balance?.getTokens()?.toFormat() : '0.00'}
                                     label={{ i18key: 'availableForStaking' }}
@@ -69,6 +68,28 @@ export const StakeForm: React.FC = () => {
                                     align="left"
                                 />
                             </Flex>
+                            <LabelComponent
+                                label={{ i18key: 'remainingTime' }}
+                                labelHelp={{ i18key: 'remainingTimeHelp' }}
+                                variant="text1"
+                                colorTitle={stylesByVariant.medium.label.color}
+                                align="left"
+                                my="16px"
+                            >
+                                <Text variant="heading2" color="main">
+                                    {BlocksToTime({
+                                        blocks: 1000000,
+                                        options: {
+                                            useYears: true,
+                                            useMonth: true,
+                                            useWeeks: true,
+                                            showTime: true,
+                                            shortFormat: true,
+                                            split: ' '
+                                        }
+                                    })}
+                                </Text>
+                            </LabelComponent>
                             {balance && balance?.getTokens().gt(0) ?
                                 <>
                                     <FormattedInput
