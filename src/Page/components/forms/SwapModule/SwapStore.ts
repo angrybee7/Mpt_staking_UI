@@ -4,7 +4,7 @@ import {
 } from '../../../../stores/utils/BaseInputFormStore.ts';
 import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { action, makeObservable, observable } from 'mobx';
-import { INode } from '../../../../stores/contract/nodesUtils.ts';
+import { INode } from '../../../../stores/utils/fetchNodeList.ts';
 
 export class SwapStore extends BaseInputFormStore {
     public autoStake = true;

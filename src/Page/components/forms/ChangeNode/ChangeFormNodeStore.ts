@@ -2,7 +2,7 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { BaseFormStore, FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 import { AppStore } from '../../../../stores/AppStore.ts';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { INode } from '../../../../stores/contract/nodesUtils.ts';
+import { INode } from '../../../../stores/utils/fetchNodeList.ts';
 
 export class ChangeFormNodeStore extends BaseFormStore {
 
@@ -27,8 +27,7 @@ export class ChangeFormNodeStore extends BaseFormStore {
 	} {
 		return {
 			call: {
-				// todo
-				function: 'changeNode',
+				function: 'setStakingNode',
 				args: [
 					{ type: 'string', value: this.node?.address },
 				],
@@ -52,7 +51,11 @@ export class ChangeFormNodeStore extends BaseFormStore {
 	public check(): boolean {
 		this.updateIsConfirmClicked(true);
 		this.updateSignError(undefined);
-		return this.isEnoughMoney && !!this.node;
+		return (
+			this.isEnoughMoney &&
+			!!this.node &&
+			this.node.address !== this.rs.contractStore.userNode?.address
+		);
 	}
 
 	public setNode(node: INode): void {

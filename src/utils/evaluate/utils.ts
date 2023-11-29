@@ -11,7 +11,12 @@ export type TIntValue = {
 
 export type TArrayValue = Array<TIntValue | TStringValue>;
 
-export type TObjectValue = Record<string, TIntValue | TStringValue>
+export type TArrayValues = {
+    type: 'Array';
+    value: TArrayValue;
+}
+
+export type TObjectValue = Record<string, TIntValue | TStringValue | TArrayValues>
 
 export interface ITupleValue<TValue = string | TArrayValue | TObjectValue> {
     '_1': {
@@ -60,20 +65,24 @@ type StringOrArrOrObj<T, K> = K extends string ?
     K extends object ? T : T[];
 
 export function parseOrderedTupleValue(
-    values: { ['_index']: TStringValue | TIntValue },
+    values: { ['_index']: TStringValue | TIntValue | TArrayValues },
     MAP: Array<string>
 ) {
     return Object.entries(values).reduce((acc, [valueKey, { type, value }]) => {
         const index = Number(valueKey.replace('_', ''));
         const key = MAP[index - 1];
         if (key) {
-            acc[key] = type === 'Int' ? Number(value) : value;
+            acc[key] = type === 'Int' ?
+                Number(value) :
+                type === 'Array' ?
+                    (value as TArrayValue).map(({ value }) => value) :
+                    value;
         }
         return acc;
     }, Object.create(null));
 }
 
-export function parseTupleData<T, K = string | TArrayValue | TObjectValue>(
+export function parseTupleData<T, K = string | TArrayValue | TObjectValue | TArrayValues>(
     data: ITuple<K>,
     MAP: Array<string>,
     parseTupleFunc?: (tuple: K, MAP: Array<string>) => unknown

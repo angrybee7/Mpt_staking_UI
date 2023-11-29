@@ -5,21 +5,20 @@ import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
 import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
-import { action, computed, makeObservable, observable, reaction } from 'mobx';
+import { computed, makeObservable, observable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
 import { ITuple, parseOrderedTupleValue, parseTupleData } from '../../utils/evaluate/utils.ts';
 import { Money } from '@waves/data-entities';
-import { getNodes, INode } from './nodesUtils.ts';
+import { INode } from '../utils/fetchNodeList.ts';
 
 const COMMON_DATA_POLLING_TIME = 60_000;
+const USER_DATA_POLLING_TIME = 20_000;
 
 export class ContractStore extends ChildStore {
 
     public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IEvaluateResponse> = new FetchTracker();
-    public nodes: Array<INode> = [];
-    public userNode: INode;
 
     constructor(rs: AppStore) {
         super(rs);
@@ -29,10 +28,8 @@ export class ContractStore extends ChildStore {
 
         makeObservable(this, {
             availableForClaim: computed,
-            nodes: observable,
-            setNodes: action.bound,
-            userNode: observable,
-            setUserNode: action.bound,
+            nodes: computed,
+            userNode: computed,
         })
 
         this.commonContractData = new FetchTracker<any, any>({
@@ -58,9 +55,8 @@ export class ContractStore extends ChildStore {
                             evaluate(evaluateUrl, { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }),
                         parser: this.userDataParser,
                         autoFetch: true,
-                        refreshInterval: COMMON_DATA_POLLING_TIME
+                        refreshInterval: USER_DATA_POLLING_TIME
                     })
-                    this.initNodes();
                 } else {
                     this.userContractData.off();
                 }
@@ -93,12 +89,25 @@ export class ContractStore extends ChildStore {
         )
     }
 
-    public setNodes(nodes: Array<INode>): void {
-        this.nodes = nodes;
+    public get nodes(): Array<INode> {
+        return this.userNode ?
+            [this.userNode, ...this.rs.configStore.nodeList] :
+            [...this.rs.configStore.nodeList];
     }
 
-    public setUserNode(node: INode): void {
-        this.userNode = node;
+    public get userNode(): INode {
+        const userNodeAddress = this.userContractData?.data?.userStakingNodes && this.userContractData?.data?.userStakingNodes[0];
+        if (!userNodeAddress) {
+            return;
+        }
+        return (
+            this.rs.configStore.nodeList.find(({ address }) => address === userNodeAddress) ||
+            ({
+                address: userNodeAddress,
+                name: 'Unknown node',
+                img: ''
+            })
+        );
     }
 
     private userDataParser = (data: IEvaluateResponse): IUserContractData => {
@@ -157,12 +166,4 @@ export class ContractStore extends ChildStore {
             }
         );
     };
-
-    private initNodes(): void {
-        getNodes()
-            .then((nodes) => {
-                this.nodes = nodes;
-                this.userNode = nodes && nodes[1];
-            })
-    }
 }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ISelectParams, Select } from '../DefaultSelect';
-import { INode } from '../../../stores/contract/nodesUtils.ts';
 import { NodeSelected } from './NodeSelected.tsx';
 import { NodesList } from './NodesList.tsx';
+import { INode } from '../../../stores/utils/fetchNodeList.ts';
 
 interface INodeSelectParams extends Omit<ISelectParams, 'renderSelected'> {
 	nodes: Array<INode>;
@@ -19,11 +19,19 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 	isError,
 	...selectProps
 }) => {
-	React.useEffect((): void => {
-		if (nodes?.length === 1) {
+	const selectFirstNode = React.useCallback((): void => {
+		if (
+			nodes?.length === 1 &&
+			!selectedNode
+		) {
 			onChangeNode(nodes[0]);
 		}
-	}, [onChangeNode, nodes]);
+	}, [onChangeNode, nodes, selectedNode]);
+
+	React.useEffect((): void => {
+		selectFirstNode();
+	}, []);
+
 	return (
 		<Select
 			renderSelected={({ opened }): React.ReactElement => {

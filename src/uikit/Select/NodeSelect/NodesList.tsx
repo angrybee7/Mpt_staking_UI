@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TFlexProps } from '@waves.exchange/wx-react-uikit';
 import { ListWrapper } from '../DefaultSelect/ListWrapper.tsx';
-import { INode } from '../../../stores/contract/nodesUtils.ts';
 import { NodeOption } from './NodeOption.tsx';
+import { INode } from '../../../stores/utils/fetchNodeList.ts';
 
 interface INodesList {
 	nodes: Array<INode>;

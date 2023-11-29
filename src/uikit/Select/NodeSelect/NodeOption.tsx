@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Box, Flex, TFlexProps } from '@waves.exchange/wx-react-uikit';
-import { INode } from '../../../stores/contract/nodesUtils.ts';
 import { Text } from 'uikit';
 import { shortAddress } from '../../../utils';
+import { INode } from '../../../stores/utils/fetchNodeList.ts';
 
 interface INodeOption {
 	node: INode;
@@ -69,6 +69,7 @@ export const NodeOption: React.FC<INodeOption & Omit<TFlexProps, 'onClick'>> = (
 				height={24}
 				backgroundImage={`url(${node.img})`}
 				backgroundRepeat="no-repeat"
+				backgroundSize="contain"
 				mr={8}
 				mb={4}
 			/>

@@ -3,8 +3,8 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../stores/utils/BaseInputFormStore.ts';
-import { INode } from '../../../../stores/contract/nodesUtils.ts';
 import { action, makeObservable, observable } from 'mobx';
+import { INode } from '../../../../stores/utils/fetchNodeList.ts';
 
 export class StakeStore extends BaseInputFormStore {
 

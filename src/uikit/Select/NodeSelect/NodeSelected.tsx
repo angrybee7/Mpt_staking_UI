@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { TFlexProps } from '@waves.exchange/wx-react-uikit';
-import { INode } from '../../../stores/contract/nodesUtils.ts';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { NodeOption } from './NodeOption.tsx';
 import { SelectedWrapper } from 'uikit';
+import { INode } from '../../../stores/utils/fetchNodeList.ts';
 
 interface INodeSelected {
 	opened: boolean;

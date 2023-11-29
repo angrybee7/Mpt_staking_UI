@@ -32,25 +32,31 @@ export const ChangeNodeForm: React.FC = () => {
 						<Text as="div" variant="heading2" mb={16}>
 							<Trans i18key="changeStakingNode" />
 						</Text>
-						<Text as="div" variant="text1" mb={8}>
-							<Trans i18key="currentStakingNode" />
-						</Text>
-						<Text as="div" variant="heading3" mb={8}>
-							{rs.contractStore.userNode?.name}
-						</Text>
-						<Text
-							as="div"
-							variant="text1"
-							color="textsec"
-							fontFamily="Sfmono"
-							maxWidth={300}
-							mb={16}
-							sx={{
-								overflowWrap: 'anywhere'
-							}}
-						>
-							{rs.contractStore.userNode?.address}
-						</Text>
+						{
+							rs.contractStore.userNode ?
+								<>
+									<Text as="div" variant="text1" mb={8}>
+										<Trans i18key="currentStakingNode" />
+									</Text>
+									<Text as="div" variant="heading3" mb={8}>
+										{rs.contractStore.userNode?.name}
+									</Text>
+									<Text
+										as="div"
+										variant="text1"
+										color="textsec"
+										fontFamily="Sfmono"
+										maxWidth={300}
+										mb={16}
+										sx={{
+											overflowWrap: 'anywhere'
+										}}
+									>
+										{rs.contractStore.userNode?.address}
+									</Text>
+								</> :
+								null
+						}
 						<NodeSelect
 							nodes={
 								rs.contractStore.nodes.filter((node) => {
