@@ -15,6 +15,9 @@ import { BalanceComponent } from '../../../../components/BalanceComponent/Balanc
 import { AppStoreContext } from '../../../../App.tsx';
 import { Observer } from 'mobx-react-lite';
 import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner';
+import { LabelComponent } from '../../../../components/LabelComponent/LabelComponent.tsx';
+import { stylesByVariant } from '../../../../components/BalanceComponent/helpers.ts';
+import { BlocksToTime } from '../../../../components/BlocksToTime/index.tsx';
 
 enum ERROR {
     uncheckedTerms = 'uncheckedTerms',
@@ -102,21 +105,49 @@ export const ConnectBlock: FC = memo(() => {
                 <Box width="100%" flex={1} maxHeight="20vh" borderLeft="1px solid #C6DAE6" />
                 <Observer>
                     {(): ReactElement => (
-                        <BalanceComponent
-                            balance={contractStore.commonContractData.isFirstLoad ?
-                                <DotSpinner color="text" fontSize="32px" /> :
-                                contractStore.annual
-                            }
-                            label={{ i18key: 'estimatedAnnualInterest' }}
-                            labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}
-                            ticker={contractStore.commonContractData.isFirstLoad ? '' : '%'}
-                            align="left"
-                            mt="24px"
-                            mb={[null, '24px']}
-                            variant={['large']}
-                            pl="20px"
-                            borderLeft="1px solid #C6DAE6"
-                        />
+                        <Flex flexDirection={['column', 'row']}>
+                            <BalanceComponent
+                                balance={contractStore.commonContractData.isFirstLoad ?
+                                    <DotSpinner color="text" fontSize="32px" /> :
+                                    contractStore.annual
+                                }
+                                label={{ i18key: 'estimatedAnnualInterest' }}
+                                labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}
+                                ticker={contractStore.commonContractData.isFirstLoad ? '' : '%'}
+                                align="left"
+                                mt="24px"
+                                mb={[null, '24px']}
+                                pl="20px"
+                                width={['100%', '50%']}
+                                borderLeft="1px solid #C6DAE6"
+                            />
+                            <LabelComponent
+                                label={{ i18key: 'remainingTime' }}
+                                labelHelp={{ i18key: 'remainingTimeHelp' }}
+                                variant="text1"
+                                colorTitle={stylesByVariant.medium.label.color}
+                                align="left"
+                                mt="24px"
+                                mb={[null, '24px']}
+                                width={['100%', '50%']}
+                                pl={['20px', '0']}
+                                borderLeft={['1px solid #C6DAE6', '0']}
+                            >
+                                <Text variant="heading2" color="main">
+                                    {BlocksToTime({
+                                        blocks: 10000,
+                                        options: {
+                                            useYears: true,
+                                            useMonth: true,
+                                            useWeeks: true,
+                                            showTime: true,
+                                            shortFormat: true,
+                                            split: ' '
+                                        }
+                                    })}
+                                </Text>
+                            </LabelComponent>
+                        </Flex>
                     )}
                 </Observer>
                 <Box width="100%" height="40px" borderLeft="1px solid #C6DAE6" display={['none', 'block']} />
