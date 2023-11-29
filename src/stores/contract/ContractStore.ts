@@ -8,7 +8,7 @@ import { ICommonContractData, IUserAssets, IUserContractData } from './interface
 import { action, computed, makeObservable, observable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
-import { ITuple, parseTupleData } from '../../utils/evaluate/utils.ts';
+import { ITuple, parseOrderedTupleValue, parseTupleData } from '../../utils/evaluate/utils.ts';
 import { Money } from '@waves/data-entities';
 import { getNodes, INode } from './nodesUtils.ts';
 
@@ -82,8 +82,7 @@ export class ContractStore extends ChildStore {
     }
 
     public get availableForClaim(): Money {
-        // todo
-        return new Money(50000000000, this.rs.assetsStore.LPToken);
+        return this.userContractData.data?.userLockedInternalLpAmount || new Money(0, this.rs.assetsStore.LPToken);
     }
 
     public get totalStaked(): Money {
@@ -108,14 +107,27 @@ export class ContractStore extends ChildStore {
             'availableToWithdraw',
             'currentInternalLPPrice',
             'userTotalStaked',
-            'userTotalWithdrawn'
+            'userTotalWithdrawn',
+            'userLockedInternalLpAmount',
+            'userLockedTokenAmount',
+            'userStakingNodes',
+            'userStakingNodesShares',
         ];
-        const parsedTuple = parseTupleData<IUserAssets>(data as ITuple, USER_ASSETS_VALUES);
+        const parsedTuple = parseTupleData<IUserAssets>(
+            data as ITuple,
+            USER_ASSETS_VALUES,
+            parseOrderedTupleValue
+        );
         const getLpAmount = moneyFactory(new Money(0, this.rs.assetsStore.LPToken));
         const getPrice = moneyFactory(new Money(0, this.rs.assetsStore.WAVES));
         return Object.keys(parsedTuple).reduce((acc, key) => {
-            if (key === 'currentInternalLPPrice') {
+            if (key === 'currentInternalLPPrice' || key === 'userLockedTokenAmount') {
                 acc[key] = getPrice(parsedTuple[key]);
+                return acc;
+            }
+
+            if (key === 'userStakingNodes' || key === 'userStakingNodesShares') {
+                acc[key] = parsedTuple[key];
                 return acc;
             }
             acc[key] = getLpAmount(parsedTuple[key]);

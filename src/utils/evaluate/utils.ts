@@ -55,18 +55,36 @@ export const getTupleValue = <T = string | TArrayValue>(data: ITuple<T>): T => {
     return data.result.value['_2'].value;
 };
 
-type StringOrArr<T, K> = K extends string
-    ? T
-    : T[];
+type StringOrArrOrObj<T, K> = K extends string ?
+    T :
+    K extends object ? T : T[];
+
+export function parseOrderedTupleValue(
+    values: { ['_index']: TStringValue | TIntValue },
+    MAP: Array<string>
+) {
+    return Object.entries(values).reduce((acc, [valueKey, { type, value }]) => {
+        const index = Number(valueKey.replace('_', ''));
+        const key = MAP[index - 1];
+        if (key) {
+            acc[key] = type === 'Int' ? Number(value) : value;
+        }
+        return acc;
+    }, Object.create(null));
+}
 
 export function parseTupleData<T, K = string | TArrayValue | TObjectValue>(
-    data: ITuple<K>, MAP: Array<string>
-): StringOrArr<T, K> {
+    data: ITuple<K>,
+    MAP: Array<string>,
+    parseTupleFunc?: (tuple: K, MAP: Array<string>) => unknown
+): StringOrArrOrObj<T, K> {
     const tupleValue = getTupleValue<K>(data);
-    if (typeof tupleValue === 'string') {
-        return parseSearchStr<T>(tupleValue, MAP) as StringOrArr<T, K>;
+    if (typeof parseTupleFunc === 'function') {
+        return parseTupleFunc(tupleValue, MAP) as StringOrArrOrObj<T, K>;
+    } else if (typeof tupleValue === 'string') {
+        return parseSearchStr<T>(tupleValue, MAP) as StringOrArrOrObj<T, K>;
     } else if (Array.isArray(tupleValue)) {
-        return parseArrOfSearchStr<T>(tupleValue as unknown as TArrayValue, MAP) as StringOrArr<T, K>;
+        return parseArrOfSearchStr<T>(tupleValue as unknown as TArrayValue, MAP) as StringOrArrOrObj<T, K>;
     } else {
         return Object.values(tupleValue).reduce((acc, { type, value }, i) => {
             const key = MAP[i];

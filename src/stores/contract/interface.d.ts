@@ -20,4 +20,8 @@ interface IUserContractData {
     currentInternalLPPrice: Money; // ??
     userTotalStaked: Money;
     userTotalWithdrawn: Money;
+    userLockedInternalLpAmount: Money;
+    userLockedTokenAmount: Money;
+    userStakingNodes: Array<string>;
+    userStakingNodesShares: Array<number>;
 }
