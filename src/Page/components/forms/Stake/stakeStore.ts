@@ -3,7 +3,7 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../stores/utils/BaseInputFormStore.ts';
-import { action, makeObservable, observable, reaction } from 'mobx';
+import { action, computed, makeObservable, observable, reaction } from 'mobx';
 import { INode } from '../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
 
@@ -16,6 +16,7 @@ export class StakeStore extends BaseInputFormStore {
         makeObservable(this, {
             node: observable,
             setNode: action.bound,
+            nodeSelectError: computed,
         });
 
         let initialUserNode = this.rs.contractStore.userNode;

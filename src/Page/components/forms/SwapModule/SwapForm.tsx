@@ -114,17 +114,21 @@ export const SwapForm: React.FC = () => {
                                 <Trans i18key={'swapCheckbox'} />
                             </Checkbox>
                             {
-                                !contractStore.userNode || contractStore.userContractData?.data?.availableToWithdraw?.getTokens().isPositive() ?
-                                    <NodeSelect
-                                        nodes={
-                                            rs.contractStore.nodes.filter((node) => {
-                                                return node.address !== swapStore.node?.address;
-                                            })
-                                        }
-                                        selectedNode={swapStore.node}
-                                        onChangeNode={swapStore.setNode}
-                                        mt={16}
-                                    /> :
+                                swapStore.autoStake && !contractStore.userNode ?
+                                    <>
+                                        <NodeSelect
+                                            nodes={
+                                                rs.contractStore.nodes.filter((node) => {
+                                                    return node.address !== swapStore.node?.address;
+                                                })
+                                            }
+                                            selectedNode={swapStore.node}
+                                            onChangeNode={swapStore.setNode}
+                                            mt={16}
+                                            isError={!!swapStore.nodeSelectError?.error}
+                                        />
+                                        <InputErrors error={swapStore.nodeSelectError?.error} />
+                                    </> :
                                     null
                             }
                             <Flex mt={16}>
