@@ -104,5 +104,6 @@
     "totalStakingHelp": "Calculated as a sum of accrued funds that are currently in staking till the L2 network launch and your own staking contribution.",
     "currentStakingNode": "Current Staking Node",
     "stakingNode": "Staking Node",
-    "selectNode": "Select node"
+    "selectNode": "Select node",
+    "noNodeSelected": "No node selected"
 }
