@@ -16,6 +16,8 @@
     "unstake": "Unstake",
     "availableForStaking": "Available for Staking",
     "availableForUnstaking": "Available for Unstaking",
+    "remainingTime": "Remaining Time",
+    "remainingTimeHelp": "Stake L2MP token till the end of specified period to receive staking rewards.",
     "estimatedAnnualInterest": "Estimated Annual Interest",
     "estimatedAnnualInterestHelp": "Estimated Annual Interest calculated as ratio of total profit to total amount in staking.",
     "error": {
@@ -94,5 +96,16 @@
     "availableToSwap": "Available for Swap",
     "youReceive": "You Receive",
     "swapCheckbox": "Stake straight after the swap.",
-    "swapAndStake": "Swap & Stake"
+    "swapAndStake": "Swap & Stake",
+    "availableForClaim": "Available for Claiming",
+    "accrued": "Accrued:",
+    "claim": "Claim",
+    "claimIsUnavailable": "Claim is currently unavailable as funds are staked. You will be able to claim funds with interest after the L2 network launch.",
+    "changeStakingNode": "Change Staking Node",
+    "totalStaking": "Total Staked",
+    "totalStakingHelp": "Calculated as a sum of accrued funds that are currently in staking till the L2 network launch and your own staking contribution.",
+    "currentStakingNode": "Current Staking Node",
+    "stakingNode": "Staking Node",
+    "selectNode": "Select node",
+    "noNodeSelected": "No node selected"
 }

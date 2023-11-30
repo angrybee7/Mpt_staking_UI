@@ -23,7 +23,16 @@ export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
                                 <Trans i18key="swap" />
                             </Text>
                         </AccordionHeader>
-                        <AccordionPanel my={0} py={2}>
+                        <AccordionPanel
+                            my={0}
+                            py={2}
+                            overflow="initial"
+                            sx={{
+                                '& > div': {
+                                    overflow: 'initial'
+                                }
+                            }}
+                        >
                             <SwapForm />
                         </AccordionPanel>
                     </AccordionItem>

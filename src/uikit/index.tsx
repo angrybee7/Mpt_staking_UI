@@ -14,3 +14,6 @@ export * from './Accordion/AccordionHeader';
 export * from './Accordion/AccordionItem';
 export * from './Accordion/AccordionPanel';
 export * from './Accordion/AccordionItemContext';
+export * from './Tooltip/Tooltip.tsx';
+export * from './Select/NodeSelect';
+export * from './Select/DefaultSelect';

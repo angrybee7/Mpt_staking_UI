@@ -6,6 +6,7 @@ import {
     FormattedInput,
     InputErrors,
     MultiErrorComponent,
+    NodeSelect,
     Text
 } from 'uikit';
 import { StakeStore } from './stakeStore.ts';
@@ -19,6 +20,9 @@ import { Trans } from '@waves/ui-translator';
 import { FORM_STATE } from '../../../../stores/utils/BaseFormStore.ts';
 import { USER_TYPES } from '../../../../stores/AuthStore.ts';
 import { DotSpinner } from '../../../../components/DotSpinner/DotSpinner';
+import { LabelComponent } from '../../../../components/LabelComponent/LabelComponent.tsx';
+import { stylesByVariant } from '../../../../components/BalanceComponent/helpers.ts';
+import { BlocksToTime } from '../../../../components/BlocksToTime/index.tsx';
 
 export const devices = {
     [USER_TYPES.keeper]: 'Keeper Wallet',
@@ -28,6 +32,7 @@ export const devices = {
 
 export const StakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
+    const { contractStore } = rs;
 
     const stakeStore = React.useMemo(() => {
         return new StakeStore({
@@ -46,11 +51,7 @@ export const StakeForm: React.FC = () => {
                             <Trans i18key="stake" />
                         </Text>
                         <Flex flexDirection="column">
-                            <Flex
-                                flexDirection={['column', 'row']}
-                                justifyContent="space-between"
-                                mb={balance?.getTokens().gt(0) ? '16px' : null}
-                            >
+                            <Flex flexDirection={['column', 'row']} justifyContent="space-between">
                                 <BalanceComponent
                                     balance={balance?.getTokens().gt(0) ? balance?.getTokens()?.toFormat() : '0.00'}
                                     label={{ i18key: 'availableForStaking' }}
@@ -67,6 +68,29 @@ export const StakeForm: React.FC = () => {
                                     align="left"
                                 />
                             </Flex>
+                            <LabelComponent
+                                label={{ i18key: 'remainingTime' }}
+                                labelHelp={{ i18key: 'remainingTimeHelp' }}
+                                variant="text1"
+                                colorTitle={stylesByVariant.medium.label.color}
+                                align="left"
+                                my="16px"
+                            >
+                                <Text variant="heading2" color="main">
+                                    {BlocksToTime({
+                                        blocks: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0),
+                                        options: {
+                                            useYears: true,
+                                            useMonth: true,
+                                            useWeeks: true,
+                                            showTime: true,
+                                            shortFormat: true,
+                                            isZero: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0) === 0,
+                                            split: ' '
+                                        }
+                                    })}
+                                </Text>
+                            </LabelComponent>
                             {balance && balance?.getTokens().gt(0) ?
                                 <>
                                     <FormattedInput
@@ -87,6 +111,24 @@ export const StakeForm: React.FC = () => {
                                         placeholder='000000000000'
                                     />
                                     <InputErrors error={stakeStore.amountError?.error}/>
+                                    {
+                                        !contractStore.userNode ?
+                                            <>
+                                                <NodeSelect
+                                                    nodes={
+                                                        rs.contractStore.nodes.filter((node) => {
+                                                            return node.address !== stakeStore.node?.address;
+                                                        })
+                                                    }
+                                                    selectedNode={stakeStore.node}
+                                                    onChangeNode={stakeStore.setNode}
+                                                    mt={16}
+                                                    isError={!!stakeStore.nodeSelectError?.error}
+                                                />
+                                                <InputErrors error={stakeStore.nodeSelectError?.error}/>
+                                            </> :
+                                            null
+                                    }
                                     <FeeComponent my="16px" />
                                     <MultiErrorComponent activeErrors={stakeStore.activeErrors} />
                                     <Button

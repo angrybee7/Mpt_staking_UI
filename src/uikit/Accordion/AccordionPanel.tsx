@@ -13,7 +13,11 @@ const commonStyles = {
     overflow: 'hidden',
 };
 
-export const AccordionPanel: React.FC<BoxProps> = ({ children, ...rest }) => {
+export const AccordionPanel: React.FC<BoxProps> = ({
+    children,
+    overflow,
+    ...rest
+}) => {
     const { isExpanded, isDisabled, variant } =
         useContext(AccordionItemContext);
     const styles = isExpanded
@@ -38,6 +42,7 @@ export const AccordionPanel: React.FC<BoxProps> = ({ children, ...rest }) => {
             mt={variant === 'default' ? 10 : 0}
             {...styles as any}
             {...rest}
+            overflow={isExpanded ? overflow || styles.overflow : styles.overflow}
         >
             <Box
                 // maxHeight={476}

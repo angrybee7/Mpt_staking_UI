@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 
 import { AccordionItemContext } from './AccordionItemContext';
-import { chevron, Flex, Icon, TFlexProps } from '@waves.exchange/wx-react-uikit';
+import { Flex, Icon, TFlexProps } from '@waves.exchange/wx-react-uikit';
 import { accordionArrow } from './accordionArrow.tsx';
 
 export type TAccordionHeader = Omit<TFlexProps, 'onClick'> & {

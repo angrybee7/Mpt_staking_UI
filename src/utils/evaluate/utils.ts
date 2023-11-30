@@ -11,7 +11,12 @@ export type TIntValue = {
 
 export type TArrayValue = Array<TIntValue | TStringValue>;
 
-export type TObjectValue = Record<string, TIntValue | TStringValue>
+export type TArrayValues = {
+    type: 'Array';
+    value: TArrayValue;
+}
+
+export type TObjectValue = Record<string, TIntValue | TStringValue | TArrayValues>
 
 export interface ITupleValue<TValue = string | TArrayValue | TObjectValue> {
     '_1': {
@@ -55,18 +60,40 @@ export const getTupleValue = <T = string | TArrayValue>(data: ITuple<T>): T => {
     return data.result.value['_2'].value;
 };
 
-type StringOrArr<T, K> = K extends string
-    ? T
-    : T[];
+type StringOrArrOrObj<T, K> = K extends string ?
+    T :
+    K extends object ? T : T[];
 
-export function parseTupleData<T, K = string | TArrayValue | TObjectValue>(
-    data: ITuple<K>, MAP: Array<string>
-): StringOrArr<T, K> {
+export function parseOrderedTupleValue(
+    values: { ['_index']: TStringValue | TIntValue | TArrayValues },
+    MAP: Array<string>
+) {
+    return Object.entries(values).reduce((acc, [valueKey, { type, value }]) => {
+        const index = Number(valueKey.replace('_', ''));
+        const key = MAP[index - 1];
+        if (key) {
+            acc[key] = type === 'Int' ?
+                Number(value) :
+                type === 'Array' ?
+                    (value as TArrayValue).map(({ value }) => value) :
+                    value;
+        }
+        return acc;
+    }, Object.create(null));
+}
+
+export function parseTupleData<T, K = string | TArrayValue | TObjectValue | TArrayValues>(
+    data: ITuple<K>,
+    MAP: Array<string>,
+    parseTupleFunc?: (tuple: K, MAP: Array<string>) => unknown
+): StringOrArrOrObj<T, K> {
     const tupleValue = getTupleValue<K>(data);
-    if (typeof tupleValue === 'string') {
-        return parseSearchStr<T>(tupleValue, MAP) as StringOrArr<T, K>;
+    if (typeof parseTupleFunc === 'function') {
+        return parseTupleFunc(tupleValue, MAP) as StringOrArrOrObj<T, K>;
+    } else if (typeof tupleValue === 'string') {
+        return parseSearchStr<T>(tupleValue, MAP) as StringOrArrOrObj<T, K>;
     } else if (Array.isArray(tupleValue)) {
-        return parseArrOfSearchStr<T>(tupleValue as unknown as TArrayValue, MAP) as StringOrArr<T, K>;
+        return parseArrOfSearchStr<T>(tupleValue as unknown as TArrayValue, MAP) as StringOrArrOrObj<T, K>;
     } else {
         return Object.values(tupleValue).reduce((acc, { type, value }, i) => {
             const key = MAP[i];

@@ -26,5 +26,6 @@ export default<TConfig> {
         { label: 'WAVES', id: 'WAVES' },
         { label: 'L2MP', id: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg' },
 		{ label: 'XTN', id: 'DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p' },
-    ]
+    ],
+    nodes: 'https://configs.wx.network/leasing/mainnet-config.json',
 };

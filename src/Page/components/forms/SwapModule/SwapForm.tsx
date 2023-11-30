@@ -8,7 +8,8 @@ import {
     FormattedInput,
     InputErrors,
     MultiErrorComponent,
-    Text,
+    NodeSelect,
+    Text
 } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 import { Observer } from 'mobx-react-lite';
@@ -49,7 +50,7 @@ const SwapItem: React.FC<{ asset: AssetWithMeta }> = ({ asset }) => {
 
 export const SwapForm: React.FC = () => {
     const rs = useContext(AppStoreContext);
-    const { assetsStore, balanceStore } = rs;
+    const { assetsStore, balanceStore, contractStore } = rs;
 
     const swapStore = React.useMemo(() => {
         return new SwapStore({
@@ -112,6 +113,24 @@ export const SwapForm: React.FC = () => {
                             >
                                 <Trans i18key={'swapCheckbox'} />
                             </Checkbox>
+                            {
+                                swapStore.autoStake && !contractStore.userNode ?
+                                    <>
+                                        <NodeSelect
+                                            nodes={
+                                                rs.contractStore.nodes.filter((node) => {
+                                                    return node.address !== swapStore.node?.address;
+                                                })
+                                            }
+                                            selectedNode={swapStore.node}
+                                            onChangeNode={swapStore.setNode}
+                                            mt={16}
+                                            isError={!!swapStore.nodeSelectError?.error}
+                                        />
+                                        <InputErrors error={swapStore.nodeSelectError?.error} />
+                                    </> :
+                                    null
+                            }
                             <Flex mt={16}>
                                 <Text color="text" mr={4}>
                                     <Trans i18key={'youReceive'} />:

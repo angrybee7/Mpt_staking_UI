@@ -11,7 +11,7 @@ export const getAlign = (align: 'left' | 'center' | 'right'): string => {
     }
 };
 
-const stylesByVariant: Record<TBalanceContentSize, any> = {
+export const stylesByVariant: Record<TBalanceContentSize, any> = {
     medium: {
         iconSize: '24px',
         label: { size: 'text1', color: '#292929', fontFamily: 'Sfmono-light' },

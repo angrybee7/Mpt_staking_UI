@@ -35,6 +35,7 @@ export const FormattedInput: React.FC<FormattedInputProps> = (props) => {
         <SerifWrapper
             sx={{ mx, my, mt, mr, mb, ml, width, maxWidth, position: 'relative' } as any}
             variant={wrapperVariant}
+            backgroundColor="#FFFFFF"
         >
             <FormattedInputKit
                 backgroundColor="transparent !important"
