@@ -94,7 +94,7 @@ export class ContractStore extends ChildStore {
     }
 
     public get availableForClaim(): Money {
-        return this.userContractData.data?.userLockedInternalLpAmount || new Money(0, this.rs.assetsStore.LPToken);
+        return this.userContractData.data?.userLockedTokenAmount || new Money(0, this.rs.assetsStore.LPToken);
     }
 
     public get totalStaked(): Money {
