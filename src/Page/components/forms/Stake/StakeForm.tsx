@@ -85,6 +85,7 @@ export const StakeForm: React.FC = () => {
                                             useWeeks: true,
                                             showTime: true,
                                             shortFormat: true,
+                                            isZero: true,
                                             split: ' '
                                         }
                                     })}

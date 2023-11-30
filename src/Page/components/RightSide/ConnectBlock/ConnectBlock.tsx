@@ -142,6 +142,7 @@ export const ConnectBlock: FC = memo(() => {
                                             useWeeks: true,
                                             showTime: true,
                                             shortFormat: true,
+                                            isZero: true,
                                             split: ' '
                                         }
                                     })}
