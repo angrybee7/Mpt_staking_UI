@@ -4,8 +4,8 @@ import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
-import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
-import { computed, makeObservable, observable, reaction } from 'mobx';
+import { ICommonContractData, IUserAssets, IUserContractData, ITotalAssetsContractData } from './interface';
+import { computed, makeObservable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
 import { ITuple, parseOrderedTupleValue, parseTupleData } from '../../utils/evaluate/utils.ts';
@@ -18,6 +18,7 @@ const USER_DATA_POLLING_TIME = 20_000;
 export class ContractStore extends ChildStore {
 
     public commonContractData: FetchTracker<ICommonContractData, IState>;
+    public totalAssetsContractData: FetchTracker<ITotalAssetsContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IEvaluateResponse> = new FetchTracker();
 
     constructor(rs: AppStore) {
@@ -30,7 +31,19 @@ export class ContractStore extends ChildStore {
             availableForClaim: computed,
             nodes: computed,
             userNode: computed,
-        })
+        });
+
+        this.totalAssetsContractData = new FetchTracker<any, any>({
+            fetchUrl: evaluateUrl,
+            fetcher: (evaluateUrl) =>
+                evaluate(
+                    evaluateUrl,
+                    { address: contractAddress, expr: 'getTotalAssetsREADONLY()' }
+                ),
+            parser: this.totalAssetsDataParser,
+            autoFetch: true,
+            refreshInterval: COMMON_DATA_POLLING_TIME,
+        });
 
         this.commonContractData = new FetchTracker<any, any>({
             fetchUrl: searchUrl,
@@ -52,16 +65,19 @@ export class ContractStore extends ChildStore {
                     this.userContractData.setOptions({
                         fetchUrl: evaluateUrl,
                         fetcher: (evaluateUrl) =>
-                            evaluate(evaluateUrl, { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }),
+                            evaluate(
+                                evaluateUrl,
+                                { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }
+                            ),
                         parser: this.userDataParser,
                         autoFetch: true,
                         refreshInterval: USER_DATA_POLLING_TIME
-                    })
+                    });
                 } else {
                     this.userContractData.off();
                 }
             },
-        )
+        );
     }
 
     public get annual(): string {
@@ -86,7 +102,7 @@ export class ContractStore extends ChildStore {
         return zeroMoney.cloneWithTokens(
             this.availableForClaim.getTokens()
                 .add(this.userContractData.data.availableToWithdraw?.getTokens() || 0)
-        )
+        );
     }
 
     public get nodes(): Array<INode> {
@@ -121,6 +137,7 @@ export class ContractStore extends ChildStore {
             'userLockedTokenAmount',
             'userStakingNodes',
             'userStakingNodesShares',
+            'remainingBlocks'
         ];
         const parsedTuple = parseTupleData<IUserAssets>(
             data as ITuple,
@@ -135,14 +152,41 @@ export class ContractStore extends ChildStore {
                 return acc;
             }
 
-            if (key === 'userStakingNodes' || key === 'userStakingNodesShares') {
+            if (key === 'userStakingNodes' || key === 'userStakingNodesShares' || key === 'remainingBlocks') {
                 acc[key] = parsedTuple[key];
                 return acc;
             }
             acc[key] = getLpAmount(parsedTuple[key]);
             return acc;
         }, {} as IUserContractData);
-    }
+    };
+
+    private totalAssetsDataParser = (data: IEvaluateResponse): ITotalAssetsContractData => {
+        const TOTAL_ASSETS_VALUES = [
+            'totalAvailableInternalLp',
+            'totalAvailableToWithdraw',
+            'currentInternalLPPrice',
+            'totalLockedInternalLpAmount',
+            'totalLockedTokenAmount',
+            'remainingBlocks'
+        ];
+        const parsedTuple = parseTupleData<IUserAssets>(data as ITuple, TOTAL_ASSETS_VALUES, parseOrderedTupleValue);
+        const getLpAmount = moneyFactory(new Money(0, this.rs.assetsStore.LPToken));
+        const getPrice = moneyFactory(new Money(0, this.rs.assetsStore.WAVES));
+        return Object.keys(parsedTuple).reduce((acc, key) => {
+            if (key === 'currentInternalLPPrice') {
+                acc[key] = getPrice(parsedTuple[key]);
+                return acc;
+            }
+
+            if (key === 'remainingBlocks') {
+                acc[key] = parsedTuple[key];
+                return acc;
+            }
+            acc[key] = getLpAmount(parsedTuple[key]);
+            return acc;
+        }, {} as ITotalAssetsContractData);
+    };
 
     private contractDataParser = (data: IState): ICommonContractData => {
         const parseEntries = (key: string, value: string | number): Partial<ICommonContractData> => {
