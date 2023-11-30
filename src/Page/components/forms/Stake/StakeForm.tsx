@@ -111,18 +111,21 @@ export const StakeForm: React.FC = () => {
                                     />
                                     <InputErrors error={stakeStore.amountError?.error}/>
                                     {
-                                        !contractStore.userNode ||
-                                        contractStore.userContractData?.data?.availableToWithdraw?.getTokens().isPositive() ?
-                                            <NodeSelect
-                                                nodes={
-                                                    rs.contractStore.nodes.filter((node) => {
-                                                        return node.address !== stakeStore.node?.address;
-                                                    })
-                                                }
-                                                selectedNode={stakeStore.node}
-                                                onChangeNode={stakeStore.setNode}
-                                                mt={16}
-                                            /> :
+                                        !contractStore.userNode ?
+                                            <>
+                                                <NodeSelect
+                                                    nodes={
+                                                        rs.contractStore.nodes.filter((node) => {
+                                                            return node.address !== stakeStore.node?.address;
+                                                        })
+                                                    }
+                                                    selectedNode={stakeStore.node}
+                                                    onChangeNode={stakeStore.setNode}
+                                                    mt={16}
+                                                    isError={!!stakeStore.nodeSelectError?.error}
+                                                />
+                                                <InputErrors error={stakeStore.nodeSelectError?.error}/>
+                                            </> :
                                             null
                                     }
                                     <FeeComponent my="16px" />

@@ -32,12 +32,12 @@ export const ChangeNodeForm: React.FC = () => {
 						<Text as="div" variant="heading2" mb={16}>
 							<Trans i18key="changeStakingNode" />
 						</Text>
+						<Text as="div" variant="text1" mb={8}>
+							<Trans i18key="currentStakingNode" />
+						</Text>
 						{
 							rs.contractStore.userNode ?
 								<>
-									<Text as="div" variant="text1" mb={8}>
-										<Trans i18key="currentStakingNode" />
-									</Text>
 									<Text as="div" variant="heading3" mb={8}>
 										{rs.contractStore.userNode?.name}
 									</Text>
@@ -55,7 +55,9 @@ export const ChangeNodeForm: React.FC = () => {
 										{rs.contractStore.userNode?.address}
 									</Text>
 								</> :
-								null
+								<Text as="div" variant="heading3" mb={8}>
+									<Trans i18key="noNodeSelected" />
+								</Text>
 						}
 						<NodeSelect
 							nodes={

@@ -116,5 +116,8 @@ export class FetchTracker<T, K> {
         if (this.poll) {
             this.poll.destroy();
         }
+        runInAction(() => {
+            this.data = Object.create(null);
+        });
     }
 }
