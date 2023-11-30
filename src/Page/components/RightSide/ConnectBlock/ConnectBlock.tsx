@@ -142,7 +142,7 @@ export const ConnectBlock: FC = memo(() => {
                                             useWeeks: true,
                                             showTime: true,
                                             shortFormat: true,
-                                            isZero: true,
+                                            isZero: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0) === 0,
                                             split: ' '
                                         }
                                     })}

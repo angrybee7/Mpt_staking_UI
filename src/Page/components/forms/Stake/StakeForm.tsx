@@ -85,7 +85,7 @@ export const StakeForm: React.FC = () => {
                                             useWeeks: true,
                                             showTime: true,
                                             shortFormat: true,
-                                            isZero: true,
+                                            isZero: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0) === 0,
                                             split: ' '
                                         }
                                     })}
