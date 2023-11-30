@@ -41,13 +41,12 @@ export class SwapStore extends BaseInputFormStore {
         payment: Array<InvokeScriptPayment<string | number>> | null;
     } {
         console.info(this.node?.address);
-        // todo
         const call = this.autoStake && this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
             {
                 function: 'swapAndSetStakingNode',
                 args: [
-                    { type: 'string', value: this.node.address },
-                    { type: 'boolean', value: this.autoStake }
+                    { type: 'boolean', value: this.autoStake },
+                    { type: 'string', value: this.node.address }
                 ],
             } :
             {
