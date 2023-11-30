@@ -78,7 +78,7 @@ export const StakeForm: React.FC = () => {
                             >
                                 <Text variant="heading2" color="main">
                                     {BlocksToTime({
-                                        blocks: 1000000,
+                                        blocks: contractStore.totalAssetsContractData.data.remainingBlocks,
                                         options: {
                                             useYears: true,
                                             useMonth: true,
@@ -111,7 +111,8 @@ export const StakeForm: React.FC = () => {
                                     />
                                     <InputErrors error={stakeStore.amountError?.error}/>
                                     {
-                                        !contractStore.userNode || contractStore.userContractData?.data?.availableToWithdraw?.getTokens().isPositive() ?
+                                        !contractStore.userNode ||
+                                        contractStore.userContractData?.data?.availableToWithdraw?.getTokens().isPositive() ?
                                             <NodeSelect
                                                 nodes={
                                                     rs.contractStore.nodes.filter((node) => {
