@@ -135,7 +135,7 @@ export const ConnectBlock: FC = memo(() => {
                             >
                                 <Text variant="heading2" color="main">
                                     {BlocksToTime({
-                                        blocks: contractStore.totalAssetsContractData.data.remainingBlocks,
+                                        blocks: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0),
                                         options: {
                                             useYears: true,
                                             useMonth: true,
