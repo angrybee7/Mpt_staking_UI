@@ -5,6 +5,7 @@ import dns from 'dns';
 import react from '@vitejs/plugin-react';
 import htmlPlugin from 'vite-plugin-html-config';
 import openGraphConfig from './openGraphConfig.js';
+import { renameLocales } from './scripts/renameLocales';
 
 dns.setDefaultResultOrder('verbatim');
 
@@ -26,9 +27,15 @@ export default defineConfig({
         }
     },
     plugins: [
+        {
+            name: 'prepare',
+            buildStart() {
+                renameLocales();
+            }
+        },
         react(),
         htmlPlugin(htmlPluginOpt),
-        basicSsl()
+        basicSsl(),
     ],
     server: {
         port: 3001,
