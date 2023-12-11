@@ -59,7 +59,17 @@ export class ConfigStore {
         return fetchNodes(this.config.nodes)
             .then((nodes) => {
                 runInAction(() => {
-                    this.nodeList = nodes;
+                    this.nodeList = nodes.sort((nodeA, nodeB) => {
+                        const nameA = nodeA.name?.toLowerCase() || '';
+                        const nameB = nodeB.name?.toLowerCase() || '';
+                        if (nameA < nameB) {
+                            return -1;
+                        }
+                        if (nameA > nameB) {
+                            return 1;
+                        }
+                        return 0;
+                    });
                 })
             })
     }

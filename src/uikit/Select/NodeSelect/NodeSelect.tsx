@@ -3,12 +3,17 @@ import { ISelectParams, Select } from '../DefaultSelect';
 import { NodeSelected } from './NodeSelected.tsx';
 import { NodesList } from './NodesList.tsx';
 import { INode } from '../../../stores/utils/fetchNodeList.ts';
+import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
+import { Trans } from '@waves/ui-translator';
+import { NavLink } from 'react-router-dom';
+import { Text } from 'uikit';
 
 interface INodeSelectParams extends Omit<ISelectParams, 'renderSelected'> {
 	nodes: Array<INode>;
 	onChangeNode: (node: INode) => void;
 	initialNode?: INode;
 	selectedNode?: INode;
+	boxProps?: BoxProps;
 }
 
 export const NodeSelect: React.FC<INodeSelectParams> = ({
@@ -17,6 +22,7 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 	initialNode,
 	selectedNode,
 	isError,
+	boxProps,
 	...selectProps
 }) => {
 	const selectFirstNode = React.useCallback((): void => {
@@ -33,24 +39,35 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 	}, []);
 
 	return (
-		<Select
-			renderSelected={({ opened }): React.ReactElement => {
-				return (
-					<NodeSelected
-						opened={opened}
-						selected={selectedNode || initialNode}
-					/>
-				)
-			}}
-			isError={isError}
-			{...selectProps}
-		>
-			<NodesList
-				nodes={nodes}
-				onChangeNode={onChangeNode}
+		<Box {...boxProps as any}>
+			<Select
+				renderSelected={({ opened }): React.ReactElement => {
+					return (
+						<NodeSelected
+							opened={opened}
+							selected={selectedNode || initialNode}
+						/>
+					)
+				}}
 				isError={isError}
-			/>
-		</Select>
+				mb={16}
+				{...selectProps}
+			>
+				<NodesList
+					nodes={nodes}
+					onChangeNode={onChangeNode}
+					isError={isError}
+				/>
+			</Select>
+			<NavLink to="/stakingnodes">
+				<Text
+					variant="heading4"
+					color="main"
+				>
+					<Trans i18key="goToNodesPage" />
+				</Text>
+			</NavLink>
+		</Box>
 	)
 }
 

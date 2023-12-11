@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Box, Flex, TFlexProps } from '@waves.exchange/wx-react-uikit';
 import { getAlign } from '../../components/BalanceComponent/helpers';
 import { ITransProps, Trans } from '@waves/ui-translator';
-import { Help } from '../../uikit/Help/Help';
-import { TColor, Text, TTextVariant } from '../../uikit';
+import { Help } from 'uikit';
+import { TColor, Text, TTextVariant } from 'uikit';
 
 export type LabelComponentProps = {
     label: ITransProps;

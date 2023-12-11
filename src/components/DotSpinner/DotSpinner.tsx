@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Flex, TFlexProps } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../uikit/Text/Text';
+import { Text } from 'uikit';
 import { keyframes } from '@emotion/core';
 
 const dotsAnimation1 = keyframes({ '0%': { opacity: 0 }, '19%': { opacity: 0 }, '20%': { opacity: 1 } });

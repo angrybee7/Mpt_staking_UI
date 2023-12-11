@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Flex, Text } from '@waves.exchange/wx-react-uikit';
-import { Help } from '../../uikit/Help/Help';
+import { Help } from 'uikit';
 
 export const HelpStand: FC = () => {
     return (

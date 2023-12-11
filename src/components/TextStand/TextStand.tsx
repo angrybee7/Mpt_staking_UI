@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Flex } from '@waves.exchange/wx-react-uikit';
-import { Text } from '../../uikit/Text/Text';
+import { Text } from 'uikit';
 
 export const TextStand: FC = () => {
     return (

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Flex } from '@waves.exchange/wx-react-uikit';
-import { FeeComponent } from '../../uikit/FeeComponent/FeeComponent';
+import { FeeComponent } from 'uikit';
 
 export const FeeStand: FC = () => {
     return (
