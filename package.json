@@ -1,7 +1,7 @@
 {
   "name": "mpt-staking-ui",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "dev": "vite",
     "dev:testnet": "VITE_NETWORK=testnet vite",
@@ -36,7 +36,7 @@
     "ramda": "^0.28.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.20.1",
     "styled-system": "^5.1.4",
     "ts-utils": "^6.1.0"
   },

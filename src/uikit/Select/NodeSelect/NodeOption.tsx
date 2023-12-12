@@ -48,7 +48,7 @@ export const NodeOption: React.FC<INodeOption & Omit<TFlexProps, 'onClick'>> = (
 		<Flex
 			id={`node-option-container-${node.address}`}
 			flexDirection="row"
-			alignItems="center"
+			alignItems="flex-start"
 			justifyContent="flex-start"
 			flexWrap="wrap"
 			width="100%"
@@ -73,20 +73,26 @@ export const NodeOption: React.FC<INodeOption & Omit<TFlexProps, 'onClick'>> = (
 				mr={8}
 				mb={4}
 			/>
-			<Text
-				variant="heading3"
-				color="text"
+			<Flex
+				flexDirection="column"
+				alignItems="flex-start"
+				justifyContent="flex-start"
 				mr={8}
 			>
-				{node.name}
-			</Text>
-			<Text
-				variant="text1"
-				color="textsec"
-				fontFamily="Sfmono"
-			>
-				{_address || node.address}
-			</Text>
+				<Text
+					variant="heading3"
+					color="text"
+				>
+					{node.name}
+				</Text>
+				<Text
+					variant="text1"
+					color="textsec"
+					fontFamily="Sfmono"
+				>
+					{_address || node.address}
+				</Text>
+			</Flex>
 		</Flex>
 	)
 }

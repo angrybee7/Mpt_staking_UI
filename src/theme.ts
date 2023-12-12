@@ -9,6 +9,7 @@ export default {
         main: '#0983F3',
         bg: '#F6FAFB',
         error: '#F30909',
+        icon: '#C6D8E2',
     },
     breakpoints: ['1280px'],
 };

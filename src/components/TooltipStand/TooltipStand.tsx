@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Tooltip } from '../../uikit/Tooltip/Tooltip';
+import { Tooltip } from 'uikit';
 
 export const TooltipStand: FC = () => {
     return (

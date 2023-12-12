@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
-import { Checkbox } from '../../uikit/Checkbox/Checkbox';
+import { Checkbox } from 'uikit';
 
 export const CheckboxStand: FC = () => {
     const [checked, setChecked] = useState(false);

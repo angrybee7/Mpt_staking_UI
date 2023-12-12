@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Flex } from '@waves.exchange/wx-react-uikit';
-import { Button } from '../../uikit/Button/Button';
+import { Button } from 'uikit';
 
 export const ButtonsStand: React.FC = () => {
     return (
