@@ -107,7 +107,10 @@ export class ContractStore extends ChildStore {
 
     public get nodes(): Array<INode> {
         return this.userNode ?
-            [this.userNode, ...this.rs.configStore.nodeList] :
+            [
+                this.userNode,
+                ...this.rs.configStore.nodeList.filter((node) => node.address !== this.userNode.address)
+            ] :
             [...this.rs.configStore.nodeList];
     }
 

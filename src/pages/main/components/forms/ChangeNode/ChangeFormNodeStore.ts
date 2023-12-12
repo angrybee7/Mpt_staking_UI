@@ -6,7 +6,7 @@ import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 
 export class ChangeFormNodeStore extends BaseFormStore {
 
-	public node: INode = this.rs.contractStore.userNode;
+	public node: INode;
 
 	public get isButtonDisabled(): boolean {
 		return this.formState === FORM_STATE.pending;

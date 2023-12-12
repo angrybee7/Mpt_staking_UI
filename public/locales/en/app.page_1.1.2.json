@@ -109,5 +109,6 @@
   "selectNode": "Select node",
   "noNodeSelected": "No node selected",
   "goToNodesPage": "Go to the list of all staking nodes",
-  "stakingNodes": "Staking Nodes"
+  "stakingNodes": "Staking Nodes",
+  "selectNodeAndClick": "Select node and click on Change Staking Node to confirm"
 }

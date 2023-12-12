@@ -4,7 +4,7 @@ import { NodeSelected } from './NodeSelected.tsx';
 import { NodesList } from './NodesList.tsx';
 import { INode } from '../../../stores/utils/fetchNodeList.ts';
 import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
-import { Trans } from '@waves/ui-translator';
+import { ITransProps, Trans } from '@waves/ui-translator';
 import { NavLink } from 'react-router-dom';
 import { Text } from 'uikit';
 
@@ -14,6 +14,7 @@ interface INodeSelectParams extends Omit<ISelectParams, 'renderSelected'> {
 	initialNode?: INode;
 	selectedNode?: INode;
 	boxProps?: BoxProps;
+	placeholderTrans?: ITransProps;
 }
 
 export const NodeSelect: React.FC<INodeSelectParams> = ({
@@ -23,21 +24,9 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 	selectedNode,
 	isError,
 	boxProps,
+	placeholderTrans,
 	...selectProps
 }) => {
-	const selectFirstNode = React.useCallback((): void => {
-		if (
-			nodes?.length === 1 &&
-			!selectedNode
-		) {
-			onChangeNode(nodes[0]);
-		}
-	}, [onChangeNode, nodes, selectedNode]);
-
-	React.useEffect((): void => {
-		selectFirstNode();
-	}, []);
-
 	return (
 		<Box {...boxProps as any}>
 			<Select
@@ -46,6 +35,7 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 						<NodeSelected
 							opened={opened}
 							selected={selectedNode || initialNode}
+							placeholderTrans={placeholderTrans}
 						/>
 					)
 				}}
