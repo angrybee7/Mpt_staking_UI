@@ -16,12 +16,22 @@ import { devices } from '../Stake/StakeForm.tsx';
 import { FORM_STATE } from '../../../../../stores/utils/BaseFormStore.ts';
 import { DotSpinner } from '../../../../../components/DotSpinner/DotSpinner.tsx';
 import { ChangeFormNodeStore } from './ChangeFormNodeStore.ts';
+import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 
 export const ChangeNodeForm: React.FC = () => {
 	const rs = React.useContext(AppStoreContext);
+	const [buttonVariant, setButtonVariant] = React.useState<'primary' | 'secondary'>('primary');
 
 	const changeNodeStore = React.useMemo(() => {
 		return new ChangeFormNodeStore(rs);
+	}, []);
+
+	const onChangeNode = React.useCallback((node: INode) => {
+		changeNodeStore.setNode(node);
+		setButtonVariant('secondary');
+		setTimeout(() => {
+			setButtonVariant('primary');
+		}, 500);
 	}, []);
 
 	return (
@@ -62,18 +72,22 @@ export const ChangeNodeForm: React.FC = () => {
 						<NodeSelect
 							nodes={
 								rs.contractStore.nodes.filter((node) => {
-									return node.address !== changeNodeStore.node?.address;
+									return (
+										node.address !== changeNodeStore.node?.address &&
+										node.address !== rs.contractStore.userNode?.address
+									);
 								})
 							}
 							selectedNode={changeNodeStore.node}
-							onChangeNode={changeNodeStore.setNode}
+							onChangeNode={onChangeNode}
 							isError={changeNodeStore.isConfirmClicked && !changeNodeStore.node}
+							placeholderTrans={{ i18key: 'selectNodeAndClick', ns: 'app.page' }}
 						/>
 						<Flex flexDirection="column">
 							<FeeComponent my="16px" />
 							<MultiErrorComponent activeErrors={changeNodeStore.activeErrors} />
 							<Button
-								variant="primary"
+								variant={buttonVariant}
 								variantSize="large"
 								onClick={changeNodeStore.invoke}
 								disabled={changeNodeStore.isButtonDisabled}

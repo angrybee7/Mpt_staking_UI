@@ -108,6 +108,7 @@
   "stakingNode": "New Staking Node",
   "selectNode": "Select node",
   "noNodeSelected": "No node selected",
-  "goToNodesPage": "Go to the list of all staking nodes",
-  "stakingNodes": "Staking Nodes"
+  "goToNodesPage": "Go to the list of staking nodes",
+  "stakingNodes": "Staking Nodes",
+  "selectNodeAndClick": "Select node and click on Change Staking Node to confirm"
 }

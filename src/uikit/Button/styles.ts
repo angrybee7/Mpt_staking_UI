@@ -31,6 +31,22 @@ export const variants = {
             color: 'rgba(151, 168, 178, 1)',
             opacity: '.5',
         },
+    },
+    secondary: {
+        'bg': '#0983F3',
+        'color': '#EBF5FF',
+        'outline': 'none',
+        ':hover:not(:disabled)': {
+            backgroundColor: '#0983F3'
+        },
+        ':active:not(:disabled)': {
+            backgroundColor: '#0983F3',
+            opacity: '.7'
+        },
+        ':disabled': {
+            color: 'rgba(151, 168, 178, 1)',
+            opacity: '.5',
+        },
     }
 };
 

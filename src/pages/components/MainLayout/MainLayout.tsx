@@ -4,8 +4,11 @@ import mainBg from '../../../img/mainBg.svg';
 import { LeftSide } from '../LeftSide/LeftSide.tsx';
 import { Outlet } from 'react-router-dom';
 import { translate } from '@waves/ui-translator';
+import { useScrollTop } from '../../../hooks/useScrollTop.ts';
 
 export const MainLayoutFC: React.FC = () => {
+	useScrollTop();
+
 	return (
 		<Box height="100%" position="relative" sx={{ px: ['0', '40px'] }}>
 			<Box
