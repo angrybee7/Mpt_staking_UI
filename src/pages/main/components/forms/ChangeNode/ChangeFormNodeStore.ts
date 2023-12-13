@@ -45,6 +45,7 @@ export class ChangeFormNodeStore extends BaseFormStore {
 			this.rs.providerStore.sendInvoke(this.tx)
 		).then(() => {
 			this.reset();
+			this.setNode(undefined);
 		});
 	};
 
