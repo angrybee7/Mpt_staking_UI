@@ -1,5 +1,6 @@
 import { Money } from '@waves/data-entities';
 
+
 export const filterObjectCommonContract =  ({ contractAddress }) => {
     return {
         filter: {
