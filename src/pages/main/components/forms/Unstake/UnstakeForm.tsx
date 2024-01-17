@@ -6,7 +6,8 @@ import {
     FormattedInput,
     InputErrors,
     MultiErrorComponent,
-    Text
+    Text,
+    Tooltip
 } from 'uikit';
 import { AppStoreContext } from '../../../../../App.tsx';
 import { Observer } from 'mobx-react-lite';
@@ -22,6 +23,7 @@ import { DotSpinner } from '../../../../../components/DotSpinner/DotSpinner.tsx'
 
 export const UnstakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
+    const { contractStore } = React.useContext(AppStoreContext);
 
     const unstakeStore = React.useMemo(() => {
         return new UnstakeStore({
@@ -80,24 +82,53 @@ export const UnstakeForm: React.FC = () => {
                                     <InputErrors error={unstakeStore.amountError?.error}/>
                                     <FeeComponent my="16px" />
                                     <MultiErrorComponent activeErrors={unstakeStore.activeErrors} />
-                                    <Button
-                                        variant="primary"
-                                        variantSize="large"
-                                        onClick={unstakeStore.invoke}
-                                        disabled={unstakeStore.formState === FORM_STATE.pending}
-                                        maxWidth={unstakeStore.formState === FORM_STATE.pending ? 'none' : ['300px', '200px']}
+                                    <Tooltip
+                                        variant="info"
+                                        label={(): React.ReactNode => {
+                                            return <Trans i18key="unstakeUnavailable" />;
+                                        }}
+                                        isOpen={contractStore.totalAssetsContractData?.data.remainingBlocks !== 0 ?
+                                            false :
+                                            undefined
+                                        }
                                     >
-                                        <Box fontSize={[devices[rs.authStore.user.type] ? '14px' : null, 'inherit']}>
-                                            <Trans
-                                                i18key={unstakeStore.formState === FORM_STATE.pending ?
-                                                    devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
-                                                    'unstake'
+                                        <Box
+                                            maxWidth={unstakeStore.formState === FORM_STATE.pending ?
+                                                'none' :
+                                                ['300px', '200px']
+                                            }
+                                        >
+                                            <Button
+                                                variant="primary"
+                                                variantSize="large"
+                                                onClick={unstakeStore.invoke}
+                                                disabled={
+                                                    unstakeStore.formState === FORM_STATE.pending ||
+                                                    contractStore.totalAssetsContractData?.data.remainingBlocks === 0
                                                 }
-                                                i18Params={{ device: devices[rs.authStore.user.type] }}
-                                            />
-                                            {unstakeStore.formState === FORM_STATE.pending ? <DotSpinner display="inline" /> : null}
+                                                maxWidth={unstakeStore.formState === FORM_STATE.pending ?
+                                                    'none' :
+                                                    ['300px', '200px']
+                                                }
+                                            >
+                                                <Box
+                                                    fontSize={[devices[rs.authStore.user.type] ? '14px' : null, 'inherit']}
+                                                >
+                                                    <Trans
+                                                        i18key={unstakeStore.formState === FORM_STATE.pending ?
+                                                            devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
+                                                            'unstake'
+                                                        }
+                                                        i18Params={{ device: devices[rs.authStore.user.type] }}
+                                                    />
+                                                    {unstakeStore.formState === FORM_STATE.pending ?
+                                                        <DotSpinner display="inline" /> :
+                                                        null
+                                                    }
+                                                </Box>
+                                            </Button>
                                         </Box>
-                                    </Button>
+                                    </Tooltip>
                                 </> :
                                 null
                             }

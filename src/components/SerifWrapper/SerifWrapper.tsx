@@ -2,17 +2,23 @@ import * as React from 'react';
 import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 
 type SerifWrapperProps = BoxProps & {
-	variant?: 'primary' | 'error' | 'default';
+	variant?: 'primary' | 'error' | 'default' | 'warning';
     disabled?: boolean;
 }
 
 const variants = {
     default: '#C6D8E2',
     error: 'error',
-    primary: '#0983F3'
+    primary: '#0983F3',
+    warning: 'warning',
 };
 
-export const SerifWrapper: React.FC<SerifWrapperProps> = ({ variant = 'default', disabled, children, ...props }) => {
+export const SerifWrapper: React.FC<SerifWrapperProps> = ({
+    variant = 'default',
+    disabled,
+    children,
+    ...props
+}) => {
     const { sx, ...rest } = props;
 
     return (

@@ -7,6 +7,7 @@ import { UnstakeForm } from '../../forms/Unstake/UnstakeForm.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
 import { ClaimForm } from '../../forms/Claim/ClaimForm.tsx';
 import { ChangeNodeForm } from '../../forms/ChangeNode/ChangeNodeForm.tsx';
+import { UnstakeWarning } from './UnstakeWarning.tsx';
 
 export const Dashboard: FC = observer(() => {
     const rs = useContext(AppStoreContext);
@@ -25,7 +26,14 @@ export const Dashboard: FC = observer(() => {
                 <>
                     <Box
                         width="100%"
-                        height={['0', '30px']}
+                        height={['0', '20px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
+                    <UnstakeWarning />
+                    <Box
+                        width="100%"
+                        height={['0', '20px']}
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />

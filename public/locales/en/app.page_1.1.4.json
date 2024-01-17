@@ -110,5 +110,7 @@
   "noNodeSelected": "No node selected",
   "goToNodesPage": "Go to the list of staking nodes",
   "stakingNodes": "Staking Nodes",
-  "selectNodeAndClick": "Select node and click on Change Staking Node to confirm"
+  "selectNodeAndClick": "Select node and click on Change Staking Node to confirm",
+  "unstakeUnavailable": "Unstake is currently unavailable. You will be able to unstake funds after the L2 network launch.",
+  "unstakeWillBeUnavailable": "Unstake will become unavailable in {{timer}}. You will be able to unstake funds after the L2 network launch."
 }
