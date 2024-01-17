@@ -10,6 +10,7 @@ export default {
         bg: '#F6FAFB',
         error: '#F30909',
         icon: '#C6D8E2',
+        warning: '#FFBC57'
     },
     breakpoints: ['1280px'],
 };
