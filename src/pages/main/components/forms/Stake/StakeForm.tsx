@@ -60,13 +60,13 @@ export const StakeForm: React.FC = () => {
                                     mr={[null, '16px']}
                                     mb={['16px', '0']}
                                 />
-                                <BalanceComponent
-                                    balance={rs.contractStore.annual}
-                                    label={{ i18key: 'estimatedAnnualInterest' }}
-                                    labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}
-                                    ticker="%"
-                                    align="left"
-                                />
+                                {/*<BalanceComponent*/}
+                                {/*    balance={rs.contractStore.annual}*/}
+                                {/*    label={{ i18key: 'estimatedAnnualInterest' }}*/}
+                                {/*    labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}*/}
+                                {/*    ticker="%"*/}
+                                {/*    align="left"*/}
+                                {/*/>*/}
                             </Flex>
                             <LabelComponent
                                 label={{ i18key: 'remainingTime' }}
