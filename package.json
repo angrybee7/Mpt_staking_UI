@@ -1,7 +1,7 @@
 {
   "name": "mpt-staking-ui",
   "private": true,
-  "version": "1.1.4",
+  "version": "1.1.5",
   "scripts": {
     "dev": "vite",
     "dev:testnet": "VITE_NETWORK=testnet vite",
