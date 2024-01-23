@@ -80,21 +80,21 @@ export const ConnectBlock: FC = memo(() => {
                 <Observer>
                     {(): ReactElement => (
                         <Flex flexDirection={['column', 'row']}>
-                            <BalanceComponent
-                                balance={contractStore.commonContractData.isFirstLoad ?
-                                    <DotSpinner color="text" fontSize="32px" /> :
-                                    contractStore.annual
-                                }
-                                label={{ i18key: 'estimatedAnnualInterest' }}
-                                labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}
-                                ticker={contractStore.commonContractData.isFirstLoad ? '' : '%'}
-                                align="left"
-                                mt="24px"
-                                mb={[null, '24px']}
-                                pl="20px"
-                                width={['100%', '50%']}
-                                borderLeft="1px solid #C6DAE6"
-                            />
+                            {/*<BalanceComponent*/}
+                            {/*    balance={contractStore.commonContractData.isFirstLoad ?*/}
+                            {/*        <DotSpinner color="text" fontSize="32px" /> :*/}
+                            {/*        contractStore.annual*/}
+                            {/*    }*/}
+                            {/*    label={{ i18key: 'estimatedAnnualInterest' }}*/}
+                            {/*    labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}*/}
+                            {/*    ticker={contractStore.commonContractData.isFirstLoad ? '' : '%'}*/}
+                            {/*    align="left"*/}
+                            {/*    mt="24px"*/}
+                            {/*    mb={[null, '24px']}*/}
+                            {/*    pl="20px"*/}
+                            {/*    width={['100%', '50%']}*/}
+                            {/*    borderLeft="1px solid #C6DAE6"*/}
+                            {/*/>*/}
                             <LabelComponent
                                 label={{ i18key: 'remainingTime' }}
                                 labelHelp={{ i18key: 'remainingTimeHelp' }}
@@ -104,8 +104,10 @@ export const ConnectBlock: FC = memo(() => {
                                 mt="24px"
                                 mb={[null, '24px']}
                                 width={['100%', '50%']}
-                                pl={['20px', '0']}
-                                borderLeft={['1px solid #C6DAE6', '0']}
+                                pl="20px"
+                                // pl={['20px', '0']}
+                                borderLeft="1px solid #C6DAE6"
+                                // borderLeft={['1px solid #C6DAE6', '0']}
                             >
                                 <Text variant="heading2" color="main">
                                     {BlocksToTime({
