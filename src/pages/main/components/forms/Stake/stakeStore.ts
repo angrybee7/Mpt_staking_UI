@@ -6,6 +6,7 @@ import {
 import { action, computed, makeObservable, observable, reaction } from 'mobx';
 import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
+import { Money } from '@waves/data-entities';
 
 export class StakeStore extends BaseInputFormStore {
 
@@ -17,6 +18,7 @@ export class StakeStore extends BaseInputFormStore {
             node: observable,
             setNode: action.bound,
             nodeSelectError: computed,
+            totalStaked: computed,
         });
 
         let initialUserNode = this.rs.contractStore.userNode;
@@ -31,6 +33,10 @@ export class StakeStore extends BaseInputFormStore {
                 }
             }
         )
+    }
+
+    public get totalStaked(): Money | undefined {
+        return this.rs.contractStore.totalStaked;
     }
 
     public get tx(): {

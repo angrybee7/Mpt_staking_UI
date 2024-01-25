@@ -44,21 +44,6 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    {
-                        rs.contractStore.availableForClaim?.getTokens().isPositive() ?
-                            (
-                                <>
-                                    <ClaimForm />
-                                    <Box
-                                        width="100%"
-                                        height={['0', '30px']}
-                                        borderLeft={['none', '1px solid #C6DAE6']}
-                                        sx={{ my: ['12px', '16px'] }}
-                                    />
-                                </>
-                            ) :
-                            null
-                    }
                     <StakeForm />
                     <Box
                         width="100%"
@@ -81,14 +66,6 @@ export const Dashboard: FC = observer(() => {
                             ) :
                             null
                     }
-                    <UnstakeForm />
-                    <Box
-                        width="100%"
-                        height={['0', 'auto']}
-                        flex={2}
-                        borderLeft={['none', '1px solid #C6DAE6']}
-                        sx={{ my: ['12px', '16px'] }}
-                    />
                 </>
             }
         </Flex>

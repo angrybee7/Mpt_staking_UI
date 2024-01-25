@@ -1,6 +1,6 @@
 export const variants = {
     primary: {
-        'bg': '#FFFFFF',
+        'bg': '#EEF7FE',
         'color': '#0983F3',
         'outline': 'none',
         'boxShadow': '0px 8px 20px 0px #3C63AF2B',

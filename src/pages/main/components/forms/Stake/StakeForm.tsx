@@ -20,9 +20,6 @@ import { Trans } from '@waves/ui-translator';
 import { FORM_STATE } from '../../../../../stores/utils/BaseFormStore.ts';
 import { USER_TYPES } from '../../../../../stores/AuthStore.ts';
 import { DotSpinner } from '../../../../../components/DotSpinner/DotSpinner.tsx';
-import { LabelComponent } from '../../../../../components/LabelComponent/LabelComponent.tsx';
-import { stylesByVariant } from '../../../../../components/BalanceComponent/helpers.ts';
-import { BlocksToTime } from '../../../../../components/BlocksToTime';
 
 export const devices = {
     [USER_TYPES.keeper]: 'Keeper Wallet',
@@ -51,14 +48,28 @@ export const StakeForm: React.FC = () => {
                             <Trans i18key="stake" />
                         </Text>
                         <Flex flexDirection="column">
-                            <Flex flexDirection={['column', 'row']} justifyContent="space-between">
+                            <Flex flexDirection={['column', 'row']} justifyContent="space-between" flexWrap="wrap">
                                 <BalanceComponent
                                     balance={balance?.getTokens().gt(0) ? balance?.getTokens()?.toFormat() : '0.00'}
                                     label={{ i18key: 'availableForStaking' }}
                                     ticker={rs.assetsStore.LPToken.displayName}
                                     align="left"
+                                    flex={1}
                                     mr={[null, '16px']}
-                                    mb={['16px', '0']}
+                                    mb={['16px', '8px']}
+                                />
+                                <BalanceComponent
+                                    balance={stakeStore.totalStaked?.getTokens()?.gt(0) ?
+                                        stakeStore.totalStaked?.getTokens()?.toFormat() :
+                                        '0.00'
+                                    }
+                                    label={{ i18key: 'totalStaked' }}
+                                    labelHelp={{ i18key: 'totalStakedTooltip' }}
+                                    ticker={rs.assetsStore.LPToken.displayName}
+                                    align="left"
+                                    flex={1}
+                                    mr={[null, '16px']}
+                                    mb={['16px', '8px']}
                                 />
                                 {/*<BalanceComponent*/}
                                 {/*    balance={rs.contractStore.annual}*/}
@@ -68,29 +79,6 @@ export const StakeForm: React.FC = () => {
                                 {/*    align="left"*/}
                                 {/*/>*/}
                             </Flex>
-                            <LabelComponent
-                                label={{ i18key: 'remainingTime' }}
-                                labelHelp={{ i18key: 'remainingTimeHelp' }}
-                                variant="text1"
-                                colorTitle={stylesByVariant.medium.label.color}
-                                align="left"
-                                my="16px"
-                            >
-                                <Text variant="heading2" color="main">
-                                    {BlocksToTime({
-                                        blocks: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0),
-                                        options: {
-                                            useYears: true,
-                                            useMonth: true,
-                                            useWeeks: true,
-                                            showTime: true,
-                                            shortFormat: true,
-                                            isZero: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0) === 0,
-                                            split: ' '
-                                        }
-                                    })}
-                                </Text>
-                            </LabelComponent>
                             {balance && balance?.getTokens().gt(0) ?
                                 <>
                                     <FormattedInput
