@@ -95,35 +95,6 @@ export const ConnectBlock: FC = memo(() => {
                             {/*    width={['100%', '50%']}*/}
                             {/*    borderLeft="1px solid #C6DAE6"*/}
                             {/*/>*/}
-                            <LabelComponent
-                                label={{ i18key: 'remainingTime' }}
-                                labelHelp={{ i18key: 'remainingTimeHelp' }}
-                                variant="text1"
-                                colorTitle={stylesByVariant.medium.label.color}
-                                align="left"
-                                mt="24px"
-                                mb={[null, '24px']}
-                                width={['100%', '50%']}
-                                pl="20px"
-                                // pl={['20px', '0']}
-                                borderLeft="1px solid #C6DAE6"
-                                // borderLeft={['1px solid #C6DAE6', '0']}
-                            >
-                                <Text variant="heading2" color="main">
-                                    {BlocksToTime({
-                                        blocks: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0),
-                                        options: {
-                                            useYears: true,
-                                            useMonth: true,
-                                            useWeeks: true,
-                                            showTime: true,
-                                            shortFormat: true,
-                                            isZero: Math.max(contractStore.totalAssetsContractData.data.remainingBlocks, 0) === 0,
-                                            split: ' '
-                                        }
-                                    })}
-                                </Text>
-                            </LabelComponent>
                         </Flex>
                     )}
                 </Observer>

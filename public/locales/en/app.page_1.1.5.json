@@ -16,8 +16,6 @@
   "unstake": "Unstake",
   "availableForStaking": "Available for Staking",
   "availableForUnstaking": "Available for Unstaking",
-  "remainingTime": "Remaining Time",
-  "remainingTimeHelp": "Stake L2MP token till the end of specified period to receive staking rewards.",
   "estimatedAnnualInterest": "Estimated Annual Interest",
   "estimatedAnnualInterestHelp": "Estimated Annual Interest calculated as ratio of total profit to total amount in staking.",
   "error": {
@@ -112,5 +110,6 @@
   "stakingNodes": "Staking Nodes",
   "selectNodeAndClick": "Select node and click on Change Staking Node to confirm",
   "unstakeUnavailable": "Unstake is currently unavailable. You will be able to unstake funds after the L2 network launch.",
-  "unstakeWillBeUnavailable": "Unstake will become unavailable in {{timer}}. You will be able to unstake funds after the L2 network launch."
+  "totalStaked": "Total Staked",
+  "totalStakedTooltip": "Calculated as a sum of accrued funds and your own staking contribution. You will be able to unstake funds after the L2 network launch."
 }
