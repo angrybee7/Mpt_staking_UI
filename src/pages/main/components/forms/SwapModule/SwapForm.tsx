@@ -99,20 +99,20 @@ export const SwapForm: React.FC = () => {
                                 placeholder="000000000000"
                             />
                             <InputErrors error={swapStore.amountError?.error} />
-                            <Checkbox
-                                controlBoxStyles={{
-                                    baseStyles: { marginRight: '8px' },
-                                }}
-                                isChecked={swapStore.autoStake}
-                                isInvalid={false}
-                                onChange={(e) =>
-                                    swapStore.setAutoStake(e.target.checked)
-                                }
-                                color="text"
-                                mt={16}
-                            >
-                                <Trans i18key={'swapCheckbox'} />
-                            </Checkbox>
+                            {/*<Checkbox*/}
+                            {/*    controlBoxStyles={{*/}
+                            {/*        baseStyles: { marginRight: '8px' },*/}
+                            {/*    }}*/}
+                            {/*    isChecked={swapStore.autoStake}*/}
+                            {/*    isInvalid={false}*/}
+                            {/*    onChange={(e) =>*/}
+                            {/*        swapStore.setAutoStake(e.target.checked)*/}
+                            {/*    }*/}
+                            {/*    color="text"*/}
+                            {/*    mt={16}*/}
+                            {/*>*/}
+                            {/*    <Trans i18key={'swapCheckbox'} />*/}
+                            {/*</Checkbox>*/}
                             {
                                 swapStore.autoStake && !contractStore.userNode ?
                                     <>
