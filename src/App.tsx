@@ -7,7 +7,6 @@ import { ModalContainer } from './components/ModalContainer/ModalContainer';
 import { AppStore } from './stores/AppStore';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MainPage } from './pages/main';
-import { StakingNodesPage } from './pages/stakingNodes';
 import { MainLayout } from './pages/components/MainLayout/MainLayout.tsx';
 
 export const AppStoreContext = createContext<AppStore>(null);
@@ -21,10 +20,6 @@ const router = createBrowserRouter([
                 path: '',
                 index: true,
                 element: <MainPage />,
-            },
-            {
-                path: 'stakingnodes',
-                element: <StakingNodesPage />,
             },
             {
                 path: '*',

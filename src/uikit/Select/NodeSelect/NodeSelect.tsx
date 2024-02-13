@@ -3,9 +3,8 @@ import { ISelectParams, Select } from '../DefaultSelect';
 import { NodeSelected } from './NodeSelected.tsx';
 import { NodesList } from './NodesList.tsx';
 import { INode } from '../../../stores/utils/fetchNodeList.ts';
-import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
+import { Box, BoxProps, ExternalLink } from '@waves.exchange/wx-react-uikit';
 import { ITransProps, Trans } from '@waves/ui-translator';
-import { NavLink } from 'react-router-dom';
 import { Text } from 'uikit';
 
 interface INodeSelectParams extends Omit<ISelectParams, 'renderSelected'> {
@@ -49,14 +48,17 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
 					isError={isError}
 				/>
 			</Select>
-			<NavLink to="/stakingnodes">
+			<ExternalLink
+				href="https://wavescap.com/nodes"
+				rel="noopener noreferrer"
+			>
 				<Text
 					variant="heading4"
 					color="main"
 				>
-					<Trans i18key="goToNodesPage" />
+					<Trans i18key="goToWavescap" />
 				</Text>
-			</NavLink>
+			</ExternalLink>
 		</Box>
 	)
 }
