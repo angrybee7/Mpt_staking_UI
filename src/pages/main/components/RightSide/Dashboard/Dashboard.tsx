@@ -4,7 +4,6 @@ import { observer } from 'mobx-react-lite';
 import { StakeForm } from '../../forms/Stake/StakeForm.tsx';
 import { AppStoreContext } from '../../../../../App.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
-import { ChangeNodeForm } from '../../forms/ChangeNode/ChangeNodeForm.tsx';
 import { ClaimWarning } from './ClaimWarning.tsx';
 import { KPIEndsBlock } from './KPIEndsBlock.tsx';
 
@@ -55,21 +54,6 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    {
-                        rs.contractStore.totalStaked?.getTokens()?.isPositive() ?
-                            (
-                                <>
-                                    <ChangeNodeForm />
-                                    <Box
-                                        width="100%"
-                                        height={['0', '30px']}
-                                        borderLeft={['none', '1px solid #C6DAE6']}
-                                        sx={{ my: ['12px', '16px'] }}
-                                    />
-                                </>
-                            ) :
-                            null
-                    }
                 </>
             }
         </Flex>
