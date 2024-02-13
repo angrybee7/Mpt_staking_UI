@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Flex } from '@waves.exchange/wx-react-uikit';
+import { Box, ExternalLink, Flex } from '@waves.exchange/wx-react-uikit';
 import {
     Button,
     FeeComponent,
@@ -20,6 +20,7 @@ import { Trans } from '@waves/ui-translator';
 import { FORM_STATE } from '../../../../../stores/utils/BaseFormStore.ts';
 import { USER_TYPES } from '../../../../../stores/AuthStore.ts';
 import { DotSpinner } from '../../../../../components/DotSpinner/DotSpinner.tsx';
+import { ResponsibilitiesBlock } from '../../../../../components/ResponsibilitiesBlock/ResponsibilitiesBlock.tsx';
 
 export const devices = {
     [USER_TYPES.keeper]: 'Keeper Wallet',
@@ -52,31 +53,45 @@ export const StakeForm: React.FC = () => {
                                 <BalanceComponent
                                     balance={balance?.getTokens().gt(0) ? balance?.getTokens()?.toFormat() : '0.00'}
                                     label={{ i18key: 'availableForStaking' }}
+                                    labelHelp={{ i18key: 'availableForStakingHelp' }}
                                     ticker={rs.assetsStore.LPToken.displayName}
                                     align="left"
                                     flex={1}
                                     mr={[null, '16px']}
                                     mb={['16px', '8px']}
                                 />
-                                <BalanceComponent
-                                    balance={stakeStore.totalStaked?.getTokens()?.gt(0) ?
-                                        stakeStore.totalStaked?.getTokens()?.toFormat() :
-                                        '0.00'
-                                    }
-                                    label={{ i18key: 'totalStaked' }}
-                                    labelHelp={{ i18key: 'totalStakedTooltip' }}
-                                    ticker={rs.assetsStore.LPToken.displayName}
-                                    align="left"
-                                    flex={1}
-                                    mr={[null, '16px']}
-                                    mb={['16px', '8px']}
-                                />
+                                <ExternalLink
+                                    href="https://wx.network/trading/spot/L2MP_USDT-ERC20"
+                                    rel="noopener noreferrer"
+                                    width={['100%', 'fit-content']}
+                                    height="fit-content"
+                                    backgroundColor="standard.$0"
+                                    mb={16}
+                                    boxShadow="0px 8px 20px 0px #3C63AF2B"
+                                >
+                                    <Button
+                                        variant="transparent"
+                                        variantSize="large"
+                                        width={['100%', 'auto']}
+                                        minWidth={165}
+                                        maxWidth={['unset', 278]}
+                                        wrapperProps={{ variant: 'default' }}
+                                    >
+                                        <Trans i18key="getL2MP" />
+                                    </Button>
+                                </ExternalLink>
                                 {/*<BalanceComponent*/}
-                                {/*    balance={rs.contractStore.annual}*/}
-                                {/*    label={{ i18key: 'estimatedAnnualInterest' }}*/}
-                                {/*    labelHelp={{ i18key: 'estimatedAnnualInterestHelp' }}*/}
-                                {/*    ticker="%"*/}
+                                {/*    balance={stakeStore.totalStaked?.getTokens()?.gt(0) ?*/}
+                                {/*        stakeStore.totalStaked?.getTokens()?.toFormat() :*/}
+                                {/*        '0.00'*/}
+                                {/*    }*/}
+                                {/*    label={{ i18key: 'totalStaked' }}*/}
+                                {/*    labelHelp={{ i18key: 'totalStakedTooltip' }}*/}
+                                {/*    ticker={rs.assetsStore.LPToken.displayName}*/}
                                 {/*    align="left"*/}
+                                {/*    flex={1}*/}
+                                {/*    mr={[null, '16px']}*/}
+                                {/*    mb={['16px', '8px']}*/}
                                 {/*/>*/}
                             </Flex>
                             {balance && balance?.getTokens().gt(0) ?
@@ -95,7 +110,7 @@ export const StakeForm: React.FC = () => {
                                         decimals={rs.assetsStore.LPToken.precision}
                                         tag={rs.assetsStore.LPToken.displayName}
                                         aria-invalid={!!stakeStore.amountError?.error}
-                                        onMax={stakeStore.onClickMaxAmount}
+                                        onPresetClick={stakeStore.onClickPresent}
                                         placeholder='000000000000'
                                     />
                                     <InputErrors error={stakeStore.amountError?.error}/>
@@ -118,6 +133,7 @@ export const StakeForm: React.FC = () => {
                                             null
                                     }
                                     <FeeComponent my="16px" />
+                                    <ResponsibilitiesBlock mb="16px" />
                                     <MultiErrorComponent activeErrors={stakeStore.activeErrors} />
                                     <Button
                                         variant="primary"

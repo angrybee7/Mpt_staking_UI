@@ -3,12 +3,13 @@ import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { observer } from 'mobx-react-lite';
 import { StakeForm } from '../../forms/Stake/StakeForm.tsx';
 import { AppStoreContext } from '../../../../../App.tsx';
-import { UnstakeForm } from '../../forms/Unstake/UnstakeForm.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
-import { ClaimForm } from '../../forms/Claim/ClaimForm.tsx';
 import { ChangeNodeForm } from '../../forms/ChangeNode/ChangeNodeForm.tsx';
-import { UnstakeWarning } from './UnstakeWarning.tsx';
+import { ClaimWarning } from './ClaimWarning.tsx';
+import { KPIEndsBlock } from './KPIEndsBlock.tsx';
 
+const blocks = 5000;
+const isStarted = false;
 export const Dashboard: FC = observer(() => {
     const rs = useContext(AppStoreContext);
     return (
@@ -30,7 +31,10 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    <UnstakeWarning />
+                    {isStarted ?
+                        <KPIEndsBlock blocks={blocks} /> :
+                        <ClaimWarning />
+                    }
                     <Box
                         width="100%"
                         height={['0', '20px']}
