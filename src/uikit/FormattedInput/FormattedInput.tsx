@@ -1,7 +1,16 @@
 import * as React from 'react';
-import { Box, BoxProps, FormattedInput as FormattedInputKit, InputWithTagProps, Text } from '@waves.exchange/wx-react-uikit';
+import {
+    Box,
+    BoxProps,
+    Flex,
+    FormattedInput as FormattedInputKit,
+    InputWithTagProps,
+    Text
+} from '@waves.exchange/wx-react-uikit';
 import { SerifWrapper } from '../../components/SerifWrapper/SerifWrapper';
 import { Trans } from '@waves/ui-translator';
+
+export type TPreset = number | 'max';
 
 type FormattedInputProps = InputWithTagProps & BoxProps & {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,13 +20,26 @@ type FormattedInputProps = InputWithTagProps & BoxProps & {
     prefix?: string;
     lengthLimit?: number;
     maxValue?: number;
-    onMax?: () => void;
-
+    presets?: Array<TPreset>;
+    onPresetClick?: (preset: TPreset) => void;
 };
 
 export const FormattedInput: React.FC<FormattedInputProps> = (props) => {
     const [focus, setFocus] = React.useState(false);
-    const { mx, my, mt, mr, mb, ml, width, maxWidth, iconUrl, onMax, ...rest } = props;
+    const {
+        mx,
+        my,
+        mt,
+        mr,
+        mb,
+        ml,
+        width,
+        maxWidth,
+        iconUrl,
+        presets = [25, 50, 'max'],
+        onPresetClick,
+        ...rest
+    } = props;
 
     const onFocus = React.useCallback(() => {
         setFocus(true);
@@ -41,7 +63,7 @@ export const FormattedInput: React.FC<FormattedInputProps> = (props) => {
                 backgroundColor="transparent !important"
                 border="none"
                 height="72px !important"
-                pr={`${typeof onMax === 'function' ? '56px' : '0'} !important`}
+                pr={`${typeof onPresetClick === 'function' ? '56px' : '0'} !important`}
                 pl="68px !important"
                 pt="32px !important"
                 fontFamily="Sfmono"
@@ -79,24 +101,45 @@ export const FormattedInput: React.FC<FormattedInputProps> = (props) => {
             >
                 <Trans i18key="enterAmount" />
             </Text>
-            {typeof onMax === 'function' ?
-                <Text
-                    onClick={onMax}
+            {typeof onPresetClick === 'function' ?
+                <Flex
+                    flexDirection="row"
                     position="absolute"
                     top="50%"
                     right="24px"
-                    color="#1E1E1E"
-                    fontSize="18px"
-                    lineHeight="26px"
-                    fontWeight={300}
-                    fontFamily="Sfmono-light"
-                    cursor="pointer"
-                    sx={{
-                        transform: 'translateY(-50%)'
-                    }}
                 >
-                    <Trans i18key="{max}" />
-                </Text> :
+                    {
+                        presets.map((preset) => {
+                            const formattedPreset = preset === 'max' ? 'max' : `${preset}%`;
+                            return (
+                                <Text
+                                    key={formattedPreset}
+                                    onClick={() => onPresetClick(preset)}
+                                    display={
+                                        preset === 'max' ?
+                                            'unset' :
+                                            ['none', 'unset']
+                                    }
+                                    color="#1E1E1E"
+                                    fontSize="18px"
+                                    lineHeight="26px"
+                                    fontWeight={300}
+                                    fontFamily="Sfmono-light"
+                                    cursor="pointer"
+                                    ml={8}
+                                    sx={{
+                                        transform: 'translateY(-50%)',
+                                        '&:hover': {
+                                            opacity: 0.8
+                                        }
+                                    }}
+                                >
+                                    <Trans i18key={`{${formattedPreset}}`} />
+                                </Text>
+                            )
+                        })
+                    }
+                </Flex> :
                 null
             }
         </SerifWrapper>

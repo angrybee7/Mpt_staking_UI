@@ -76,7 +76,7 @@ export const UnstakeForm: React.FC = () => {
                                         decimals={rs.assetsStore.LPToken.precision}
                                         tag={rs.assetsStore.LPToken.displayName}
                                         aria-invalid={!!unstakeStore.amountError?.error}
-                                        onMax={unstakeStore.onClickMaxAmount}
+                                        onPresetClick={unstakeStore.onClickPresent}
                                         placeholder='000000000000'
                                     />
                                     <InputErrors error={unstakeStore.amountError?.error}/>

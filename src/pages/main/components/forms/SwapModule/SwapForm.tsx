@@ -22,6 +22,7 @@ import { FORM_STATE } from '../../../../../stores/utils/BaseFormStore.ts';
 import { devices } from '../Stake/StakeForm.tsx';
 import { DotSpinner } from '../../../../../components/DotSpinner/DotSpinner.tsx';
 import { BalanceRow } from '../../../../../components/BalanceComponent/BalanceRow.tsx';
+import { ResponsibilitiesBlock } from '../../../../../components/ResponsibilitiesBlock/ResponsibilitiesBlock.tsx';
 
 const SwapItem: React.FC<{ asset: AssetWithMeta }> = ({ asset }) => {
     return (
@@ -95,7 +96,7 @@ export const SwapForm: React.FC = () => {
                                 decimals={rs.assetsStore.XTN.precision}
                                 tag={rs.assetsStore.XTN.displayName}
                                 aria-invalid={!!swapStore.amountError?.error}
-                                onMax={swapStore.onClickMaxAmount}
+                                onPresetClick={swapStore.onClickPresent}
                                 placeholder="000000000000"
                             />
                             <InputErrors error={swapStore.amountError?.error} />
@@ -143,6 +144,7 @@ export const SwapForm: React.FC = () => {
                                 </Text>
                             </Flex>
                             <FeeComponent my="16px" />
+                            <ResponsibilitiesBlock mb="16px" />
                             <MultiErrorComponent
                                 activeErrors={swapStore.activeErrors}
                             />

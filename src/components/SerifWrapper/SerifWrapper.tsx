@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, BoxProps } from '@waves.exchange/wx-react-uikit';
 
-type SerifWrapperProps = BoxProps & {
+export type SerifWrapperProps = BoxProps & {
 	variant?: 'primary' | 'error' | 'default' | 'warning';
     disabled?: boolean;
 }

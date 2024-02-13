@@ -5,7 +5,7 @@ import { warning } from '../../../../../img/icons/warning.tsx';
 import { Text } from 'uikit';
 import { Trans } from '@waves/ui-translator';
 
-export const UnstakeWarning: React.FC = React.memo(() => {
+export const ClaimWarning: React.FC = React.memo(() => {
     return (
         <SerifWrapper
             variant="warning"
@@ -29,11 +29,11 @@ export const UnstakeWarning: React.FC = React.memo(() => {
                     lineHeight="21px"
                     fontWeight={300}
                 >
-                    <Trans i18key="unstakeUnavailable" />
+                    <Trans i18key="claimUnavailable" />
                 </Text>
             </Flex>
         </SerifWrapper>
     );
 });
 
-UnstakeWarning.displayName = 'UnstakeWarning';
+ClaimWarning.displayName = 'ClaimWarning';

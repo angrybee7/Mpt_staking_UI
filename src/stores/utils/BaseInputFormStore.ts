@@ -2,7 +2,7 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import { Money } from '@waves/data-entities';
 import { BaseFormStore } from './BaseFormStore';
 import { AppStore } from '../AppStore';
-import { InputErrorsProps } from 'uikit';
+import { InputErrorsProps, TPreset } from 'uikit';
 
 export type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
 
@@ -67,18 +67,22 @@ export class BaseInputFormStore extends BaseFormStore {
         this.currentAmount = this.currentAmount.cloneWithTokens(value);
     }
 
-    public onClickMaxAmount = (): void => {
+    public onClickPresent = (preset: TPreset): void => {
+        const percent = (preset === undefined || preset === 'max') ? 1 : (preset / 100);
         const tokenId = this.currentTokenBalance?.asset.id;
         const feeId = this.fee?.asset.id;
         const max =
             tokenId && tokenId === feeId
                 ? this.currentTokenBalance.minus(this.fee)
                 : this.currentTokenBalance;
+        const presetValue = max ?
+            max.cloneWithTokens(max.getTokens().mul(percent)) :
+            undefined;
 
         this.onInputChange(
-            max && !max?.getTokens()?.isNegative()
-                ? max?.getTokens()?.toString()
-                : '0'
+            presetValue && !presetValue?.getTokens()?.isNegative() ?
+                presetValue?.getTokens()?.toString() :
+                '0'
         );
     };
 
