@@ -8,14 +8,11 @@ import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
 
 export class SwapStore extends BaseInputFormStore {
-    public autoStake = true;
     public node: INode = this.rs.contractStore.userNode;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
-            autoStake: observable,
-            setAutoStake: action.bound,
             node: observable,
             setNode: action.bound,
             nodeSelectError: computed,
@@ -40,19 +37,18 @@ export class SwapStore extends BaseInputFormStore {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
     } {
-        console.info(this.node?.address);
-        const call = this.autoStake && this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
+        const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
             {
                 function: 'swapAndSetStakingNode',
                 args: [
-                    { type: 'boolean', value: this.autoStake },
+                    { type: 'boolean', value: true },
                     { type: 'string', value: this.node.address }
                 ],
             } :
             {
                 function: 'swap',
                 args: [
-                    { type: 'boolean', value: this.autoStake },
+                    { type: 'boolean', value: true },
                 ],
             };
         return {
@@ -69,7 +65,6 @@ export class SwapStore extends BaseInputFormStore {
 
     public get nodeSelectError(): InputErrorsProps {
         if (
-            this.autoStake &&
             !this.rs.contractStore.userNode &&
             this.isConfirmClicked &&
             !this.node
@@ -93,20 +88,11 @@ export class SwapStore extends BaseInputFormStore {
         });
     };
 
-    public setAutoStake(value: boolean): void {
-        this.autoStake = value;
-    }
-
-    public reset(): void {
-        super.reset();
-        this.setAutoStake(true);
-    }
-
     public setNode(node: INode): void {
         this.node = node;
     }
 
     protected checkSelect(): boolean {
-        return !this.autoStake || (!!this.rs.contractStore.userNode || !!this.node);
+        return !!this.rs.contractStore.userNode || !!this.node;
     }
 }

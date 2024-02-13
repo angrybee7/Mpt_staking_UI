@@ -20,7 +20,7 @@ export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
                     <AccordionItem mb={0} isDisabled={!hasXtn}>
                         <AccordionHeader boxShadow={'none'}>
                             <Text variant="heading2">
-                                <Trans i18key="swap" />
+                                <Trans i18key="swapAndStake" />
                             </Text>
                         </AccordionHeader>
                         <AccordionPanel
@@ -40,7 +40,7 @@ export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
             ) : (
                 <Box sx={{ py: '24px', px:['16px', '24px'] }}>
                     <Text as="div" variant="heading2" mb="16px">
-                        <Trans i18key="swap" />
+                        <Trans i18key="swapAndStake" />
                     </Text>
                     <BalanceRow
                         balance={'0.00'}
