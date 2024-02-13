@@ -3,7 +3,6 @@ import { AssetLogo, Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { SerifWrapper } from '../../../../../components/SerifWrapper/SerifWrapper.tsx';
 import {
     Button,
-    Checkbox,
     FeeComponent,
     FormattedInput,
     InputErrors,
@@ -100,22 +99,8 @@ export const SwapForm: React.FC = () => {
                                 placeholder="000000000000"
                             />
                             <InputErrors error={swapStore.amountError?.error} />
-                            {/*<Checkbox*/}
-                            {/*    controlBoxStyles={{*/}
-                            {/*        baseStyles: { marginRight: '8px' },*/}
-                            {/*    }}*/}
-                            {/*    isChecked={swapStore.autoStake}*/}
-                            {/*    isInvalid={false}*/}
-                            {/*    onChange={(e) =>*/}
-                            {/*        swapStore.setAutoStake(e.target.checked)*/}
-                            {/*    }*/}
-                            {/*    color="text"*/}
-                            {/*    mt={16}*/}
-                            {/*>*/}
-                            {/*    <Trans i18key={'swapCheckbox'} />*/}
-                            {/*</Checkbox>*/}
                             {
-                                swapStore.autoStake && !contractStore.userNode ?
+                                !contractStore.userNode ?
                                     <>
                                         <NodeSelect
                                             nodes={
@@ -159,9 +144,7 @@ export const SwapForm: React.FC = () => {
                                     <Trans
                                         i18key={swapStore.formState === FORM_STATE.pending ?
                                             devices[rs.authStore.user.type] ? 'waitingConfirmation' : 'waiting' :
-                                            (swapStore.autoStake
-                                                ? 'swapAndStake'
-                                                : 'swap')
+                                            'swapAndStake'
                                         }
                                         i18Params={{ device: devices[rs.authStore.user.type] }}
                                     />
