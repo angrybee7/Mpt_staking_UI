@@ -9,12 +9,18 @@ import { InputErrorsProps } from 'uikit';
 
 export class SwapStore extends BaseInputFormStore {
     public node: INode = this.rs.contractStore.userNode;
+    public manuallyAddressInput = '';
+    public isManually = false;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             node: observable,
+            manuallyAddressInput: observable,
+            isManually: observable,
             setNode: action.bound,
+            setManuallyAddressInput: action.bound,
+            setIsManually: action.bound,
             nodeSelectError: computed,
         });
 
@@ -29,14 +35,26 @@ export class SwapStore extends BaseInputFormStore {
                     initialUserNode = this.rs.contractStore.userNode;
                 }
             }
-        )
+        );
+        reaction(
+            () => this.manuallyAddressInput,
+            () => {
+                this.setNode({ address: this.manuallyAddressInput });
+            }
+        );
+        reaction(
+            () => this.node,
+            () => {
+                console.warn(this.node);
+            }
+        );
     }
 
     public get tx(): {
         dApp: string;
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-    } {
+        } {
         const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
             {
                 function: 'swapAndSetStakingNode',
@@ -90,6 +108,14 @@ export class SwapStore extends BaseInputFormStore {
 
     public setNode(node: INode): void {
         this.node = node;
+    }
+
+    public setManuallyAddressInput(manuallyAddressInput: string): void {
+        this.manuallyAddressInput = manuallyAddressInput;
+    }
+
+    public setIsManually(isManually: boolean): void {
+        this.isManually = isManually;
     }
 
     protected checkSelect(): boolean {

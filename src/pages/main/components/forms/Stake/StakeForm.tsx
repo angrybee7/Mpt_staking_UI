@@ -125,6 +125,10 @@ export const StakeForm: React.FC = () => {
                                                     }
                                                     selectedNode={stakeStore.node}
                                                     onChangeNode={stakeStore.setNode}
+                                                    onClickManually={stakeStore.setIsManually}
+                                                    onChangeInput={stakeStore.setManuallyAddressInput}
+                                                    inputValue={stakeStore.manuallyAddressInput}
+                                                    manuallySelected={stakeStore.isManually}
                                                     mt={16}
                                                     isError={!!stakeStore.nodeSelectError?.error}
                                                 />

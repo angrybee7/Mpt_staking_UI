@@ -108,5 +108,8 @@
   "availableForStakingHelp": "Calculated as a sum of available balance on your account and unclaimed funds.",
   "getL2MP": "Get L2MP",
   "responsibilitiesWarning": "rideonwaves.io is not responsible for rewards payout. The rewards payout process, its frequency and percentage are determined by the nodes.",
-  "goToWavescap": "Go to the list of staking nodes (wavescap.com)"
+  "goToWavescap": "Go to the list of staking nodes (wavescap.com)",
+  "enterManually": "Enter manually",
+  "enterManuallyDesc": "Enter the node address manually",
+  "EnterNodeAddress": "Enter Node Address"
 }

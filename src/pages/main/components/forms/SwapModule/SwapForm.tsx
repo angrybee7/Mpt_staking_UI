@@ -110,6 +110,10 @@ export const SwapForm: React.FC = () => {
                                             }
                                             selectedNode={swapStore.node}
                                             onChangeNode={swapStore.setNode}
+                                            onClickManually={swapStore.setIsManually}
+                                            onChangeInput={swapStore.setManuallyAddressInput}
+                                            inputValue={swapStore.manuallyAddressInput}
+                                            manuallySelected={swapStore.isManually}
                                             mt={16}
                                             isError={!!swapStore.nodeSelectError?.error}
                                         />
