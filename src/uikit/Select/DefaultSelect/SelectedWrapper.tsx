@@ -40,13 +40,13 @@ export const SelectedWrapper: React.FC<ISelectedWrapper & TFlexProps> = ({
 				{children}
 				<Icon
 					icon={chevron}
-					color="#C6D8E2"
+					color="icon"
 					transition="transform .3s"
 					sx={{
 						transform: opened ? 'rotate(-180deg)' : 'rotate(0deg)',
 					}}
 					size={18}
-					ml={12}
+					ml={8}
 				/>
 			</Flex>
 		</Flex>

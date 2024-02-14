@@ -11,12 +11,18 @@ import { Money } from '@waves/data-entities';
 export class StakeStore extends BaseInputFormStore {
 
     public node: INode = this.rs.contractStore.userNode;
+    public manuallyAddressInput = '';
+    public isManually = false;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             node: observable,
+            manuallyAddressInput: observable,
+            isManually: observable,
             setNode: action.bound,
+            setManuallyAddressInput: action.bound,
+            setIsManually: action.bound,
             nodeSelectError: computed,
             totalStaked: computed,
         });
@@ -32,7 +38,13 @@ export class StakeStore extends BaseInputFormStore {
                     initialUserNode = this.rs.contractStore.userNode;
                 }
             }
-        )
+        );
+        reaction(
+            () => this.manuallyAddressInput,
+            () => {
+                this.setNode({ address: this.manuallyAddressInput });
+            }
+        );
     }
 
     public get totalStaked(): Money | undefined {
@@ -42,7 +54,7 @@ export class StakeStore extends BaseInputFormStore {
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-    } {
+        } {
         const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
             {
                 function: 'stakeAndSetStakingNode',
@@ -86,6 +98,14 @@ export class StakeStore extends BaseInputFormStore {
 
     public setNode(node: INode): void {
         this.node = node;
+    }
+
+    public setManuallyAddressInput(manuallyAddressInput: string): void {
+        this.manuallyAddressInput = manuallyAddressInput;
+    }
+
+    public setIsManually(isManually: boolean): void {
+        this.isManually = isManually;
     }
 
     protected checkSelect(): boolean {
