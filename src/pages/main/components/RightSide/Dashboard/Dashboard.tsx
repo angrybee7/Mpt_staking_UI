@@ -6,6 +6,7 @@ import { AppStoreContext } from '../../../../../App.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
 import { ClaimWarning } from './ClaimWarning.tsx';
 import { KPIEndsBlock } from './KPIEndsBlock.tsx';
+import { ActiveStakings } from './ActiveStakings.tsx';
 
 const blocks = 5000;
 const isStarted = false;
@@ -48,6 +49,13 @@ export const Dashboard: FC = observer(() => {
                         sx={{ my: ['12px', '16px'] }}
                     />
                     <StakeForm />
+                    <Box
+                        width="100%"
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
+                    <ActiveStakings />
                     <Box
                         width="100%"
                         height={['0', '30px']}
