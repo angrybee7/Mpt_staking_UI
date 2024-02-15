@@ -15,14 +15,10 @@ interface IUserAssets {
 }
 
 interface IUserContractData {
-    availableInternalLp: Money;
-    availableToWithdraw: Money;
-    currentInternalLPPrice: Money; // ??
-    userTotalStaked: Money;
-    userTotalWithdrawn: Money;
-    userLockedInternalLpAmount: Money;
-    userLockedTokenAmount: Money;
-    userStakingNodes: Array<string>;
-    userStakingNodesShares: Array<number>;
-    remainingBlocks: number;
+    currentPeriodStart: number;
+    currentPeriodAvailableToClaim: Money;
+    nextPeriodStart: number;
+    nextPeriodAvailableToClaim: Money;
+    totalLeasedAmount: Money;
+    currentHeight: number;
 }

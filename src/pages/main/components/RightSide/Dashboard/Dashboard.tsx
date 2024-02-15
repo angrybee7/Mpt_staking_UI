@@ -8,10 +8,8 @@ import { ClaimWarning } from './ClaimWarning.tsx';
 import { KPIEndsBlock } from './KPIEndsBlock.tsx';
 import { ActiveStakings } from './ActiveStakings.tsx';
 
-const blocks = 5000;
-const isStarted = false;
 export const Dashboard: FC = observer(() => {
-    const rs = useContext(AppStoreContext);
+    const { balanceStore, contractStore } = useContext(AppStoreContext);
     return (
         <Flex
             flexDirection="column"
@@ -23,7 +21,7 @@ export const Dashboard: FC = observer(() => {
             }}
         >
             {
-                !rs.balanceStore.otherBalance.data.isLoading &&
+                !balanceStore.otherBalance.data.isLoading &&
                 <>
                     <Box
                         width="100%"
@@ -31,8 +29,10 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    {isStarted ?
-                        <KPIEndsBlock blocks={blocks} /> :
+                    {contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart ?
+                        <KPIEndsBlock
+                            blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
+                        /> :
                         <ClaimWarning />
                     }
                     <Box
@@ -41,7 +41,7 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    <SwapModule hasXtn={rs.balanceStore.xtnBalance?.getTokens().gt(0)}/>
+                    <SwapModule hasXtn={balanceStore.xtnBalance?.getTokens().gt(0)}/>
                     <Box
                         width="100%"
                         height={['0', '30px']}

@@ -22,9 +22,9 @@ export class ContractStore extends ChildStore {
 
     constructor(rs: AppStore) {
         super(rs);
-        const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
+        // const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
-        const contractAddress = this.rs.configStore.config.contracts.factory;
+        const leasingAddress = this.rs.configStore.config.contracts.leasing;
 
         makeObservable(this, {
             availableForClaim: computed,
@@ -53,7 +53,10 @@ export class ContractStore extends ChildStore {
                         fetcher: (evaluateUrl) =>
                             evaluate(
                                 evaluateUrl,
-                                { address: contractAddress, expr: `getUserAssetsREADONLY("${this.rs.authStore.user.address}")` }
+                                {
+                                    address: leasingAddress,
+                                    expr: `getUserDataREADONLY("${this.rs.authStore.user.address}")`
+                                }
                             ),
                         parser: this.userDataParser,
                         autoFetch: true,
@@ -80,14 +83,14 @@ export class ContractStore extends ChildStore {
     // }
 
     public get availableForClaim(): Money {
-        return this.userContractData.data?.userLockedTokenAmount || new Money(0, this.rs.assetsStore.LPToken);
+        return this.userContractData.data?.currentPeriodAvailableToClaim || new Money(0, this.rs.assetsStore.LPToken);
     }
 
     public get totalStaked(): Money {
         const zeroMoney = new Money(0, this.rs.assetsStore.LPToken);
         return zeroMoney.cloneWithTokens(
             this.availableForClaim.getTokens()
-                .add(this.userContractData.data.availableToWithdraw?.getTokens() || 0)
+                .add(this.userContractData.data.totalLeasedAmount?.getTokens() || 0)
         );
     }
 
@@ -97,16 +100,12 @@ export class ContractStore extends ChildStore {
 
     private userDataParser = (data: IEvaluateResponse): IUserContractData => {
         const USER_ASSETS_VALUES = [
-            'availableInternalLp',
-            'availableToWithdraw',
-            'currentInternalLPPrice',
-            'userTotalStaked',
-            'userTotalWithdrawn',
-            'userLockedInternalLpAmount',
-            'userLockedTokenAmount',
-            'userStakingNodes',
-            'userStakingNodesShares',
-            'remainingBlocks'
+            'currentPeriodStart',
+            'currentPeriodAvailableToClaim',
+            'nextPeriodStart',
+            'nextPeriodAvailableToClaim',
+            'totalLeasedAmount',
+            'currentHeight',
         ];
         const parsedTuple = parseTupleData<IUserAssets>(
             data as ITuple,
@@ -114,18 +113,16 @@ export class ContractStore extends ChildStore {
             parseOrderedTupleValue
         );
         const getLpAmount = moneyFactory(new Money(0, this.rs.assetsStore.LPToken));
-        const getPrice = moneyFactory(new Money(0, this.rs.assetsStore.WAVES));
         return Object.keys(parsedTuple).reduce((acc, key) => {
-            if (key === 'currentInternalLPPrice' || key === 'userLockedTokenAmount') {
-                acc[key] = getPrice(parsedTuple[key]);
+            if (
+                key === 'currentPeriodAvailableToClaim' ||
+                key === 'nextPeriodAvailableToClaim' ||
+                key === 'totalLeasedAmount'
+            ) {
+                acc[key] = getLpAmount(parsedTuple[key]);
                 return acc;
             }
-
-            if (key === 'userStakingNodes' || key === 'userStakingNodesShares' || key === 'remainingBlocks') {
-                acc[key] = parsedTuple[key];
-                return acc;
-            }
-            acc[key] = getLpAmount(parsedTuple[key]);
+            acc[key] = parsedTuple[key];
             return acc;
         }, {} as IUserContractData);
     };
