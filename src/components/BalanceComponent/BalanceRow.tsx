@@ -5,8 +5,8 @@ import { Help, Text } from 'uikit';
 
 type BalanceRowProps = TFlexProps & {
     balance: string | number;
-    label: ITransProps;
     ticker: string;
+    label?: ITransProps;
     helpTrans?: ITransProps;
 }
 
@@ -19,9 +19,12 @@ export const BalanceRow: React.FC<BalanceRowProps> = ({
 }) => {
     return (
         <Flex alignItems="center" {...rest}>
-            <Text as="div" variant="heading4" fontFamily="Sfmono-light" color="text" sx={{ mr: '8px' }}>
-                <Trans {...label} />{':'}
-            </Text>
+            {label ?
+                <Text as="div" variant="heading4" fontFamily="Sfmono-light" color="text" sx={{ mr: '8px' }}>
+                    <Trans {...label} />{':'}
+                </Text> :
+                null
+            }
             {balance ?
                 <Text variant="heading4" color={Number(balance) === 0 ? 'textsec' : 'main'}>{`${balance} ${ticker}`}</Text> :
                 <Text color="text">...</Text>

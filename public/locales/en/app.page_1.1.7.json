@@ -111,5 +111,9 @@
   "goToWavescap": "Go to the list of staking nodes (wavescap.com)",
   "enterManually": "Enter manually",
   "enterManuallyDesc": "Enter the node address manually",
-  "EnterNodeAddress": "Enter Node Address"
+  "EnterNodeAddress": "Enter Node Address",
+  "activeStakings": "Active Stakings",
+  "activeStakingsTooltip": "Calculated as a sum of accrued funds and your own staking contribution.",
+  "unstaked": "Unstaked:",
+  "claimTooltip": "You will be able to claim funds after the start of new KPI period."
 }
