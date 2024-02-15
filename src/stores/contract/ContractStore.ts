@@ -4,7 +4,7 @@ import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
-import { ICommonContractData, IUserAssets, IUserContractData, ITotalAssetsContractData } from './interface';
+import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
 import { computed, makeObservable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
@@ -17,8 +17,7 @@ const USER_DATA_POLLING_TIME = 20_000;
 
 export class ContractStore extends ChildStore {
 
-    public commonContractData: FetchTracker<ICommonContractData, IState>;
-    public totalAssetsContractData: FetchTracker<ITotalAssetsContractData, IState>;
+    // public commonContractData: FetchTracker<ICommonContractData, IState>;
     public userContractData: FetchTracker<IUserContractData, IEvaluateResponse> = new FetchTracker();
 
     constructor(rs: AppStore) {
@@ -30,33 +29,20 @@ export class ContractStore extends ChildStore {
         makeObservable(this, {
             availableForClaim: computed,
             nodes: computed,
-            userNode: computed,
         });
 
-        this.totalAssetsContractData = new FetchTracker<any, any>({
-            fetchUrl: evaluateUrl,
-            fetcher: (evaluateUrl) =>
-                evaluate(
-                    evaluateUrl,
-                    { address: contractAddress, expr: 'getTotalAssetsREADONLY()' }
-                ),
-            parser: this.totalAssetsDataParser,
-            autoFetch: true,
-            refreshInterval: COMMON_DATA_POLLING_TIME,
-        });
-
-        this.commonContractData = new FetchTracker<any, any>({
-            fetchUrl: searchUrl,
-            fetcher: (fetchUrl) =>
-                search(
-                    fetchUrl,
-                    filterObjectCommonContract({ contractAddress }),
-                    true
-                ),
-            refreshInterval: COMMON_DATA_POLLING_TIME,
-            parser: this.contractDataParser,
-            autoFetch: true,
-        });
+        // this.commonContractData = new FetchTracker<any, any>({
+        //     fetchUrl: searchUrl,
+        //     fetcher: (fetchUrl) =>
+        //         search(
+        //             fetchUrl,
+        //             filterObjectCommonContract({ contractAddress }),
+        //             true
+        //         ),
+        //     refreshInterval: COMMON_DATA_POLLING_TIME,
+        //     parser: this.contractDataParser,
+        //     autoFetch: true,
+        // });
 
         reaction(
             () => this.rs.authStore.isAuthorized,
@@ -80,18 +66,18 @@ export class ContractStore extends ChildStore {
         );
     }
 
-    public get annual(): string {
-        // (((totalAssetAmount + emissionForYear) - totalAssetAmount) / totalAssetAmount) * 100%
-
-        const { totalAssetAmount, emissionPerBlock } = this.commonContractData.data;
-
-        if (!emissionPerBlock || !totalAssetAmount) {
-            return '0';
-        }
-        return (emissionPerBlock.getTokens().mul(BLOCKS_PER_YEAR).div(totalAssetAmount.getTokens()))
-            .mul(100)
-            .toFixed(2);
-    }
+    // public get annual(): string {
+    //     // (((totalAssetAmount + emissionForYear) - totalAssetAmount) / totalAssetAmount) * 100%
+    //
+    //     const { totalAssetAmount, emissionPerBlock } = this.commonContractData.data;
+    //
+    //     if (!emissionPerBlock || !totalAssetAmount) {
+    //         return '0';
+    //     }
+    //     return (emissionPerBlock.getTokens().mul(BLOCKS_PER_YEAR).div(totalAssetAmount.getTokens()))
+    //         .mul(100)
+    //         .toFixed(2);
+    // }
 
     public get availableForClaim(): Money {
         return this.userContractData.data?.userLockedTokenAmount || new Money(0, this.rs.assetsStore.LPToken);
@@ -106,27 +92,7 @@ export class ContractStore extends ChildStore {
     }
 
     public get nodes(): Array<INode> {
-        return this.userNode ?
-            [
-                this.userNode,
-                ...this.rs.configStore.nodeList.filter((node) => node.address !== this.userNode.address)
-            ] :
-            [...this.rs.configStore.nodeList];
-    }
-
-    public get userNode(): INode {
-        const userNodeAddress = this.userContractData?.data?.userStakingNodes && this.userContractData?.data?.userStakingNodes[0];
-        if (!userNodeAddress) {
-            return;
-        }
-        return (
-            this.rs.configStore.nodeList.find(({ address }) => address === userNodeAddress) ||
-            ({
-                address: userNodeAddress,
-                name: 'Unknown node',
-                img: ''
-            })
-        );
+        return this.rs.configStore.nodeList;
     }
 
     private userDataParser = (data: IEvaluateResponse): IUserContractData => {
@@ -164,53 +130,26 @@ export class ContractStore extends ChildStore {
         }, {} as IUserContractData);
     };
 
-    private totalAssetsDataParser = (data: IEvaluateResponse): ITotalAssetsContractData => {
-        const TOTAL_ASSETS_VALUES = [
-            'totalAvailableInternalLp',
-            'totalAvailableToWithdraw',
-            'currentInternalLPPrice',
-            'totalLockedInternalLpAmount',
-            'totalLockedTokenAmount',
-            'remainingBlocks'
-        ];
-        const parsedTuple = parseTupleData<IUserAssets>(data as ITuple, TOTAL_ASSETS_VALUES, parseOrderedTupleValue);
-        const getLpAmount = moneyFactory(new Money(0, this.rs.assetsStore.LPToken));
-        const getPrice = moneyFactory(new Money(0, this.rs.assetsStore.WAVES));
-        return Object.keys(parsedTuple).reduce((acc, key) => {
-            if (key === 'currentInternalLPPrice') {
-                acc[key] = getPrice(parsedTuple[key]);
-                return acc;
-            }
-
-            if (key === 'remainingBlocks') {
-                acc[key] = parsedTuple[key];
-                return acc;
-            }
-            acc[key] = getLpAmount(parsedTuple[key]);
-            return acc;
-        }, {} as ITotalAssetsContractData);
-    };
-
-    private contractDataParser = (data: IState): ICommonContractData => {
-        const parseEntries = (key: string, value: string | number): Partial<ICommonContractData> => {
-            switch (true) {
-                case key.includes('totalAssetAmount'):
-                    return { totalAssetAmount: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
-                case key.includes('emissionPerBlock'):
-                    return { emissionPerBlock: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
-                default:
-                    return {};
-            }
-        };
-        return data.entries.reduce(
-            (acc, entry) => {
-                const parsed = parseEntries(entry.key, entry.value);
-                return { ...acc, ...parsed };
-            },
-            {
-                totalAssetAmount: undefined,
-                emissionPerBlock: undefined,
-            }
-        );
-    };
+    // private contractDataParser = (data: IState): ICommonContractData => {
+    //     const parseEntries = (key: string, value: string | number): Partial<ICommonContractData> => {
+    //         switch (true) {
+    //             case key.includes('totalAssetAmount'):
+    //                 return { totalAssetAmount: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
+    //             case key.includes('emissionPerBlock'):
+    //                 return { emissionPerBlock: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
+    //             default:
+    //                 return {};
+    //         }
+    //     };
+    //     return data.entries.reduce(
+    //         (acc, entry) => {
+    //             const parsed = parseEntries(entry.key, entry.value);
+    //             return { ...acc, ...parsed };
+    //         },
+    //         {
+    //             totalAssetAmount: undefined,
+    //             emissionPerBlock: undefined,
+    //         }
+    //     );
+    // };
 }

@@ -26,12 +26,3 @@ interface IUserContractData {
     userStakingNodesShares: Array<number>;
     remainingBlocks: number;
 }
-
-interface ITotalAssetsContractData {
-    availableInternalLp: Money;
-    availableToWithdraw: Money;
-    currentInternalLPPrice: Money;
-    totalLockedInternalLpAmount: Money;
-    totalLockedTokenAmount: Money;
-    remainingBlocks: number;
-}

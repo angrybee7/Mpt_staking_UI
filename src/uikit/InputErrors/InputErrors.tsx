@@ -3,7 +3,11 @@ import { Text } from '@waves.exchange/wx-react-uikit';
 import BigNumber from '@waves/bignumber';
 import { Trans } from '@waves/ui-translator';
 
-type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
+type TInputErrorState =
+    'notEnoughFunds' |
+    'minAmount' |
+    'required' |
+    'invalidAddress';
 export type InputErrorsProps = {
     minAmount?: BigNumber;
     error?: TInputErrorState;
@@ -30,18 +34,26 @@ export const InputErrors: React.FC<InputErrorsProps> = React.memo(
                                 }}
                             />
                         )
-                        : null}
-
+                        : null
+                    }
                     {error === 'notEnoughFunds'
                         ? (
                             <Trans i18key="error.unsufficient" />
                         )
-                        : null}
+                        : null
+                    }
                     {error === 'required'
                         ? (
                             <Trans i18key="error.required" />
                         )
-                        : null}
+                        : null
+                    }
+                    {error === 'invalidAddress'
+                        ? (
+                            <Trans i18key="error.invalidAddress" />
+                        )
+                        : null
+                    }
                 </Text>
             </>
         );

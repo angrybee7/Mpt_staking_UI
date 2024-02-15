@@ -18,7 +18,7 @@ export class ProviderStore extends ChildStore {
         this.signer = rs.authStore.signer;
 
         this.invokeTxCommonParams = {
-            dApp: rs.configStore.config.contracts.factory,
+            dApp: rs.configStore.config.contracts.leasing,
             fee: 500000,
             feeAssetId: null,
         };

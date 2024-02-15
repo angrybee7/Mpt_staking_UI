@@ -23,7 +23,6 @@ import { DotSpinner } from '../../../../../components/DotSpinner/DotSpinner.tsx'
 
 export const UnstakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
-    const { contractStore } = React.useContext(AppStoreContext);
 
     const unstakeStore = React.useMemo(() => {
         return new UnstakeStore({
@@ -87,10 +86,6 @@ export const UnstakeForm: React.FC = () => {
                                         label={(): React.ReactNode => {
                                             return <Trans i18key="unstakeUnavailable" />;
                                         }}
-                                        isOpen={contractStore.totalAssetsContractData?.data.remainingBlocks !== 0 ?
-                                            false :
-                                            undefined
-                                        }
                                     >
                                         <Box
                                             maxWidth={unstakeStore.formState === FORM_STATE.pending ?
@@ -102,10 +97,7 @@ export const UnstakeForm: React.FC = () => {
                                                 variant="primary"
                                                 variantSize="large"
                                                 onClick={unstakeStore.invoke}
-                                                disabled={
-                                                    unstakeStore.formState === FORM_STATE.pending ||
-                                                    contractStore.totalAssetsContractData?.data.remainingBlocks === 0
-                                                }
+                                                disabled={unstakeStore.formState === FORM_STATE.pending}
                                                 maxWidth={unstakeStore.formState === FORM_STATE.pending ?
                                                     'none' :
                                                     ['300px', '200px']

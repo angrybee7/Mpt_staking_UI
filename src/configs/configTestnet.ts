@@ -17,7 +17,8 @@ export default<TConfig> {
     contracts: {
         factory: '3N4yYqBkTUq1mDdHhvAd3St7spCbm84DytS',
 		swap: '3MyXFjhxofZUKbHj3p8TUgZwDEPNzq7YNo3',
-        lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
+        lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc',
+        leasing: '3NCWFHDzdPHZC6636ZkMLNDup9mjpbTLs7h'
     },
     network: {
         code: 'T'

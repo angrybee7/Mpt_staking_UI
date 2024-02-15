@@ -21,7 +21,8 @@
   "error": {
     "min": "Min amount is {{amount}} {{assetName}}.",
     "unsufficient": "Insufficient funds.",
-    "required": "This field is required."
+    "required": "This field is required.",
+    "invalidAddress": "The address is not valid."
   },
   "transactionFee": "Transaction Fee",
   "transactionFeeTooltip": "A transaction fee is a fee that an account owner pays to send a transaction in the Waves blockchain.",
