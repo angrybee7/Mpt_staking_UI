@@ -19,18 +19,6 @@ export class ContractStore extends ChildStore {
 
     public userContractData: FetchTracker<IUserData, [IEvaluateResponse, IState]> = new FetchTracker();
 
-    public get availableForClaim(): Money {
-        return this.userContractData.data?.currentPeriodAvailableToClaim || new Money(0, this.rs.assetsStore.LPToken);
-    }
-
-    public get totalStaked(): Money {
-        const zeroMoney = new Money(0, this.rs.assetsStore.LPToken);
-        return zeroMoney.cloneWithTokens(
-            this.availableForClaim.getTokens()
-                .add(this.userContractData.data.totalLeasedAmount?.getTokens() || 0)
-        );
-    }
-
     public get totalLeased(): { current: Money, next: Money } {
         if (!this.userContractData?.data?.nodes) {
             return;
@@ -62,8 +50,6 @@ export class ContractStore extends ChildStore {
         const leasingAddress = this.rs.configStore.config.contracts.leasing;
 
         makeObservable(this, {
-            availableForClaim: computed,
-            totalStaked: computed,
             nodes: computed,
             totalLeased: computed,
         });

@@ -71,10 +71,16 @@ export class BaseInputFormStore extends BaseFormStore {
         const percent = (preset === undefined || preset === 'max') ? 1 : (preset / 100);
         const tokenId = this.currentTokenBalance?.asset.id;
         const feeId = this.fee?.asset.id;
+        const zeroMoney = new Money(0, this.currentAmount.asset);
+        const maxAmount  =
+            this.maxAmount ||
+            this.currentTokenBalance ||
+            zeroMoney.cloneWithTokens(0);
         const max =
-            tokenId && tokenId === feeId
-                ? this.currentTokenBalance.minus(this.fee)
-                : this.currentTokenBalance;
+            tokenId && tokenId === feeId ?
+                Money.max(maxAmount.minus(this.fee), zeroMoney.cloneWithTokens(0)) :
+                maxAmount;
+
         const presetValue = max ?
             max.cloneWithTokens(max.getTokens().mul(percent)) :
             undefined;

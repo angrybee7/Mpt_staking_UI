@@ -30,7 +30,6 @@ export const devices = {
 
 export const StakeForm: React.FC = () => {
     const rs = React.useContext(AppStoreContext);
-    const { contractStore } = rs;
 
     const stakeStore = React.useMemo(() => {
         return new StakeStore({
@@ -42,7 +41,7 @@ export const StakeForm: React.FC = () => {
     return (
         <Observer>
             {(): ReactElement => {
-                const balance = rs.balanceStore.balances[rs.assetsStore.LPToken.id]?.balance;
+                const balance = stakeStore.availableForStaking;
                 return (
                     <SerifWrapper px={['16px', '24px']} py="24px" as='form'>
                         <Text as="div" variant="heading2" mb="16px">
@@ -51,7 +50,11 @@ export const StakeForm: React.FC = () => {
                         <Flex flexDirection="column">
                             <Flex flexDirection={['column', 'row']} justifyContent="space-between" flexWrap="wrap">
                                 <BalanceComponent
-                                    balance={balance?.getTokens().gt(0) ? balance?.getTokens()?.toFormat() : '0.00'}
+                                    balance={
+                                        balance?.getTokens().gt(0) ?
+                                            balance?.getTokens()?.toFormat() :
+                                            '0.00'
+                                    }
                                     label={{ i18key: 'availableForStaking' }}
                                     labelHelp={{ i18key: 'availableForStakingHelp' }}
                                     ticker={rs.assetsStore.LPToken.displayName}
@@ -80,19 +83,6 @@ export const StakeForm: React.FC = () => {
                                         <Trans i18key="getL2MP" />
                                     </Button>
                                 </ExternalLink>
-                                {/*<BalanceComponent*/}
-                                {/*    balance={stakeStore.totalStaked?.getTokens()?.gt(0) ?*/}
-                                {/*        stakeStore.totalStaked?.getTokens()?.toFormat() :*/}
-                                {/*        '0.00'*/}
-                                {/*    }*/}
-                                {/*    label={{ i18key: 'totalStaked' }}*/}
-                                {/*    labelHelp={{ i18key: 'totalStakedTooltip' }}*/}
-                                {/*    ticker={rs.assetsStore.LPToken.displayName}*/}
-                                {/*    align="left"*/}
-                                {/*    flex={1}*/}
-                                {/*    mr={[null, '16px']}*/}
-                                {/*    mb={['16px', '8px']}*/}
-                                {/*/>*/}
                             </Flex>
                             {balance && balance?.getTokens().gt(0) ?
                                 <>
