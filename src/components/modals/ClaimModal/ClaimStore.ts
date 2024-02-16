@@ -1,25 +1,22 @@
 import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
-import { BaseFormStore, FORM_STATE } from '../../../../../stores/utils/BaseFormStore.ts';
-import { AppStore } from '../../../../../stores/AppStore.ts';
+import { BaseFormStore, FORM_STATE } from '../../../stores/utils/BaseFormStore.ts';
+import { AppStore } from '../../../stores/AppStore.ts';
 import { computed, makeObservable } from 'mobx';
 import { Money } from '@waves/data-entities';
 
 export class ClaimStore extends BaseFormStore {
 
 	public get availableForClaim(): Money {
-		return this.rs.contractStore.availableForClaim || new Money(0, this.rs.assetsStore.LPToken);
-	}
-
-	public get isClaimAvailable(): boolean {
-		// todo
-		return false;
+		return (
+			this.rs.contractStore.userContractData?.data?.currentPeriodAvailableToClaim ||
+			new Money(0, this.rs.assetsStore.LPToken)
+		);
 	}
 
 	public get isButtonDisabled(): boolean {
 		return (
 			this.formState === FORM_STATE.pending ||
-			this.availableForClaim.getTokens().isZero() ||
-			!this.isClaimAvailable
+			this.availableForClaim.getTokens().isZero()
 		)
 	}
 
@@ -27,7 +24,6 @@ export class ClaimStore extends BaseFormStore {
 		super(rs);
 		makeObservable(this, {
 			availableForClaim: computed,
-			isClaimAvailable: computed,
 			isButtonDisabled: computed,
 		});
 	}
@@ -38,20 +34,19 @@ export class ClaimStore extends BaseFormStore {
 	} {
 		return {
 			call: {
-				// todo
-				function: 'claim',
+				function: 'claimAll',
 				args: [],
 			},
 			payment: [],
 		};
 	}
 
-	public invoke = () => {
+	public invoke = (): Promise<void> => {
 		const isFormValid = this.check();
 		if (!isFormValid) {
-			return;
+			return Promise.reject();
 		}
-		this.sendTransaction(() =>
+		return this.sendTransaction(() =>
 			this.rs.providerStore.sendInvoke(this.tx)
 		).then(() => {
 			this.reset();

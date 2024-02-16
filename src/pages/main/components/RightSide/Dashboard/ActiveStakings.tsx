@@ -9,7 +9,6 @@ import { shortAddress } from '../../../../../utils';
 import { observer } from 'mobx-react-lite';
 import { modalManager } from '../../../../../services/modalManager.ts';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES.ts';
-import { Money } from '@waves/data-entities';
 
 export const ActiveStakings: React.FC = observer(() => {
     const { contractStore, assetsStore } = React.useContext(AppStoreContext);
@@ -24,36 +23,25 @@ export const ActiveStakings: React.FC = observer(() => {
         });
     }, [contractStore.totalLeased]);
 
+	const {
+		currentToClaim,
+		nextToClaim
+	} = React.useMemo(() => {
+		return ({
+			currentToClaim: contractStore.userContractData.data?.currentPeriodAvailableToClaim?.getTokens(),
+			nextToClaim: contractStore.userContractData.data?.nextPeriodAvailableToClaim?.getTokens(),
+		});
+	}, [contractStore.userContractData.data]);
+
 	const onClickUnstake = React.useCallback((address: string) => {
 		modalManager.openModal(
 			MODAL_NAMES.unstake,
-			{
-				store: {
-					nodes: {
-						SDCFVSFCWDcsdcSVSRAdcsdC: { availableForUnstaking: new Money(500000000, assetsStore.LPToken) },
-						SDCFVSFCWDcsdsSVSRAdcsdC: { availableForUnstaking: new Money(400000000, assetsStore.LPToken) },
-						SDCFVSFCWDcsdcSdSRAdcsdC: { availableForUnstaking: new Money(0, assetsStore.LPToken) },
-					}
-				},
-				address
-			}
+			{ address }
 		);
 	}, []);
 
-	const onClickClaim = React.useCallback((address: string) => {
-		modalManager.openModal(
-			MODAL_NAMES.claim,
-			{
-				store: {
-					nodes: {
-						SDCFVSFCWDcsdcSVSRAdcsdC: { availableForClaiming: new Money(200000000, assetsStore.LPToken) },
-						SDCFVSFCWDcsdsSVSRAdcsdC: { availableForClaiming: new Money(0, assetsStore.LPToken) },
-						SDCFVSFCWDcsdcSdSRAdcsdC: { availableForClaiming: new Money(500000000, assetsStore.LPToken) },
-					}
-				},
-				address
-			}
-		);
+	const onClickClaim = React.useCallback(() => {
+		modalManager.openModal(MODAL_NAMES.claim);
 	}, []);
 
     return (
@@ -142,58 +130,72 @@ export const ActiveStakings: React.FC = observer(() => {
                                     >
                                         <Trans i18key="unstake" />
                                     </Button>
-                                    {/*{unstaked.gt(0) ?*/}
-                                    {/*    <SerifWrapper mt="16px">*/}
-                                    {/*        <Box sx={{ px:['16px', '24px'] }}>*/}
-                                    {/*            <Text*/}
-                                    {/*                as="div"*/}
-                                    {/*                variant="heading4"*/}
-                                    {/*                fontFamily="Sfmono-light"*/}
-                                    {/*                color="text"*/}
-                                    {/*                sx={{ mb: '8px' }}*/}
-                                    {/*            >*/}
-                                    {/*                <Trans i18key="unstaked" />*/}
-                                    {/*            </Text>*/}
-                                    {/*            <BalanceRow*/}
-                                    {/*                balance={unstaked.toFormat()}*/}
-                                    {/*                ticker={assetsStore.LPToken.displayName}*/}
-                                    {/*                mb="24px"*/}
-                                    {/*            />*/}
-                                    {/*            <Tooltip*/}
-                                    {/*                variant="info"*/}
-                                    {/*                alignSelf="center"*/}
-                                    {/*                width="100%"*/}
-                                    {/*                placement="top"*/}
-                                    {/*                label={(): React.ReactNode => {*/}
-                                    {/*                    return <Trans i18key="claimTooltip" />;*/}
-                                    {/*                }}*/}
-                                    {/*                isOpen={isPrevEpoch}*/}
-                                    {/*                sx={{*/}
-                                    {/*                    ' div': {*/}
-                                    {/*                        maxWidth: 'none'*/}
-                                    {/*                    }*/}
-                                    {/*                }}*/}
-                                    {/*            >*/}
-                                    {/*                <Button*/}
-                                    {/*                    variant="transparent"*/}
-                                    {/*                    variantSize="large"*/}
-                                    {/*                    width="100%"*/}
-                                    {/*                    disabled={isPrevEpoch}*/}
-                                    {/*                    boxShadow="0px 8px 20px 0px #3C63AF2B"*/}
-                                    {/*                    wrapperProps={{ variant: 'default' }}*/}
-                                    {/*                    onClick={() => onClickClaim(node.address)}*/}
-                                    {/*                >*/}
-                                    {/*                    <Trans i18key="claim" />*/}
-                                    {/*                </Button>*/}
-                                    {/*            </Tooltip>*/}
-                                    {/*        </Box>*/}
-                                    {/*    </SerifWrapper> :*/}
-                                    {/*    null*/}
-                                    {/*}*/}
                                 </Box>
                             </SerifWrapper>
                         )
                     })}
+					{currentToClaim?.gt(0) || nextToClaim?.gt(0) ?
+						<SerifWrapper mt="16px">
+							<Box
+								sx={{
+									px: ['16px', '24px'],
+									py: ['16px', '24px'],
+							}}
+							>
+								<Text
+									as="div"
+									variant="heading4"
+									fontFamily="Sfmono-light"
+									color="text"
+									sx={{ mb: '8px' }}
+								>
+									<Trans i18key="unstaked" />
+								</Text>
+								<BalanceRow
+									balance={currentToClaim?.eq(nextToClaim) ?
+										currentToClaim?.toFormat() :
+										`${currentToClaim?.toFormat()} / ${nextToClaim?.toFormat()}`
+									}
+									ticker={assetsStore.LPToken.displayName}
+									mb="24px"
+								/>
+								<Tooltip
+									variant="info"
+									alignSelf="center"
+									width="100%"
+									placement="top"
+									label={(): React.ReactNode => {
+										return <Trans i18key="claimTooltip" />;
+									}}
+									isOpen={
+										currentToClaim?.eq(0) && nextToClaim?.gt(0) ?
+											undefined :
+											false
+									}
+									sx={{
+										' div': {
+											maxWidth: 'none'
+										}
+									}}
+								>
+									<Box>
+										<Button
+											variant="transparent"
+											variantSize="large"
+											width="100%"
+											disabled={currentToClaim?.eq(0)}
+											boxShadow="0px 8px 20px 0px #3C63AF2B"
+											wrapperProps={{ variant: 'default' }}
+											onClick={onClickClaim}
+										>
+											<Trans i18key="claim" />
+										</Button>
+									</Box>
+								</Tooltip>
+							</Box>
+						</SerifWrapper> :
+						null
+					}
                 </Box>
             ) : (
                 <Box sx={{ py: '24px', px:['16px', '24px'] }}>
