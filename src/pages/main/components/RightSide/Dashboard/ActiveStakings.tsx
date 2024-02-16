@@ -7,6 +7,9 @@ import { BalanceRow } from '../../../../../components/BalanceComponent/BalanceRo
 import { AppStoreContext } from '../../../../../App.tsx';
 import { shortAddress } from '../../../../../utils';
 import { observer } from 'mobx-react-lite';
+import { modalManager } from '../../../../../services/modalManager.ts';
+import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES.ts';
+import { Money } from '@waves/data-entities';
 
 export const ActiveStakings: React.FC = observer(() => {
     const { contractStore, assetsStore } = React.useContext(AppStoreContext);
@@ -20,6 +23,38 @@ export const ActiveStakings: React.FC = observer(() => {
             nextLeased: contractStore.totalLeased?.next?.getTokens(),
         });
     }, [contractStore.totalLeased]);
+
+	const onClickUnstake = React.useCallback((address: string) => {
+		modalManager.openModal(
+			MODAL_NAMES.unstake,
+			{
+				store: {
+					nodes: {
+						SDCFVSFCWDcsdcSVSRAdcsdC: { availableForUnstaking: new Money(500000000, assetsStore.LPToken) },
+						SDCFVSFCWDcsdsSVSRAdcsdC: { availableForUnstaking: new Money(400000000, assetsStore.LPToken) },
+						SDCFVSFCWDcsdcSdSRAdcsdC: { availableForUnstaking: new Money(0, assetsStore.LPToken) },
+					}
+				},
+				address
+			}
+		);
+	}, []);
+
+	const onClickClaim = React.useCallback((address: string) => {
+		modalManager.openModal(
+			MODAL_NAMES.claim,
+			{
+				store: {
+					nodes: {
+						SDCFVSFCWDcsdcSVSRAdcsdC: { availableForClaiming: new Money(200000000, rs.assetsStore.LPToken) },
+						SDCFVSFCWDcsdsSVSRAdcsdC: { availableForClaiming: new Money(0, rs.assetsStore.LPToken) },
+						SDCFVSFCWDcsdcSdSRAdcsdC: { availableForClaiming: new Money(500000000, rs.assetsStore.LPToken) },
+					}
+				},
+				address
+			}
+		);
+	}, []);
 
     return (
         <SerifWrapper>
@@ -103,6 +138,7 @@ export const ActiveStakings: React.FC = observer(() => {
                                         disabled={nextLeasingAmount.getTokens().isZero()}
                                         boxShadow="0px 8px 20px 0px #3C63AF2B"
                                         wrapperProps={{ variant: 'default' }}
+										onClick={() => onClickUnstake(node.address)}
                                     >
                                         <Trans i18key="unstake" />
                                     </Button>
@@ -145,6 +181,7 @@ export const ActiveStakings: React.FC = observer(() => {
                                     {/*                    disabled={isPrevEpoch}*/}
                                     {/*                    boxShadow="0px 8px 20px 0px #3C63AF2B"*/}
                                     {/*                    wrapperProps={{ variant: 'default' }}*/}
+                                    {/*                    onClick={() => onClickClaim(node.address)}*/}
                                     {/*                >*/}
                                     {/*                    <Trans i18key="claim" />*/}
                                     {/*                </Button>*/}
