@@ -26,7 +26,6 @@ export default<TConfig> {
     assets: [
         { label: 'WAVES', id: 'WAVES' },
         { label: 'WX', id: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc' },
-        { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ],
     nodes: 'https://configs.wx.network/leasing/testnet-config.json',
 };

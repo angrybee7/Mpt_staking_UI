@@ -46,9 +46,9 @@ export const ActiveStakings: React.FC = observer(() => {
 			{
 				store: {
 					nodes: {
-						SDCFVSFCWDcsdcSVSRAdcsdC: { availableForClaiming: new Money(200000000, rs.assetsStore.LPToken) },
-						SDCFVSFCWDcsdsSVSRAdcsdC: { availableForClaiming: new Money(0, rs.assetsStore.LPToken) },
-						SDCFVSFCWDcsdcSdSRAdcsdC: { availableForClaiming: new Money(500000000, rs.assetsStore.LPToken) },
+						SDCFVSFCWDcsdcSVSRAdcsdC: { availableForClaiming: new Money(200000000, assetsStore.LPToken) },
+						SDCFVSFCWDcsdsSVSRAdcsdC: { availableForClaiming: new Money(0, assetsStore.LPToken) },
+						SDCFVSFCWDcsdcSdSRAdcsdC: { availableForClaiming: new Money(500000000, assetsStore.LPToken) },
 					}
 				},
 				address
