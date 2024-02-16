@@ -99,28 +99,20 @@ export const SwapForm: React.FC = () => {
                                 placeholder="000000000000"
                             />
                             <InputErrors error={swapStore.amountError?.error} />
-                            {
-                                !contractStore.userNode ?
-                                    <>
-                                        <NodeSelect
-                                            nodes={
-                                                rs.contractStore.nodes.filter((node) => {
-                                                    return node.address !== swapStore.node?.address;
-                                                })
-                                            }
-                                            selectedNode={swapStore.node}
-                                            onChangeNode={swapStore.setNode}
-                                            onClickManually={swapStore.setIsManually}
-                                            onChangeInput={swapStore.setManuallyAddressInput}
-                                            inputValue={swapStore.manuallyAddressInput}
-                                            manuallySelected={swapStore.isManually}
-                                            mt={16}
-                                            isError={!!swapStore.nodeSelectError?.error}
-                                        />
-                                        <InputErrors error={swapStore.nodeSelectError?.error} />
-                                    </> :
-                                    null
-                            }
+                            <NodeSelect
+                                nodes={
+                                    rs.contractStore.nodes.filter((node) => {
+                                        return node.address !== swapStore.node?.address;
+                                    })
+                                }
+                                selectedNode={swapStore.node}
+                                onChangeNode={swapStore.setNode}
+                                onChangeInput={swapStore.onSetManuallyNodeAddress.bind(swapStore)}
+                                inputValue={swapStore.node?.address || ''}
+                                isError={!!swapStore.nodeSelectError?.error}
+                                mt={16}
+                            />
+                            <InputErrors error={swapStore.nodeSelectError?.error} />
                             <Flex mt={16}>
                                 <Text color="text" mr={4}>
                                     <Trans i18key={'youReceive'} />:

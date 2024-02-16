@@ -114,28 +114,20 @@ export const StakeForm: React.FC = () => {
                                         placeholder='000000000000'
                                     />
                                     <InputErrors error={stakeStore.amountError?.error}/>
-                                    {
-                                        !contractStore.userNode ?
-                                            <>
-                                                <NodeSelect
-                                                    nodes={
-                                                        rs.contractStore.nodes.filter((node) => {
-                                                            return node.address !== stakeStore.node?.address;
-                                                        })
-                                                    }
-                                                    selectedNode={stakeStore.node}
-                                                    onChangeNode={stakeStore.setNode}
-                                                    onClickManually={stakeStore.setIsManually}
-                                                    onChangeInput={stakeStore.setManuallyAddressInput}
-                                                    inputValue={stakeStore.manuallyAddressInput}
-                                                    manuallySelected={stakeStore.isManually}
-                                                    mt={16}
-                                                    isError={!!stakeStore.nodeSelectError?.error}
-                                                />
-                                                <InputErrors error={stakeStore.nodeSelectError?.error}/>
-                                            </> :
-                                            null
-                                    }
+                                    <NodeSelect
+                                        nodes={
+                                            rs.contractStore.nodes.filter((node) => {
+                                                return node.address !== stakeStore.node?.address;
+                                            })
+                                        }
+                                        selectedNode={stakeStore.node}
+                                        onChangeNode={stakeStore.setNode}
+                                        onChangeInput={stakeStore.onSetManuallyNodeAddress.bind(stakeStore)}
+                                        inputValue={stakeStore.node?.address || ''}
+                                        isError={!!stakeStore.nodeSelectError?.error}
+                                        mt={16}
+                                    />
+                                    <InputErrors error={stakeStore.nodeSelectError?.error} />
                                     <FeeComponent my="16px" />
                                     <ResponsibilitiesBlock mb="16px" />
                                     <MultiErrorComponent activeErrors={stakeStore.activeErrors} />

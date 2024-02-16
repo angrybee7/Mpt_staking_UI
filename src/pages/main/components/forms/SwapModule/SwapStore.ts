@@ -6,56 +6,26 @@ import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
 import { action, computed, makeObservable, observable, reaction } from 'mobx';
 import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
+import { validate } from '../../../../../utils';
 
 export class SwapStore extends BaseInputFormStore {
-    public node: INode = this.rs.contractStore.userNode;
-    public manuallyAddressInput = '';
-    public isManually = false;
+    public node: INode;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             node: observable,
-            manuallyAddressInput: observable,
-            isManually: observable,
             setNode: action.bound,
-            setManuallyAddressInput: action.bound,
-            setIsManually: action.bound,
             nodeSelectError: computed,
         });
-
-        let initialUserNode = this.rs.contractStore.userNode;
-        reaction(
-            () => this.rs.contractStore.userNode,
-            () => {
-                if (!this.node || initialUserNode) {
-                    this.node = this.rs.contractStore.userNode;
-                }
-                if (!initialUserNode) {
-                    initialUserNode = this.rs.contractStore.userNode;
-                }
-            }
-        );
-        reaction(
-            () => this.manuallyAddressInput,
-            () => {
-                this.setNode({ address: this.manuallyAddressInput });
-            }
-        );
-        reaction(
-            () => this.node,
-            () => {
-                console.warn(this.node);
-            }
-        );
     }
 
     public get tx(): {
-        dApp: string;
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-        } {
-        const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
+    } {
+        // TODO
+        const call = this.node ?
             {
                 function: 'swapAndSetStakingNode',
                 args: [
@@ -70,7 +40,6 @@ export class SwapStore extends BaseInputFormStore {
                 ],
             };
         return {
-            dApp: this.rs.configStore.config.contracts.swap,
             call: call as InvokeScriptCall<string | number>,
             payment: [
                 {
@@ -82,12 +51,10 @@ export class SwapStore extends BaseInputFormStore {
     }
 
     public get nodeSelectError(): InputErrorsProps {
-        if (
-            !this.rs.contractStore.userNode &&
-            this.isConfirmClicked &&
-            !this.node
-        ) {
+        if (this.isConfirmClicked && !this.node) {
             return ({ error: 'required' });
+        } else if (this.isConfirmClicked && this.node?.address && !this.isValidNodeAddress()) {
+            return ({ error: 'invalidAddress' });
         } else {
             return undefined;
         }
@@ -95,7 +62,7 @@ export class SwapStore extends BaseInputFormStore {
 
     public invoke = () => {
         const inputResult = this.checkInput();
-        const selectResult = this.checkSelect();
+        const selectResult = this.checkNode();
         if (!inputResult || !selectResult) {
             return;
         }
@@ -110,15 +77,28 @@ export class SwapStore extends BaseInputFormStore {
         this.node = node;
     }
 
-    public setManuallyAddressInput(manuallyAddressInput: string): void {
-        this.manuallyAddressInput = manuallyAddressInput;
+    public onSetManuallyNodeAddress(address: string): void {
+        this.setNode({ address });
     }
 
-    public setIsManually(isManually: boolean): void {
-        this.isManually = isManually;
+    public reset(): void {
+        super.reset();
+        this.setNode(undefined);
     }
 
-    protected checkSelect(): boolean {
-        return !!this.rs.contractStore.userNode || !!this.node;
+    protected checkNode(): boolean {
+        return !!this.node && this.isValidNodeAddress();
+    }
+
+    protected isValidNodeAddress(): boolean {
+        try {
+            return validate.address(
+                this.node?.address || '',
+                this.rs.configStore.config.network.code.charCodeAt(0)
+            )
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 }

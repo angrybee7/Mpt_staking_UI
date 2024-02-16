@@ -21,7 +21,8 @@ export type TConfig = {
     contracts: {
         factory: string;
         swap: string;
-        lpToken: string
+        lpToken: string;
+        leasing: string;
     },
     network: {
         code: 'W' | 'T';

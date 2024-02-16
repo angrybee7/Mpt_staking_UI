@@ -3,48 +3,24 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../../stores/utils/BaseInputFormStore.ts';
-import { action, computed, makeObservable, observable, reaction } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
 import { Money } from '@waves/data-entities';
+import { validate } from '../../../../../utils';
 
 export class StakeStore extends BaseInputFormStore {
 
-    public node: INode = this.rs.contractStore.userNode;
-    public manuallyAddressInput = '';
-    public isManually = false;
+    public node: INode;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
         makeObservable(this, {
             node: observable,
-            manuallyAddressInput: observable,
-            isManually: observable,
             setNode: action.bound,
-            setManuallyAddressInput: action.bound,
-            setIsManually: action.bound,
             nodeSelectError: computed,
             totalStaked: computed,
         });
-
-        let initialUserNode = this.rs.contractStore.userNode;
-        reaction(
-            () => this.rs.contractStore.userNode,
-            () => {
-                if (!this.node || initialUserNode) {
-                    this.node = this.rs.contractStore.userNode;
-                }
-                if (!initialUserNode) {
-                    initialUserNode = this.rs.contractStore.userNode;
-                }
-            }
-        );
-        reaction(
-            () => this.manuallyAddressInput,
-            () => {
-                this.setNode({ address: this.manuallyAddressInput });
-            }
-        );
     }
 
     public get totalStaked(): Money | undefined {
@@ -54,16 +30,13 @@ export class StakeStore extends BaseInputFormStore {
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-        } {
-        const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
-            {
-                function: 'stakeAndSetStakingNode',
-                args: [{ type: 'string', value: this.node.address }],
-            } as InvokeScriptCall<string> :
-            {
-                function: 'stake',
-                args: [],
-            };
+    } {
+        // TODO
+        const call = {
+            function: 'lease',
+            args: [{ type: 'string', value: this.node.address }],
+        } as InvokeScriptCall<string>;
+
         return {
             call,
             payment: [
@@ -76,8 +49,10 @@ export class StakeStore extends BaseInputFormStore {
     }
 
     public get nodeSelectError(): InputErrorsProps {
-        if (!this.rs.contractStore.userNode && this.isConfirmClicked && !this.node) {
+        if (this.isConfirmClicked && !this.node) {
             return ({ error: 'required' });
+        } else if (this.isConfirmClicked && this.node?.address && !this.isValidNodeAddress()) {
+            return ({ error: 'invalidAddress' });
         } else {
             return undefined;
         }
@@ -85,7 +60,7 @@ export class StakeStore extends BaseInputFormStore {
 
     public invoke = () => {
         const inputResult = this.checkInput();
-        const selectResult = this.checkSelect();
+        const selectResult = this.checkNode();
         if (!inputResult || !selectResult) {
             return;
         }
@@ -100,15 +75,28 @@ export class StakeStore extends BaseInputFormStore {
         this.node = node;
     }
 
-    public setManuallyAddressInput(manuallyAddressInput: string): void {
-        this.manuallyAddressInput = manuallyAddressInput;
+    public onSetManuallyNodeAddress(address: string): void {
+        this.setNode({ address });
     }
 
-    public setIsManually(isManually: boolean): void {
-        this.isManually = isManually;
+    public reset(): void {
+        super.reset();
+        this.setNode(undefined);
     }
 
-    protected checkSelect(): boolean {
-        return !!this.rs.contractStore.userNode || !!this.node;
+    protected checkNode(): boolean {
+        return !!this.node && this.isValidNodeAddress();
+    }
+
+    protected isValidNodeAddress(): boolean {
+        try {
+            return validate.address(
+                this.node?.address || '',
+                this.rs.configStore.config.network.code.charCodeAt(0)
+            );
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 }

@@ -34,6 +34,13 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
     inputValue,
     ...selectProps
 }) => {
+	const [isManually, setIsManually] = React.useState<boolean>(manuallySelected);
+	const _onClickManually = React.useCallback((value: boolean): void => {
+		setIsManually(value);
+		if (typeof onClickManually === 'function') {
+			onClickManually(value);
+		}
+	}, []);
     return (
         <Box {...boxProps as any}>
             <Select
@@ -43,7 +50,7 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
                             opened={opened}
                             selected={selectedNode || initialNode}
                             placeholderTrans={placeholderTrans}
-                            isManually={manuallySelected}
+                            isManually={isManually}
                             inputValue={inputValue}
                             onChangeInput={onChangeInput}
                         />
@@ -56,9 +63,9 @@ export const NodeSelect: React.FC<INodeSelectParams> = ({
                 <NodesList
                     nodes={nodes}
                     onChangeNode={onChangeNode}
-                    onClickManually={onClickManually}
+                    onClickManually={_onClickManually}
                     onChangeInput={onChangeInput}
-                    isManually={manuallySelected}
+                    isManually={isManually}
                     isError={isError}
                 />
             </Select>
