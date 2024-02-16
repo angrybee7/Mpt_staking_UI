@@ -138,7 +138,7 @@ export const ActiveStakings: React.FC = observer(() => {
                                         disabled={nextLeasingAmount.getTokens().isZero()}
                                         boxShadow="0px 8px 20px 0px #3C63AF2B"
                                         wrapperProps={{ variant: 'default' }}
-										onClick={() => onClickUnstake(node.address)}
+										onClick={() => onClickUnstake(nodeAddress)}
                                     >
                                         <Trans i18key="unstake" />
                                     </Button>
