@@ -1,17 +1,12 @@
 import { Money } from '@waves/data-entities';
 
-interface ICommonContractData {
-    totalAssetAmount: Money;
-    emissionPerBlock: Money;
-}
-
-
 interface IUserAssets {
-    availableInternalLp: number;
-    availableToWithdraw: number;
-    currentInternalLPPrice: number;
-    userTotalStaked: number;
-    userTotalWithdrawn: number;
+    currentPeriodStart: number;
+    currentPeriodAvailableToClaim: number;
+    nextPeriodStart: number;
+    nextPeriodAvailableToClaim: number;
+    totalLeasedAmount: number;
+    currentHeight: number;
 }
 
 interface IUserContractData {
@@ -21,4 +16,27 @@ interface IUserContractData {
     nextPeriodAvailableToClaim: Money;
     totalLeasedAmount: Money;
     currentHeight: number;
+}
+
+interface IUserLeasingNodeDataRaw {
+    currentPeriodHeight: number;
+    currentLeasingAmount: number
+    nextPeriodHeight: number;
+    nextLeasingAmount: number;
+}
+
+interface IUserLeasingNodeData {
+    nodeAddress: string;
+    currentPeriodHeight: number;
+    currentLeasingAmount: Money;
+    nextPeriodHeight: number;
+    nextLeasingAmount: Money;
+}
+
+interface IUserLeasingData {
+    nodes: Record<string, IUserLeasingNodeData>;
+}
+
+interface IUserData extends IUserContractData {
+    nodes: IUserLeasingNodeData;
 }

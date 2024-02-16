@@ -3,84 +3,21 @@ import { FetchTracker } from '../utils/FetchTracker.ts';
 import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
-import { BLOCKS_PER_YEAR, filterObjectCommonContract, moneyFactory } from './utils.ts';
-import { ICommonContractData, IUserAssets, IUserContractData } from './interface';
+import { filterObjectUserLeasing, moneyFactory } from './utils.ts';
+import { IUserAssets, IUserContractData, IUserData, IUserLeasingNodeDataRaw } from './interface';
 import { computed, makeObservable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
-import { ITuple, parseOrderedTupleValue, parseTupleData } from '../../utils/evaluate/utils.ts';
+import { ITuple, parseOrderedTupleValue, parseSearchStr, parseTupleData } from '../../utils/evaluate/utils.ts';
 import { Money } from '@waves/data-entities';
 import { INode } from '../utils/fetchNodeList.ts';
+import { validate } from '../../utils';
 
-const COMMON_DATA_POLLING_TIME = 60_000;
 const USER_DATA_POLLING_TIME = 20_000;
 
 export class ContractStore extends ChildStore {
 
-    // public commonContractData: FetchTracker<ICommonContractData, IState>;
-    public userContractData: FetchTracker<IUserContractData, IEvaluateResponse> = new FetchTracker();
-
-    constructor(rs: AppStore) {
-        super(rs);
-        // const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
-        const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
-        const leasingAddress = this.rs.configStore.config.contracts.leasing;
-
-        makeObservable(this, {
-            availableForClaim: computed,
-            nodes: computed,
-        });
-
-        // this.commonContractData = new FetchTracker<any, any>({
-        //     fetchUrl: searchUrl,
-        //     fetcher: (fetchUrl) =>
-        //         search(
-        //             fetchUrl,
-        //             filterObjectCommonContract({ contractAddress }),
-        //             true
-        //         ),
-        //     refreshInterval: COMMON_DATA_POLLING_TIME,
-        //     parser: this.contractDataParser,
-        //     autoFetch: true,
-        // });
-
-        reaction(
-            () => this.rs.authStore.isAuthorized,
-            () => {
-                if (this.rs.authStore.isAuthorized) {
-                    this.userContractData.setOptions({
-                        fetchUrl: evaluateUrl,
-                        fetcher: (evaluateUrl) =>
-                            evaluate(
-                                evaluateUrl,
-                                {
-                                    address: leasingAddress,
-                                    expr: `getUserDataREADONLY("${this.rs.authStore.user.address}")`
-                                }
-                            ),
-                        parser: this.userDataParser,
-                        autoFetch: true,
-                        refreshInterval: USER_DATA_POLLING_TIME
-                    });
-                } else {
-                    this.userContractData.off();
-                }
-            },
-        );
-    }
-
-    // public get annual(): string {
-    //     // (((totalAssetAmount + emissionForYear) - totalAssetAmount) / totalAssetAmount) * 100%
-    //
-    //     const { totalAssetAmount, emissionPerBlock } = this.commonContractData.data;
-    //
-    //     if (!emissionPerBlock || !totalAssetAmount) {
-    //         return '0';
-    //     }
-    //     return (emissionPerBlock.getTokens().mul(BLOCKS_PER_YEAR).div(totalAssetAmount.getTokens()))
-    //         .mul(100)
-    //         .toFixed(2);
-    // }
+    public userContractData: FetchTracker<IUserData, [IEvaluateResponse, IState]> = new FetchTracker();
 
     public get availableForClaim(): Money {
         return this.userContractData.data?.currentPeriodAvailableToClaim || new Money(0, this.rs.assetsStore.LPToken);
@@ -94,11 +31,80 @@ export class ContractStore extends ChildStore {
         );
     }
 
+    public get totalLeased(): { current: Money, next: Money } {
+        if (!this.userContractData?.data?.nodes) {
+            return;
+        }
+        return Object.values(this.userContractData.data.nodes).reduce((acc, leaseData) => {
+            const { currentLeasingAmount, nextLeasingAmount } = leaseData;
+            return ({
+                current: acc.current.cloneWithTokens(
+                    acc.current.getTokens().add(currentLeasingAmount.getTokens())
+                ),
+                next: acc.next.cloneWithTokens(
+                    acc.next.getTokens().add(nextLeasingAmount.getTokens())
+                )
+            });
+        }, {
+            current: new Money(0, this.rs.assetsStore.LPToken),
+            next: new Money(0, this.rs.assetsStore.LPToken)
+        } as { current: Money, next: Money });
+    }
+
     public get nodes(): Array<INode> {
         return this.rs.configStore.nodeList;
     }
 
-    private userDataParser = (data: IEvaluateResponse): IUserContractData => {
+    constructor(rs: AppStore) {
+        super(rs);
+        const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
+        const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
+        const leasingAddress = this.rs.configStore.config.contracts.leasing;
+
+        makeObservable(this, {
+            availableForClaim: computed,
+            totalStaked: computed,
+            nodes: computed,
+            totalLeased: computed,
+        });
+
+        reaction(
+            () => this.rs.authStore.isAuthorized,
+            () => {
+                if (this.rs.authStore.isAuthorized) {
+                    this.userContractData.setOptions({
+                        fetchUrl: evaluateUrl,
+                        fetcher: (evaluateUrl) => {
+                            return Promise.all([
+                                evaluate(
+                                    evaluateUrl,
+                                    {
+                                        address: leasingAddress,
+                                        expr: `getUserDataREADONLY("${this.rs.authStore.user.address}")`
+                                    }
+                                ),
+                                search(
+                                    searchUrl,
+                                    filterObjectUserLeasing({
+                                        contractAddress: leasingAddress,
+                                        userAddress: this.rs.authStore.user.address
+                                    }),
+                                    true
+                                )
+                            ])
+                        },
+                        parser: this.userDataParser,
+                        autoFetch: true,
+                        refreshInterval: USER_DATA_POLLING_TIME
+                    });
+                } else {
+                    this.userContractData.off();
+                }
+            },
+        );
+    }
+
+    private userDataParser = ([data, searchData]: [IEvaluateResponse, IState]): IUserData => {
         const USER_ASSETS_VALUES = [
             'currentPeriodStart',
             'currentPeriodAvailableToClaim',
@@ -113,7 +119,7 @@ export class ContractStore extends ChildStore {
             parseOrderedTupleValue
         );
         const getLpAmount = moneyFactory(new Money(0, this.rs.assetsStore.LPToken));
-        return Object.keys(parsedTuple).reduce((acc, key) => {
+        const contractData = Object.keys(parsedTuple).reduce((acc, key) => {
             if (
                 key === 'currentPeriodAvailableToClaim' ||
                 key === 'nextPeriodAvailableToClaim' ||
@@ -125,28 +131,48 @@ export class ContractStore extends ChildStore {
             acc[key] = parsedTuple[key];
             return acc;
         }, {} as IUserContractData);
-    };
 
-    // private contractDataParser = (data: IState): ICommonContractData => {
-    //     const parseEntries = (key: string, value: string | number): Partial<ICommonContractData> => {
-    //         switch (true) {
-    //             case key.includes('totalAssetAmount'):
-    //                 return { totalAssetAmount: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
-    //             case key.includes('emissionPerBlock'):
-    //                 return { emissionPerBlock: new Money(0, this.rs.assetsStore.LPToken).cloneWithTokens(value) };
-    //             default:
-    //                 return {};
-    //         }
-    //     };
-    //     return data.entries.reduce(
-    //         (acc, entry) => {
-    //             const parsed = parseEntries(entry.key, entry.value);
-    //             return { ...acc, ...parsed };
-    //         },
-    //         {
-    //             totalAssetAmount: undefined,
-    //             emissionPerBlock: undefined,
-    //         }
-    //     );
-    // };
+        const LEASING_VALUES = [
+            'currentPeriodHeight',
+            'currentLeasingAmount',
+            'nextPeriodHeight',
+            'nextLeasingAmount'
+        ];
+        const leasingData = (searchData?.entries || []).reduce(
+            (acc, entry) => {
+                const { key, value } = entry;
+                const parsedKey = key.split('__');
+
+                if (parsedKey[0] !== '%s%s' || typeof value !== 'string') {
+                    return acc;
+                }
+                let nodeAddress;
+                try {
+                    const value = parsedKey[1];
+                    validate.address(value, this.rs.configStore.config.network.code.charCodeAt(0));
+                    nodeAddress = parsedKey[1];
+                } catch (e) {
+                    console.error(e);
+                }
+                if (!nodeAddress) {
+                    return acc;
+                }
+                const parsedValue = parseSearchStr<IUserLeasingNodeDataRaw>(value, LEASING_VALUES);
+                acc[nodeAddress] = {
+                    nodeAddress,
+                    currentPeriodHeight: parsedValue.currentPeriodHeight,
+                    currentLeasingAmount: getLpAmount(parsedValue.currentLeasingAmount),
+                    nextPeriodHeight: parsedValue.nextPeriodHeight,
+                    nextLeasingAmount: getLpAmount(parsedValue.nextLeasingAmount),
+                }
+                return acc;
+            },
+            Object.create(null)
+        );
+
+        return ({
+            ...contractData,
+            nodes: { ...leasingData }
+        })
+    };
 }

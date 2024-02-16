@@ -16,8 +16,6 @@
   "unstake": "Unstake",
   "availableForStaking": "Available for Staking",
   "availableForUnstaking": "Available for Unstaking",
-  "estimatedAnnualInterest": "Estimated Annual Interest",
-  "estimatedAnnualInterestHelp": "Estimated Annual Interest calculated as ratio of total profit to total amount in staking.",
   "error": {
     "min": "Min amount is {{amount}} {{assetName}}.",
     "unsufficient": "Insufficient funds.",
