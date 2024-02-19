@@ -20,18 +20,29 @@ export const BalanceRow: React.FC<BalanceRowProps> = ({
     return (
         <Flex alignItems="center" {...rest}>
             {label ?
-                <Text as="div" variant="heading4" fontFamily="Sfmono-light" color="text" sx={{ mr: '8px' }}>
+                <Text
+                    as="div"
+                    variant="heading4"
+                    fontFamily="Sfmono-light"
+                    color="text"
+                    sx={{ mr: '8px' }}
+                >
                     <Trans {...label} />{':'}
                 </Text> :
                 null
             }
             {balance ?
-                <Text variant="heading4" color={Number(balance) === 0 ? 'textsec' : 'main'}>{`${balance} ${ticker}`}</Text> :
+                <Text
+                    variant="heading4"
+                    color={Number(balance) === 0 ? 'textsec' : 'main'}
+                >
+                    {`${balance} ${ticker}`}
+                </Text> :
                 <Text color="text">...</Text>
             }
             {helpTrans ?
                 <Help ml={12}>
-                    <Box width="max-content" maxWidth="260px">
+                    <Box width="max-content" maxWidth="280px">
                         <Trans
                             i18key={helpTrans.i18key}
                             i18Params={helpTrans?.i18Params}

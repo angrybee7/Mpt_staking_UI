@@ -60,7 +60,7 @@ const ClaimModalFC: React.FC<ModalProps> = ({ ...rest }) => {
                             <Button
                                 variant="primary"
                                 variantSize="large"
-                                width="100%"
+                                width={['100%', claimStore.formState === FORM_STATE.pending ? '100%' : '200px' ]}
                                 boxShadow="0px 8px 20px 0px #3C63AF2B"
                                 onClick={send}
                                 disabled={claimStore.isButtonDisabled}

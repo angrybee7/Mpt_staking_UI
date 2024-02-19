@@ -92,7 +92,7 @@ const UnstakeModalFC: React.FC<ModalProps & { address: string }> = ({
                             <Button
                                 variant="primary"
                                 variantSize="large"
-                                width="100%"
+                                width={['100%', unstakeStore.formState === FORM_STATE.pending ? '100%' : '200px' ]}
                                 boxShadow="0px 8px 20px 0px #3C63AF2B"
                                 onClick={send}
                                 disabled={unstakeStore.formState === FORM_STATE.pending}

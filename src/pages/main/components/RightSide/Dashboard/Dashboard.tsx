@@ -9,6 +9,7 @@ import { ActiveStakings } from './ActiveStakings.tsx';
 
 export const Dashboard: FC = observer(() => {
     const { balanceStore, contractStore } = useContext(AppStoreContext);
+
     return (
         <Flex
             flexDirection="column"
@@ -28,11 +29,14 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    {contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart ?
-                        <KPIEndsBlock
-                            blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
-                        /> :
-                        <ClaimWarning />
+                    {
+                        contractStore.userContractData?.data?.currentHeight && contractStore.userContractData?.data?.currentPeriodStart  ?
+                            contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart ?
+                                <KPIEndsBlock
+                                    blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
+                                /> :
+                                <ClaimWarning /> :
+                            null
                     }
                     <Box
                         width="100%"

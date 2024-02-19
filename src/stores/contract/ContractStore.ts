@@ -4,7 +4,7 @@ import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { filterObjectUserLeasing, moneyFactory } from './utils.ts';
-import { IUserAssets, IUserContractData, IUserData, IUserLeasingNodeDataRaw } from './interface';
+import { IUserAssets, IUserContractData, IUserData, IUserLeasingNodeData, IUserLeasingNodeDataRaw } from './interface';
 import { computed, makeObservable, reaction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
@@ -23,7 +23,7 @@ export class ContractStore extends ChildStore {
         if (!this.userContractData?.data?.nodes) {
             return;
         }
-        return Object.values(this.userContractData.data.nodes).reduce((acc, leaseData) => {
+        return this.rewrittenUserNodes.reduce((acc, leaseData) => {
             const { currentLeasingAmount, nextLeasingAmount } = leaseData;
             return ({
                 current: acc.current.cloneWithTokens(
@@ -43,6 +43,29 @@ export class ContractStore extends ChildStore {
         return this.rs.configStore.nodeList;
     }
 
+    public get rewrittenUserNodes(): Array<IUserLeasingNodeData> {
+        const currentHeight = this.rs.nodeHeightStore.heightData.data;
+        if (!this.userContractData?.data?.nodes || !currentHeight) {
+            return ([]);
+        }
+
+        return Object.values(this.userContractData.data.nodes)
+            .reduce((acc, data) => {
+                const rewrittenData = currentHeight > data.nextPeriodHeight ?
+                    ({
+                        ...data,
+                        currentLeasingAmount: data.nextLeasingAmount.cloneWithTokens(data.nextLeasingAmount.getTokens())
+                    }) :
+                    data;
+
+                if (rewrittenData.currentLeasingAmount.getTokens().lte(0) && rewrittenData.nextLeasingAmount.getTokens().lte(0)) {
+                    return acc;
+                }
+                acc.push(rewrittenData);
+                return acc;
+            }, [])
+    }
+
     constructor(rs: AppStore) {
         super(rs);
         const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
@@ -52,6 +75,7 @@ export class ContractStore extends ChildStore {
         makeObservable(this, {
             nodes: computed,
             totalLeased: computed,
+            rewrittenUserNodes: computed,
         });
 
         reaction(

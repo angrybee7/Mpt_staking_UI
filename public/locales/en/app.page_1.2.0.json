@@ -98,7 +98,7 @@
   "stakingNode": "Staking Node",
   "selectNode": "Select node or enter manually",
   "totalStaked": "Total Staked",
-  "totalStakedTooltip": "Calculated as a sum of accrued funds and your own staking contribution. You will be able to unstake funds after the L2 network launch.",
+  "totalStakedTooltip": "Current amount of funds in staking / Amount of funds in staking for the next KPI period.",
   "kpiPeriodEnds": "KPI period ends in",
   "claimUnavailable": "Claim is currently unavailable. You will be able to claim funds after the L2 network launch.",
   "availableForStakingHelp": "Calculated as a sum of available balance on your account and unclaimed funds.",
