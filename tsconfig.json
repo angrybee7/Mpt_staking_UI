@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -24,7 +24,9 @@
     "paths": {
       "uikit": ["./src/uikit/"],
     },
+    "types": []
   },
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

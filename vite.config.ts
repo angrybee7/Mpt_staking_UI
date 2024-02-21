@@ -9,7 +9,6 @@ import { renameLocales } from './scripts/renameLocales';
 
 dns.setDefaultResultOrder('verbatim');
 
-
 const htmlPluginOpt = {
     metas: Object.keys(openGraphConfig).map((key) => {
         return ({

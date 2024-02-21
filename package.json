@@ -27,7 +27,7 @@
     "@waves/signer": "^1.1.0",
     "@waves/ts-types": "^1.0.12",
     "@waves/ui-translator": "^0.0.2",
-    "@waves/waves-transactions": "^4.2.10",
+    "@waves/waves-transactions": "^4.3.11",
     "emotion-theming": "^10.0.27",
     "i18next": "^21.0.2",
     "i18next-http-backend": "^2.2.0",
