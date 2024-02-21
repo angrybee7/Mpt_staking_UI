@@ -8,7 +8,6 @@
   "mptMainDesc5": "All L2 tokens (Unit0) will be exclusively mined by L2MP token holders within a two-year timeframe. After this initial mining period, Waves balances will transition to function as validators for the L2 network.",
   "mptMainDesc6": "During the initial bootstrapping phase of the EVM L2, only L2MP token holders will have the opportunity to mine L2 tokens. In this phase, the entire 10 million token supply will be distributed solely based on L2MP token holdings over the course of two years from the token's launch.",
   "mptMainDesc7": "The total supply of L2MP tokens is 1 billion. The maximum possible quantity of these tokens will be distributed to XTN holders at a 1:1 exchange rate. The remaining tokens are reserved for the L2 network DAO, public airdrop, and pre-seed investors, with the funds raised allocated for liquidity provision.",
-  "mptMainDesc8": "You can swap XTN to L2MP and stake them [here](https://waves-dapp.com/3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa).",
   "mptMainDesc9": "The smart contract source code, as well as any updates and additions, are stored in [public repositories](https://github.com/waves-exchange/contracts/tree/main/ride).",
   "mptConnectToLogIn": "Connect Wallet to Log In",
   "enterAmount": "Enter amount",
