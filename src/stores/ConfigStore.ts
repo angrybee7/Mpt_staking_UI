@@ -21,7 +21,8 @@ export type TConfig = {
     contracts: {
         factory: string;
         swap: string;
-        lpToken: string
+        lpToken: string;
+        leasing: string;
     },
     network: {
         code: 'W' | 'T';
@@ -59,18 +60,8 @@ export class ConfigStore {
         return fetchNodes(this.config.nodes)
             .then((nodes) => {
                 runInAction(() => {
-                    this.nodeList = nodes.sort((nodeA, nodeB) => {
-                        const nameA = nodeA.name?.toLowerCase() || '';
-                        const nameB = nodeB.name?.toLowerCase() || '';
-                        if (nameA < nameB) {
-                            return -1;
-                        }
-                        if (nameA > nameB) {
-                            return 1;
-                        }
-                        return 0;
-                    });
-                })
-            })
+                    this.nodeList = nodes;
+                });
+            });
     }
 }

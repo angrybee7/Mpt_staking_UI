@@ -3,12 +3,16 @@ import { TState } from './ModalContainer';
 import { MODAL_NAMES } from './MODAL_NAMES';
 import { KeeperAuthModal } from '../modals/KeeperAuthModal/KeeperAuthModal';
 import { LegalDisclaimerModal } from '../modals/LegalDisclaimerModal/LegalDisclaimerModal';
+import { UnstakeModal } from '../modals/UnstakeModal/UnstakeModal';
+import { ClaimModal } from '../modals/ClaimModal/ClaimModal';
 import { MetamaskAuthModal } from '../modals/MetamaskAuthModal/MetamaskAuthModal';
 
 const modals = {
     [MODAL_NAMES.keeperAuth]: KeeperAuthModal,
     [MODAL_NAMES.metamaskAuth]: MetamaskAuthModal,
     [MODAL_NAMES.legalDisclaimer]: LegalDisclaimerModal,
+    [MODAL_NAMES.unstake]: UnstakeModal,
+    [MODAL_NAMES.claim]: ClaimModal,
 };
 
 export const useSystemModals = (

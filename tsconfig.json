@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -17,13 +17,16 @@
     /* Linting */
     "strict": false,
     "noUnusedLocals": false,
-    "noUnusedParameters": true,
+    /* todo: ignore node_modules */
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
       "uikit": ["./src/uikit/"],
-    }
+    },
+    "types": []
   },
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

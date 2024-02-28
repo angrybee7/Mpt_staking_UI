@@ -3,14 +3,13 @@ import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { observer } from 'mobx-react-lite';
 import { StakeForm } from '../../forms/Stake/StakeForm.tsx';
 import { AppStoreContext } from '../../../../../App.tsx';
-import { UnstakeForm } from '../../forms/Unstake/UnstakeForm.tsx';
-import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
-import { ClaimForm } from '../../forms/Claim/ClaimForm.tsx';
-import { ChangeNodeForm } from '../../forms/ChangeNode/ChangeNodeForm.tsx';
-import { UnstakeWarning } from './UnstakeWarning.tsx';
+import { ClaimWarning } from './ClaimWarning.tsx';
+import { KPIEndsBlock } from './KPIEndsBlock.tsx';
+import { ActiveStakings } from './ActiveStakings.tsx';
 
 export const Dashboard: FC = observer(() => {
-    const rs = useContext(AppStoreContext);
+    const { balanceStore, contractStore } = useContext(AppStoreContext);
+
     return (
         <Flex
             flexDirection="column"
@@ -22,7 +21,7 @@ export const Dashboard: FC = observer(() => {
             }}
         >
             {
-                !rs.balanceStore.otherBalance.data.isLoading &&
+                !balanceStore.otherBalance.data.isLoading &&
                 <>
                     <Box
                         width="100%"
@@ -30,14 +29,15 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    <UnstakeWarning />
-                    {/* <Box
-                        width="100%"
-                        height={['0', '20px']}
-                        borderLeft={['none', '1px solid #C6DAE6']}
-                        sx={{ my: ['12px', '16px'] }}
-                    /> */}
-                    {/* <SwapModule hasXtn={rs.balanceStore.xtnBalance?.getTokens().gt(0)}/> */}
+                    {
+                        contractStore.userContractData?.data?.currentHeight && contractStore.userContractData?.data?.currentPeriodStart  ?
+                            contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart ?
+                                <KPIEndsBlock
+                                    blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
+                                /> :
+                                <ClaimWarning /> :
+                            null
+                    }
                     <Box
                         width="100%"
                         height={['0', '30px']}
@@ -51,21 +51,13 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    {
-                        rs.contractStore.totalStaked?.getTokens()?.isPositive() ?
-                            (
-                                <>
-                                    <ChangeNodeForm />
-                                    <Box
-                                        width="100%"
-                                        height={['0', '30px']}
-                                        borderLeft={['none', '1px solid #C6DAE6']}
-                                        sx={{ my: ['12px', '16px'] }}
-                                    />
-                                </>
-                            ) :
-                            null
-                    }
+                    <ActiveStakings />
+                    <Box
+                        width="100%"
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
                 </>
             }
         </Flex>

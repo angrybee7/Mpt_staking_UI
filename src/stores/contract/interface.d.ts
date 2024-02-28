@@ -1,37 +1,42 @@
 import { Money } from '@waves/data-entities';
 
-interface ICommonContractData {
-    totalAssetAmount: Money;
-    emissionPerBlock: Money;
-}
-
-
 interface IUserAssets {
-    availableInternalLp: number;
-    availableToWithdraw: number;
-    currentInternalLPPrice: number;
-    userTotalStaked: number;
-    userTotalWithdrawn: number;
+    currentPeriodStart: number;
+    currentPeriodAvailableToClaim: number;
+    nextPeriodStart: number;
+    nextPeriodAvailableToClaim: number;
+    totalLeasedAmount: number;
+    currentHeight: number;
 }
 
 interface IUserContractData {
-    availableInternalLp: Money;
-    availableToWithdraw: Money;
-    currentInternalLPPrice: Money; // ??
-    userTotalStaked: Money;
-    userTotalWithdrawn: Money;
-    userLockedInternalLpAmount: Money;
-    userLockedTokenAmount: Money;
-    userStakingNodes: Array<string>;
-    userStakingNodesShares: Array<number>;
-    remainingBlocks: number;
+    currentPeriodStart: number;
+    currentPeriodAvailableToClaim: Money;
+    nextPeriodStart: number;
+    nextPeriodAvailableToClaim: Money;
+    totalLeasedAmount: Money;
+    currentHeight: number;
 }
 
-interface ITotalAssetsContractData {
-    availableInternalLp: Money;
-    availableToWithdraw: Money;
-    currentInternalLPPrice: Money;
-    totalLockedInternalLpAmount: Money;
-    totalLockedTokenAmount: Money;
-    remainingBlocks: number;
+interface IUserLeasingNodeDataRaw {
+    currentPeriodHeight: number;
+    currentLeasingAmount: number
+    nextPeriodHeight: number;
+    nextLeasingAmount: number;
+}
+
+interface IUserLeasingNodeData {
+    nodeAddress: string;
+    currentPeriodHeight: number;
+    currentLeasingAmount: Money;
+    nextPeriodHeight: number;
+    nextLeasingAmount: Money;
+}
+
+interface IUserLeasingData {
+    nodes: Record<string, IUserLeasingNodeData>;
+}
+
+interface IUserData extends IUserContractData {
+    nodes: IUserLeasingNodeData;
 }

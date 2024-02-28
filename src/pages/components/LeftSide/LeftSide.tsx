@@ -46,6 +46,7 @@ export const LeftSide: FC = memo(() => {
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc5" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc6" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc7" /></Box>
+                    <Box><Trans i18key="mptMainDesc9" /></Box>
                 </SerifWrapper>
             </Box>
         </Flex>

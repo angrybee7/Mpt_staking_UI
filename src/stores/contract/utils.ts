@@ -1,35 +1,20 @@
 import { Money } from '@waves/data-entities';
 
+export const filterObjectUserLeasing =  ({ contractAddress, userAddress }) => {
+    const values = [
+        [contractAddress, userAddress]
+    ];
 
-export const filterObjectCommonContract =  ({ contractAddress }) => {
     return {
         filter: {
-            and: [
-                {
-                    address: {
-                        operation: 'eq',
-                        value: contractAddress,
-                    },
-                },
-                {
-                    or: [
-                        {
-                            key: {
-                                operation: 'eq',
-                                value: `%s__totalAssetAmount`,
-                            },
-                        },
-                        {
-                            key: {
-                                operation: 'eq',
-                                value: `%s__emissionPerBlock`,
-                            },
-                        },
-                    ],
-                },
-            ]
+            in: {
+                properties: [
+                    { address: {} },
+                    { fragment: { position: 1, type: 'string' } },
+                ],
+                values
+            }
         }
-
     }
 }
 

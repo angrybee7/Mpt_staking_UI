@@ -37,7 +37,7 @@ export const FormattedInputStand: FC = () => {
                     decimals={8}
                     tag="WAVES"
                     aria-invalid="true"
-                    onMax={() => console.log('setMaxAmount')}
+                    onPresetClick={(preset) => console.log('setMaxAmount: ', preset)}
                     placeholder='000000000000'
                 />
                 <InputErrors error="required" />

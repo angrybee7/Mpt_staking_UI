@@ -7,7 +7,7 @@ import { sizes, variants } from './styles';
 import { ButtonHTMLAttributes, ReactNode, FC } from 'react';
 import styled from '@emotion/styled';
 import { variant } from 'styled-system';
-import { SerifWrapper } from '../../components/SerifWrapper/SerifWrapper';
+import { SerifWrapper, SerifWrapperProps } from '../../components/SerifWrapper/SerifWrapper';
 
 export type TVariant = keyof typeof variants;
 export type TVariantSize = keyof typeof sizes;
@@ -17,7 +17,7 @@ type ButtonSpecificProps = {
     variant?: TVariant;
     variantSize?: TVariantSize;
     isActive?: boolean;
-    wrapperProps?: BoxProps;
+    wrapperProps?: SerifWrapperProps;
 };
 
 export type TButtonProps = BoxProps<
@@ -43,7 +43,12 @@ export const ButtonFC = styled(Box as unknown as BoxAsElement<'button', TButtonP
     })
 );
 
-export const Button: FC<TButtonProps & { isInvalid?: boolean }> = ({ children, isInvalid, wrapperProps, ...props }) => {
+export const Button: FC<TButtonProps & { isInvalid?: boolean }> = ({
+    children,
+    isInvalid,
+    wrapperProps,
+    ...props
+}) => {
     const {
         mx,
         my,
@@ -58,10 +63,11 @@ export const Button: FC<TButtonProps & { isInvalid?: boolean }> = ({ children, i
         ...rest
     } = props;
     const activeStyles = { ...(isActive ? { backgroundColor: '#EBF5FF' } : {}) };
+    const wrapperVariant = wrapperProps?.variant;
     return (
         <SerifWrapper
             sx={{ mx, my, mt, mr, mb, ml, width, maxWidth, ...activeStyles, ...wrapperProps } as any}
-            variant={isInvalid ? 'error' : 'primary'}
+            variant={wrapperVariant || (isInvalid ? 'error' : 'primary')}
             disabled={disabled}
         >
             <ButtonFC

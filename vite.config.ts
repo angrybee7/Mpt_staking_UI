@@ -9,7 +9,6 @@ import { renameLocales } from './scripts/renameLocales';
 
 dns.setDefaultResultOrder('verbatim');
 
-
 const htmlPluginOpt = {
     metas: Object.keys(openGraphConfig).map((key) => {
         return ({
@@ -38,7 +37,7 @@ export default defineConfig({
         basicSsl(),
     ],
     server: {
-        port: 3001,
+        port: 3002,
         https: true
     },
 });

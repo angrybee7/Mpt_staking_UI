@@ -17,7 +17,8 @@ export default<TConfig> {
     contracts: {
         factory: '3N4yYqBkTUq1mDdHhvAd3St7spCbm84DytS',
 		swap: '3MyXFjhxofZUKbHj3p8TUgZwDEPNzq7YNo3',
-        lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc'
+        lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc',
+        leasing: '3NCWFHDzdPHZC6636ZkMLNDup9mjpbTLs7h'
     },
     network: {
         code: 'T'
@@ -25,7 +26,6 @@ export default<TConfig> {
     assets: [
         { label: 'WAVES', id: 'WAVES' },
         { label: 'WX', id: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc' },
-        { label: 'XTN', id: '25FEqEjRkqK6yCkiT7Lz6SAYz7gUFCtxfCChnrVFD5AT' },
     ],
     nodes: 'https://configs.wx.network/leasing/testnet-config.json',
 };

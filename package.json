@@ -1,7 +1,7 @@
 {
   "name": "mpt-staking-ui",
   "private": true,
-  "version": "1.1.7",
+  "version": "1.2.0",
   "scripts": {
     "dev": "vite",
     "dev:testnet": "VITE_NETWORK=testnet vite",
@@ -27,6 +27,7 @@
     "@waves/signer": "^1.1.0",
     "@waves/ts-types": "^1.0.12",
     "@waves/ui-translator": "^0.0.2",
+    "@waves/waves-transactions": "^4.3.11",
     "emotion-theming": "^10.0.27",
     "i18next": "^21.0.2",
     "i18next-http-backend": "^2.2.0",
@@ -54,7 +55,7 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "fs-extra": "^11.2.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2",
+    "typescript": "^5.3.3",
     "vite": "^4.3.2",
     "vite-plugin-html-config": "^1.0.11"
   }

@@ -3,14 +3,16 @@ import {
     BaseInputFormStore,
     BaseInputFormStoreParams,
 } from '../../../../../stores/utils/BaseInputFormStore.ts';
-import { action, computed, makeObservable, observable, reaction } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
 import { Money } from '@waves/data-entities';
+import { validate } from '../../../../../utils';
+import BigNumber from '@waves/bignumber';
 
 export class StakeStore extends BaseInputFormStore {
 
-    public node: INode = this.rs.contractStore.userNode;
+    public node: INode;
 
     constructor(params: BaseInputFormStoreParams) {
         super(params);
@@ -18,54 +20,70 @@ export class StakeStore extends BaseInputFormStore {
             node: observable,
             setNode: action.bound,
             nodeSelectError: computed,
-            totalStaked: computed,
+            unstakedFunds: computed,
+            availableForStaking: computed,
         });
+    }
 
-        let initialUserNode = this.rs.contractStore.userNode;
-        reaction(
-            () => this.rs.contractStore.userNode,
-            () => {
-                if (!this.node || initialUserNode) {
-                    this.node = this.rs.contractStore.userNode;
-                }
-                if (!initialUserNode) {
-                    initialUserNode = this.rs.contractStore.userNode;
-                }
-            }
+    public get unstakedFunds(): Money {
+        const zeroMoney = new Money(0, this.rs.assetsStore.LPToken);
+        const currentToClaim =
+            this.rs.contractStore.userContractData.data?.currentPeriodAvailableToClaim?.getTokens() ||
+            new BigNumber(0);
+        const nextToClaim =
+            this.rs.contractStore.userContractData.data?.nextPeriodAvailableToClaim?.getTokens() ||
+            new BigNumber(0);
+        return zeroMoney.cloneWithTokens(
+            currentToClaim.add(nextToClaim)
         )
     }
 
-    public get totalStaked(): Money | undefined {
-        return this.rs.contractStore.totalStaked;
+    public get availableForStaking(): Money {
+        const zeroMoney = new Money(0, this.rs.assetsStore.LPToken);
+        const balance = this.balanceStore.lpBalance || zeroMoney.cloneWithTokens(0);
+        return zeroMoney.cloneWithTokens(
+            balance.getTokens().add(this.unstakedFunds.getTokens())
+        );
+    }
+
+    public get maxAmount(): Money {
+        return this.availableForStaking;
     }
 
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
     } {
-        const call = this.node && this.node.address !== this.rs.contractStore.userNode?.address ?
-            {
-                function: 'stakeAndSetStakingNode',
-                args: [{ type: 'string', value: this.node.address }],
-            } as InvokeScriptCall<string> :
-            {
-                function: 'stake',
-                args: [],
-            };
+        const payment = BigNumber.max(
+            this.currentAmount.getCoins().sub(this.unstakedFunds.getCoins()),
+            0
+        )
+        const call = {
+            function: 'leaseFromLocked',
+            args: [
+                { type: 'string', value: this.node.address },
+                { type: 'integer', value: this.currentAmount.getCoins().toNumber() }
+            ],
+        } as InvokeScriptCall<string>;
+
         return {
             call,
-            payment: [
-                {
-                    assetId: this.currentAmount.asset.id,
-                    amount: this.currentAmount.getCoins().toNumber(),
-                },
-            ],
+            payment: payment.gt(0) ?
+                [
+                    {
+                        assetId: this.currentAmount.asset.id,
+                        amount: payment.toNumber(),
+                    },
+                ] :
+                []
         };
     }
 
     public get nodeSelectError(): InputErrorsProps {
-        if (!this.rs.contractStore.userNode && this.isConfirmClicked && !this.node) {
+        if (this.isConfirmClicked && !this.node) {
             return ({ error: 'required' });
+        } else if (this.isConfirmClicked && this.node?.address && !this.isValidNodeAddress()) {
+            return ({ error: 'invalidAddress' });
         } else {
             return undefined;
         }
@@ -73,7 +91,7 @@ export class StakeStore extends BaseInputFormStore {
 
     public invoke = () => {
         const inputResult = this.checkInput();
-        const selectResult = this.checkSelect();
+        const selectResult = this.checkNode();
         if (!inputResult || !selectResult) {
             return;
         }
@@ -88,7 +106,28 @@ export class StakeStore extends BaseInputFormStore {
         this.node = node;
     }
 
-    protected checkSelect(): boolean {
-        return !!this.rs.contractStore.userNode || !!this.node;
+    public onSetManuallyNodeAddress(address: string): void {
+        this.setNode({ address });
+    }
+
+    public reset(): void {
+        super.reset();
+        this.setNode(undefined);
+    }
+
+    protected checkNode(): boolean {
+        return !!this.node && this.isValidNodeAddress();
+    }
+
+    protected isValidNodeAddress(): boolean {
+        try {
+            return validate.address(
+                this.node?.address || '',
+                this.rs.configStore.config.network.code.charCodeAt(0)
+            );
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
     }
 }
