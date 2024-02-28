@@ -18,7 +18,7 @@ export default<TConfig> {
 		factory: '3PEV7YB8caXLgQPCuKHtWtFSDTjgtbAxgqZ',
 		swap: '3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa',
 		lpToken: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg',
-        leasing: '3PCHAFSwT1SKPbUxM2fz1GpnDnew5pycpKH',
+        leasing: '3PF1QWiN4A3CCJoKh1kGtqYqMNaBnRZbC6t',
 	},
     network: {
         code: 'W'
