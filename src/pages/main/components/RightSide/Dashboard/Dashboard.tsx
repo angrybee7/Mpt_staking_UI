@@ -30,8 +30,14 @@ export const Dashboard: FC = observer(() => {
                         sx={{ my: ['12px', '16px'] }}
                     />
                     {
-                        contractStore.userContractData?.data?.currentHeight && contractStore.userContractData?.data?.currentPeriodStart  ?
-                            contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart ?
+                        (
+                            contractStore.userContractData?.data?.currentHeight !== undefined &&
+                            contractStore.userContractData?.data?.currentPeriodStart !== undefined
+                        ) ?
+                            (
+                                contractStore.userContractData?.data?.currentPeriodStart !== 0 &&
+                                contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart
+                            )?
                                 <KPIEndsBlock
                                     blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
                                 /> :
