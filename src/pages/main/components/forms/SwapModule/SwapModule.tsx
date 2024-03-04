@@ -15,7 +15,7 @@ import { BalanceRow } from '../../../../../components/BalanceComponent/BalanceRo
 export const SwapModule: React.FC<{ hasXtn: boolean }> = ({ hasXtn }) => {
     return (
         <SerifWrapper>
-            {!hasXtn ? (
+            {hasXtn ? (
                 <Accordion defaultIndex={0}>
                     <AccordionItem mb={0} isDisabled={!hasXtn}>
                         <AccordionHeader boxShadow={'none'}>
