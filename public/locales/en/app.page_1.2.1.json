@@ -110,5 +110,8 @@
   "activeStakings": "Active Stakings",
   "activeStakingsTooltip": "Calculated as a sum of accrued funds and your own staking contribution.",
   "unstaked": "Unstaked:",
-  "claimTooltip": "You will be able to claim funds after the start of new staking period."
+  "claimTooltip": "You will be able to claim funds after the start of new staking period.",
+  "availableToSwap": "Available for Swap",
+  "youReceive": "You Receive",
+  "swapAndStake": "Swap & Stake"
 }

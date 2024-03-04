@@ -20,6 +20,10 @@ export class AssetsStore extends ChildStore {
         });
     }
 
+    public get XTN(): AssetWithMeta {
+        return this.assetsData.data['XTN'];
+    }
+
     public get WAVES(): AssetWithMeta {
         return this.assetsData.data['WAVES'];
     }
