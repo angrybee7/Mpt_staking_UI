@@ -23,22 +23,13 @@ export class SwapStore extends BaseInputFormStore {
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-    } {
+        dApp: string;
+        } {
         // TODO
-        const call = this.node ?
-            {
-                function: 'swapAndSetStakingNode',
-                args: [
-                    { type: 'boolean', value: true },
-                    { type: 'string', value: this.node.address }
-                ],
-            } :
-            {
-                function: 'swap',
-                args: [
-                    { type: 'boolean', value: true },
-                ],
-            };
+        const call = {
+            function: 'swapAndStake',
+            args: [{ type: 'string', value: this.node.address }],
+        };
         return {
             call: call as InvokeScriptCall<string | number>,
             payment: [
@@ -47,6 +38,7 @@ export class SwapStore extends BaseInputFormStore {
                     amount: this.currentAmount.getCoins().toNumber(),
                 },
             ],
+            dApp: this.rs.configStore.config.contracts.swap
         };
     }
 
@@ -95,7 +87,7 @@ export class SwapStore extends BaseInputFormStore {
             return validate.address(
                 this.node?.address || '',
                 this.rs.configStore.config.network.code.charCodeAt(0)
-            )
+            );
         } catch (e) {
             console.error(e);
             return false;
