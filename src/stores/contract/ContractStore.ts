@@ -63,7 +63,7 @@ export class ContractStore extends ChildStore {
                 }
                 acc.push(rewrittenData);
                 return acc;
-            }, [])
+            }, []);
     }
 
     constructor(rs: AppStore) {

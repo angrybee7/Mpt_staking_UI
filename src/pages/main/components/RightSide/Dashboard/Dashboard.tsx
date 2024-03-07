@@ -46,6 +46,12 @@ export const Dashboard: FC = observer(() => {
                                 <ClaimWarning /> :
                             null
                     }
+                    <Box
+                        width="100%"
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
                     <SwapModule hasXtn={balanceStore.xtnBalance?.getTokens().gt(0)}/>
                     <Box
                         width="100%"
