@@ -27,7 +27,7 @@ export const Dashboard: FC = observer(() => {
                 <>
                     <Box
                         width="100%"
-                        height={['0', '20px']}
+                        height={['0', '30px']}
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
