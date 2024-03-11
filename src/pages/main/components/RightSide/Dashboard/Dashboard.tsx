@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { FC, useContext } from 'react';
 import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { observer } from 'mobx-react-lite';
@@ -6,6 +7,7 @@ import { AppStoreContext } from '../../../../../App.tsx';
 import { ClaimWarning } from './ClaimWarning.tsx';
 import { KPIEndsBlock } from './KPIEndsBlock.tsx';
 import { ActiveStakings } from './ActiveStakings.tsx';
+import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
 
 export const Dashboard: FC = observer(() => {
     const { balanceStore, contractStore } = useContext(AppStoreContext);
@@ -25,7 +27,7 @@ export const Dashboard: FC = observer(() => {
                 <>
                     <Box
                         width="100%"
-                        height={['0', '20px']}
+                        height={['0', '30px']}
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
@@ -37,13 +39,20 @@ export const Dashboard: FC = observer(() => {
                             (
                                 contractStore.userContractData?.data?.currentPeriodStart !== 0 &&
                                 contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart
-                            )?
+                            ) ?
                                 <KPIEndsBlock
                                     blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
                                 /> :
                                 <ClaimWarning /> :
                             null
                     }
+                    <Box
+                        width="100%"
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
+                    <SwapModule hasXtn={balanceStore.xtnBalance?.getTokens().gt(0)}/>
                     <Box
                         width="100%"
                         height={['0', '30px']}
