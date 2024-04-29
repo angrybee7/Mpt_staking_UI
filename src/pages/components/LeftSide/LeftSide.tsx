@@ -38,15 +38,16 @@ export const LeftSide: FC = memo(() => {
                     lineHeight='18px'
                     mb={[null, '24px']}
                 >
-                    <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc" /></Box>
+                    <Box sx={{ mb: '16px' }}>Units is coming...</Box>
+                    {/* <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc1" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc2" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc3" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc4" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc5" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc6" /></Box>
-                    <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc7" /></Box>
-                    <Box><Trans i18key="mptMainDesc9" /></Box>
+                    <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc7" /></Box> */}
+                    {/* <Box><Trans i18key="mptMainDesc9" /></Box> */}
                 </SerifWrapper>
             </Box>
         </Flex>
