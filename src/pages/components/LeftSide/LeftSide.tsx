@@ -5,6 +5,7 @@ import { Trans } from '@waves/ui-translator';
 import { SerifWrapper } from '../../../components/SerifWrapper/SerifWrapper.tsx';
 import { AppStoreContext } from '../../../App.tsx';
 import { observer } from 'mobx-react-lite';
+import unitsBanner from '/src/img/units-banner.png';
 
 export const LeftSide: FC = observer(() => {
     const { authStore } = useContext(AppStoreContext);
@@ -46,7 +47,7 @@ export const LeftSide: FC = observer(() => {
                 >
                     <ExternalLink href="https://units.network/" rel="noopener noreferrer" display="block" maxWidth={['400px', '608px']}>
                         <Box
-                            backgroundImage="url(./src/img/units-banner.png)"
+                            backgroundImage={`url(${unitsBanner})`}
                             backgroundSize="100% 100%"
                             height={['160px', '304px']}
                             width="100%"
