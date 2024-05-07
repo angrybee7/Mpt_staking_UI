@@ -11,6 +11,7 @@ import { useAuth } from '../../../../../hooks/useAuth.ts';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES.ts';
 import { modalManager } from '../../../../../services/modalManager.ts';
 import { MobileTitle } from '../../../../components/MobileTitle/MobileTitle.tsx';
+import unitsBanner from '/src/img/units-banner.png';
 
 enum ERROR {
     uncheckedTerms = 'uncheckedTerms',
@@ -75,7 +76,7 @@ export const ConnectBlock: FC = memo(() => {
                 >
                     <ExternalLink href="https://units.network/" rel="noopener noreferrer" display="block" maxWidth="400px">
                         <Box
-                            backgroundImage="url(./src/img/units-banner.png)"
+                            backgroundImage={`url(${unitsBanner})`}
                             backgroundSize="100% 100%"
                             height="160px"
                             width="100%"
