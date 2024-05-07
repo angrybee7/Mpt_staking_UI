@@ -1,5 +1,5 @@
-import { FC, memo, useCallback, useContext, useState } from 'react';
-import { Flex, Box } from '@waves.exchange/wx-react-uikit';
+import { FC, memo, useCallback, useState } from 'react';
+import { Flex, Box, ExternalLink } from '@waves.exchange/wx-react-uikit';
 import { Trans } from '@waves/ui-translator';
 import { Button, Checkbox, Text } from 'uikit';
 import metamaskUrl from '/src/img/metamask.svg';
@@ -10,7 +10,6 @@ import { PROVIDER_TYPES, PROVIDER_TYPES_VALUES } from '../../../../../stores/Aut
 import { useAuth } from '../../../../../hooks/useAuth.ts';
 import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAMES.ts';
 import { modalManager } from '../../../../../services/modalManager.ts';
-import { AppStoreContext } from '../../../../../App.tsx';
 import { MobileTitle } from '../../../../components/MobileTitle/MobileTitle.tsx';
 
 enum ERROR {
@@ -22,7 +21,6 @@ export const ConnectBlock: FC = memo(() => {
     const [checked, setChecked] = useState<boolean>(false);
     const [selectedProvider, setSelectedProvider] = useState<PROVIDER_TYPES_VALUES>();
     const [errors, setErrors] = useState<Array<ERROR>>([]);
-    const { contractStore } = useContext(AppStoreContext);
     const { login } = useAuth();
 
     const handleContinue = useCallback(() => {
@@ -71,11 +69,21 @@ export const ConnectBlock: FC = memo(() => {
                 }}
             >
                 <Box
-                    width="100%"
-                    flex={1}
-                    maxHeight="20vh"
                     borderLeft="1px solid #C6DAE6"
-                />
+                    display={[null, 'none']}
+                    sx={{ pl: '20px', mt: '32px' }}
+                >
+                    <ExternalLink href="https://units.network/" rel="noopener noreferrer" display="block" maxWidth="400px">
+                        <Box
+                            backgroundImage="url(./src/img/units-banner.png)"
+                            backgroundSize="100% 100%"
+                            height="160px"
+                            width="100%"
+                            minWidth="320px"
+                            maxWidth="400px"
+                        />
+                    </ExternalLink>
+                </Box>
                 <Box
                     width="100%"
                     height="40px"

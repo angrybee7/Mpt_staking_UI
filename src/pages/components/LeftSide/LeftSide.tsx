@@ -1,10 +1,13 @@
-import { FC, memo } from 'react';
-import { Box, Flex, Text } from '@waves.exchange/wx-react-uikit';
+import { FC, useContext } from 'react';
+import { Box, ExternalLink, Flex, Text } from '@waves.exchange/wx-react-uikit';
 import { LogoLine } from './LogoLine.tsx';
 import { Trans } from '@waves/ui-translator';
 import { SerifWrapper } from '../../../components/SerifWrapper/SerifWrapper.tsx';
+import { AppStoreContext } from '../../../App.tsx';
+import { observer } from 'mobx-react-lite';
 
-export const LeftSide: FC = memo(() => {
+export const LeftSide: FC = observer(() => {
+    const { authStore } = useContext(AppStoreContext);
     return (
         <Flex
             width={['100%', '50%']}
@@ -15,7 +18,7 @@ export const LeftSide: FC = memo(() => {
             }}
         >
             <LogoLine />
-            <Box sx={{ pt: ['24px', '130px'], ml: ['8px', '-25px'], mr: ['8px', '0'] }}>
+            <Box sx={{ pt: ['24px', '130px'], ml: ['8px', '-25px'], mr: ['8px', '0'], width: '100%' }}>
                 <Text
                     as="h1"
                     fontSize="68px"
@@ -30,16 +33,28 @@ export const LeftSide: FC = memo(() => {
                     <Trans i18key="mptMainTitle" />
                 </Text>
                 <SerifWrapper
-                    py='24px'
-                    px='24px'
+                    py='16px'
+                    px='12px'
                     backgroundColor='bg'
                     color='#1E1E1E'
                     fontSize='14px'
                     lineHeight='18px'
+                    maxWidth={['432px', '640px']}
                     mb={[null, '24px']}
+                    mx={['auto', '0']}
+                    display={[authStore.isAuthorized ? 'block' : 'none', 'block']}
                 >
-                    <Box sx={{ mb: '16px' }}>Units is coming...</Box>
-                    {/* <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc" /></Box>
+                    <ExternalLink href="https://units.network/" rel="noopener noreferrer" display="block" maxWidth={['400px', '608px']}>
+                        <Box
+                            backgroundImage="url(./src/img/units-banner.png)"
+                            backgroundSize="100% 100%"
+                            height={['160px', '304px']}
+                            width="100%"
+                            minWidth={['320px', '510px']}
+                            maxWidth={['400px', '608px']}
+                        />
+                    </ExternalLink>
+                    {/* <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc" /></Box>s
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc1" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc2" /></Box>
                     <Box sx={{ mb: '16px' }}><Trans i18key="mptMainDesc3" /></Box>
