@@ -12,6 +12,7 @@ import { MODAL_NAMES } from '../../../../../components/ModalContainer/MODAL_NAME
 import { modalManager } from '../../../../../services/modalManager.ts';
 import { MobileTitle } from '../../../../components/MobileTitle/MobileTitle.tsx';
 import unitsBanner from '/src/img/units-banner.png';
+import { Info } from '../../../../components/LeftSide/Info.tsx';
 
 enum ERROR {
     uncheckedTerms = 'uncheckedTerms',
@@ -69,10 +70,13 @@ export const ConnectBlock: FC = memo(() => {
                     px: ['20px', '40px'],
                 }}
             >
+                <Box display={['block', 'none']} mt="24px">
+                    <Info />
+                </Box>
                 <Box
                     borderLeft="1px solid #C6DAE6"
                     display={[null, 'none']}
-                    sx={{ pl: '20px', mt: '32px' }}
+                    sx={{ pl: '20px', mt: '24px' }}
                 >
                     <ExternalLink href="https://units.network/" rel="noopener noreferrer" display="block" maxWidth="400px">
                         <Box
