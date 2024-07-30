@@ -19,7 +19,7 @@ const MARKETS: LinkProps[] = [
 ];
 
 const BRIDGES: LinkProps[] = [
-    { text: 'ETHERIUM - ETHERIUM', href: 'https://app.allbridge.io/bridge?from=WAVE&to=ETH&asset=L2MP' },
+    { text: 'WAVES - ETHEREUM', href: 'https://app.allbridge.io/bridge?from=WAVE&to=ETH&asset=L2MP' },
     { text: 'WAVES - BSC', href: 'https://app.allbridge.io/bridge?from=WAVE&to=BSC&asset=L2MP' }
 ];
 
