@@ -1,14 +1,17 @@
 import { FC, useContext } from 'react';
-import { Box, ExternalLink, Flex, Text } from '@waves.exchange/wx-react-uikit';
+import { Box, ExternalLink, Flex } from '@waves.exchange/wx-react-uikit';
 import { LogoLine } from './LogoLine.tsx';
 import { Trans } from '@waves/ui-translator';
 import { SerifWrapper } from '../../../components/SerifWrapper/SerifWrapper.tsx';
 import { AppStoreContext } from '../../../App.tsx';
 import { observer } from 'mobx-react-lite';
 import unitsBanner from '/src/img/units-banner.png';
+import { Text } from 'uikit';
+import { Info } from './Info';
 
 export const LeftSide: FC = observer(() => {
     const { authStore } = useContext(AppStoreContext);
+
     return (
         <Flex
             width={['100%', '50%']}
@@ -33,6 +36,9 @@ export const LeftSide: FC = observer(() => {
                 >
                     <Trans i18key="mptMainTitle" />
                 </Text>
+                <Box display={[authStore.isAuthorized ? 'block' : 'none', 'block']}>
+                    <Info />
+                </Box>
                 <SerifWrapper
                     py='16px'
                     px='12px'

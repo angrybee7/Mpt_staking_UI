@@ -113,5 +113,10 @@
   "claimTooltip": "You will be able to claim funds after the start of new staking period.",
   "availableToSwap": "Available for Swap",
   "youReceive": "You Receive",
-  "swapAndStake": "Swap & Stake"
+  "swapAndStake": "Swap & Stake",
+  "wavesToken": "Waves Token: ",
+  "erc20Token": "ERC-20 Token: ",
+  "bep20Token": "BEP-20 Token: ",
+  "markets": "Markets",
+  "bridge": "Bridge"
 }
