@@ -50,7 +50,7 @@ export const Info: React.FC = observer(() => {
                 <Flex justifyContent="space-between" mb="8px" flexWrap="wrap">
                     <Flex alignItems="center" mr="8px" sx={{ whiteSpace: 'nowrap' }}>
                         <Text as="div" variant="heading4">
-                            {'Issured:'}
+                            {'Issued:'}
                         </Text>
                         <Text
                             as="div"
