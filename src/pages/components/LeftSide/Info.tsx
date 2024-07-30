@@ -19,7 +19,7 @@ const MARKETS: LinkProps[] = [
 ];
 
 const BRIDGES: LinkProps[] = [
-    { text: 'WAVES - ETHERIUM', href: 'https://app.allbridge.io/bridge?from=WAVE&to=ETH&asset=L2MP' },
+    { text: 'ETHERIUM - ETHERIUM', href: 'https://app.allbridge.io/bridge?from=WAVE&to=ETH&asset=L2MP' },
     { text: 'WAVES - BSC', href: 'https://app.allbridge.io/bridge?from=WAVE&to=BSC&asset=L2MP' }
 ];
 
@@ -63,7 +63,7 @@ export const Info: React.FC = observer(() => {
                             {assetsStore.LPToken ?
                                 ` ${new Money(
                                     assetsStore.LPToken?.quantity || 0, assetsStore.LPToken
-                                ).getTokens().toFormat(isMobile ? 0 : undefined)} ${assetsStore.LPToken?.displayName}` :
+                                ).getTokens().toFormat(isMobile ? 0 : undefined)}` :
                                 '-'
                             }
                         </Text>

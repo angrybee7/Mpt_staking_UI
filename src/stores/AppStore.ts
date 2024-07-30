@@ -20,6 +20,7 @@ export class AppStore {
     public contractStore: ContractStore;
 
     constructor() {
+
         this.configStore = new ConfigStore();
         this.assetsStore = new AssetsStore(this);
         this.authStore = new AuthStore(this);
