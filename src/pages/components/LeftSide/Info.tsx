@@ -16,11 +16,13 @@ const MARKETS: LinkProps[] = [
     { text: 'PUZZLE', href: 'https://puzzleswap.org/trade?asset1=7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg' },
     { text: 'SWOPFI', href: 'https://swop.fi/exchange?from=WAVES&to=7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg' },
     { text: 'UNISWAP', href: 'https://app.uniswap.org/explore/pools/ethereum/0x9a63D921244d67d4E856Dea80DFDF0d5765DD2ad' },
+    { text: 'RADIUM', href: 'https://raydium.io/swap/?inputMint=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB&outputMint=HdDmZTcpVEWpCmtZy1XUk99rj3bhkWCEdzSkae6a6mcp' },
 ];
 
 const BRIDGES: LinkProps[] = [
     { text: 'WAVES - ETHEREUM', href: 'https://app.allbridge.io/bridge?from=WAVE&to=ETH&asset=L2MP' },
-    { text: 'WAVES - BSC', href: 'https://app.allbridge.io/bridge?from=WAVE&to=BSC&asset=L2MP' }
+    { text: 'WAVES - BSC', href: 'https://app.allbridge.io/bridge?from=WAVE&to=BSC&asset=L2MP' },
+    { text: 'WAVES - SOLANA', href: 'https://app.allbridge.io/bridge?txId=0xbaea19d168f512e5676660f8e5a767f1e6e6e226687b5736a28e79b13b5f24eb&from=WAVE&to=SOL&asset=L2MP' }
 ];
 
 export const Info: React.FC = observer(() => {
@@ -88,6 +90,7 @@ export const Info: React.FC = observer(() => {
                     </Flex>
                 </Flex>
                 <TokenRow label="wavesToken" blockchain="waves" />
+                <TokenRow label="solanaToken" blockchain="solana" />
                 <TokenRow label="erc20Token" blockchain="erc20" />
                 <TokenRow label="bep20Token" blockchain="bep20" />
             </SerifWrapper>

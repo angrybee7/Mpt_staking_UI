@@ -114,9 +114,10 @@
   "availableToSwap": "Available for Swap",
   "youReceive": "You Receive",
   "swapAndStake": "Swap & Stake",
-  "wavesToken": "Waves Token: ",
-  "erc20Token": "ERC-20 Token: ",
-  "bep20Token": "BEP-20 Token: ",
+  "wavesToken": "Waves Token Id: ",
+  "solanaToken": "Solana Token Id: ",
+  "erc20Token": "ERC-20 Contract: ",
+  "bep20Token": "BEP-20 Contract: ",
   "markets": "Markets",
   "bridge": "Bridge"
 }

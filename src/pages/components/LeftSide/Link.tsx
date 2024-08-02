@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { ExternalLink } from '@waves.exchange/wx-react-uikit';
-import { Text } from 'uikit';
+import { Text, TextProps } from 'uikit';
 
-export type LinkProps = {
+export type LinkProps = TextProps & {
     href: string;
     text: string;
 }
 
-export const Link: React.FC<LinkProps> = ({ href, text }) => {
+export const Link: React.FC<LinkProps> = ({ href, text, ...rest }) => {
     return (
         <ExternalLink
             href={href}
@@ -17,10 +17,10 @@ export const Link: React.FC<LinkProps> = ({ href, text }) => {
                 as="div"
                 variant="heading4"
                 color="main"
-                ml="4px"
                 fontWeight={700}
+                {...rest}
                 sx={{
-                    wordBreak: 'break-all'
+                    wordBreak: 'break-all',
                 }}
             >
                 {text}
