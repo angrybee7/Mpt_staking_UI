@@ -101,7 +101,7 @@ export class ContractStore extends ChildStore {
                                     }),
                                     true
                                 )
-                            ])
+                            ]);
                         },
                         parser: this.userDataParser,
                         autoFetch: true,
@@ -174,7 +174,8 @@ export class ContractStore extends ChildStore {
                     currentLeasingAmount: getLpAmount(parsedValue.currentLeasingAmount),
                     nextPeriodHeight: parsedValue.nextPeriodHeight,
                     nextLeasingAmount: getLpAmount(parsedValue.nextLeasingAmount),
-                }
+                };
+
                 return acc;
             },
             Object.create(null)
@@ -183,6 +184,6 @@ export class ContractStore extends ChildStore {
         return ({
             ...contractData,
             nodes: { ...leasingData }
-        })
+        });
     };
 }
