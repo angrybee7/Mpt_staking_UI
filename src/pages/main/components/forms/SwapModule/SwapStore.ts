@@ -3,7 +3,7 @@ import {
     BaseInputFormStoreParams,
 } from '../../../../../stores/utils/BaseInputFormStore.ts';
 import { InvokeScriptCall, InvokeScriptPayment } from '@waves/ts-types';
-import { action, computed, makeObservable, observable, reaction } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { INode } from '../../../../../stores/utils/fetchNodeList.ts';
 import { InputErrorsProps } from 'uikit';
 import { validate } from '../../../../../utils';
@@ -70,7 +70,7 @@ export class SwapStore extends BaseInputFormStore {
     }
 
     public onSetManuallyNodeAddress(address: string): void {
-        this.setNode({ address });
+        this.setNode({ address, name: '' });
     }
 
     public reset(): void {

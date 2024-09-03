@@ -35,7 +35,7 @@ export class StakeStore extends BaseInputFormStore {
             new BigNumber(0);
         return zeroMoney.cloneWithTokens(
             currentToClaim.add(nextToClaim)
-        )
+        );
     }
 
     public get availableForStaking(): Money {
@@ -53,11 +53,11 @@ export class StakeStore extends BaseInputFormStore {
     public get tx(): {
         call: InvokeScriptCall<string | number> | null;
         payment: Array<InvokeScriptPayment<string | number>> | null;
-    } {
+        } {
         const payment = BigNumber.max(
             this.currentAmount.getCoins().sub(this.unstakedFunds.getCoins()),
             0
-        )
+        );
         const call = {
             function: 'leaseFromLocked',
             args: [
@@ -107,7 +107,7 @@ export class StakeStore extends BaseInputFormStore {
     }
 
     public onSetManuallyNodeAddress(address: string): void {
-        this.setNode({ address });
+        this.setNode({ address, name: '' });
     }
 
     public reset(): void {
