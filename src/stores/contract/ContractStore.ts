@@ -43,6 +43,14 @@ export class ContractStore extends ChildStore {
         return this.rs.configStore.nodeList;
     }
 
+    public get nodesByAddress(): Record<string, INode> {
+        return this.rs.configStore.nodeList.reduce((acc, node) => {
+            acc[node.address] = node;
+
+            return acc;
+        }, {});
+    }
+
     public get rewrittenUserNodes(): Array<IUserLeasingNodeData> {
         const currentHeight = this.rs.nodeHeightStore.heightData.data;
         if (!this.userContractData?.data?.nodes || !currentHeight) {
@@ -76,6 +84,7 @@ export class ContractStore extends ChildStore {
             nodes: computed,
             totalLeased: computed,
             rewrittenUserNodes: computed,
+            nodesByAddress: computed
         });
 
         reaction(
