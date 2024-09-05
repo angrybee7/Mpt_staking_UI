@@ -73,7 +73,7 @@ export const ActiveStakings: React.FC = observer(() => {
                                     }}
                                 >
                                     <LabelComponent
-                                        label={{ i18key: contractStore.nodesByAddress[node.nodeAddress].name }}
+                                        label={{ i18key: contractStore.nodesByAddress[node.nodeAddress]?.name || 'Unknown' }}
                                         variant="text1"
                                         align="left"
                                         mb="4px"
