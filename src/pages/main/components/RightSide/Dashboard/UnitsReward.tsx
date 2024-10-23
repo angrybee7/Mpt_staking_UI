@@ -77,7 +77,9 @@ export const UnitsReward: React.FC<IUnitsRewardProps & BoxProps> = ({
                                 mr={[null, '16px']}
                                 mb={['16px', '8px']}
                                 sx={{
-                                    whiteSpace: 'nowrap'
+                                    '& .balance_class': {
+                                        whiteSpace: 'nowrap'
+                                    }
                                 }}
                             />
                             <Button

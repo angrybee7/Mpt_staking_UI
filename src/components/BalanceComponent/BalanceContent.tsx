@@ -31,6 +31,7 @@ export const BalanceContent: React.FC<BalanceContentProps> = ({
         <Flex
             flexDirection="column"
             alignItems={['center', null, null, getAlign(align)]}
+            className="balance_class"
         >
             <Flex
                 data-testid="balance-content-component"
