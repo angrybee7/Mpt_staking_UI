@@ -16,6 +16,13 @@ interface IUserContractData {
     nextPeriodAvailableToClaim: Money;
     totalLeasedAmount: Money;
     currentHeight: number;
+    unitsAvailableToClaim: Money;
+    totalUnitsClaimed: Money;
+    l2mpTobBurnOnUnitsClaim: Money;
+    totalL2mpBurned: Money;
+    lastUnitsClaimedHeight: number
+    unitsPerBlockPerl2InScale16: Money;
+    unitsClaimRemaining: number;
 }
 
 interface IUserLeasingNodeDataRaw {

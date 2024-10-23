@@ -6,7 +6,7 @@ import { BalanceSimple, BalanceSimpleProps } from './BalanceSimple';
 // import { BalanceIcon } from './BalanceIcon';
 // import { TColor, TTextVariant, Text } from '../../uikit';
 
-export type TBalanceContentSize = 'medium' | 'large';
+export type TBalanceContentSize = 'medium' | 'large' | 'small';
 export type BalanceContentProps = BalanceSimpleProps & {
     equivalent?: string;
     align?: 'left' | 'center' | 'right';

@@ -8,7 +8,7 @@ export type TInputErrorState = 'notEnoughFunds' | 'minAmount' | 'required';
 
 export interface BaseInputFormStoreParams {
     rs: AppStore;
-    inputMoney: Money;
+    inputMoney?: Money;
     isMinAmountForWaves?: boolean
 }
 
@@ -19,7 +19,7 @@ export class BaseInputFormStore extends BaseFormStore {
     public inputString: string;
     public isMinAmountForWaves: boolean;
 
-    constructor({ rs, inputMoney, isMinAmountForWaves = false }: BaseInputFormStoreParams) {
+    constructor({ rs, inputMoney = new Money(0, rs.assetsStore.XTN), isMinAmountForWaves = false }: BaseInputFormStoreParams) {
         super(rs);
         this.currentAmount = inputMoney;
         this.isMinAmountForWaves = isMinAmountForWaves;

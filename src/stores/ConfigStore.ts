@@ -16,12 +16,14 @@ export type TConfig = {
         signerWeb: string,
         signerCloud: string,
         stateSearch: string
+        stateEntries: string;
         evaluate: string;
     },
     contracts: {
         factory: string;
         swap: string;
         lpToken: string;
+        unitsToken: string;
         leasing: string;
     },
     network: {

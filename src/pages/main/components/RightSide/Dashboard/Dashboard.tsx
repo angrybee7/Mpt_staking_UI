@@ -4,8 +4,7 @@ import { Box, Flex } from '@waves.exchange/wx-react-uikit';
 import { observer } from 'mobx-react-lite';
 import { StakeForm } from '../../forms/Stake/StakeForm.tsx';
 import { AppStoreContext } from '../../../../../App.tsx';
-import { ClaimWarning } from './ClaimWarning.tsx';
-import { KPIEndsBlock } from './KPIEndsBlock.tsx';
+import { UnitsReward } from './UnitsReward';
 import { ActiveStakings } from './ActiveStakings.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
 
@@ -31,21 +30,11 @@ export const Dashboard: FC = observer(() => {
                         borderLeft={['none', '1px solid #C6DAE6']}
                         sx={{ my: ['12px', '16px'] }}
                     />
-                    {
-                        (
-                            contractStore.userContractData?.data?.currentHeight !== undefined &&
-                            contractStore.userContractData?.data?.currentPeriodStart !== undefined
-                        ) ?
-                            (
-                                contractStore.userContractData?.data?.currentPeriodStart !== 0 &&
-                                contractStore.userContractData?.data?.currentHeight >= contractStore.userContractData?.data?.currentPeriodStart
-                            ) ?
-                                <KPIEndsBlock
-                                    blocks={contractStore.userContractData?.data?.nextPeriodStart - contractStore.userContractData?.data?.currentHeight}
-                                /> :
-                                <ClaimWarning /> :
-                            null
-                    }
+                    <UnitsReward
+                        blocks={contractStore.userContractData?.data?.unitsClaimRemaining}
+                        forClaim={contractStore.userContractData?.data?.unitsAvailableToClaim}
+                        claimed={contractStore.userContractData?.data?.totalUnitsClaimed}
+                    />
                     <Box
                         width="100%"
                         height={['0', '30px']}

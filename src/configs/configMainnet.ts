@@ -12,14 +12,15 @@ export default<TConfig> {
         signerWeb: 'https://wx.network/signer/',
         signerCloud: 'https://wx.network/signer-cloud/',
         stateSearch: 'https://wx.network/api/v1/state/search',
+        stateEntries: 'https://wx.network/api/v1/state/entries',
         evaluate: 'https://nodes.wavesnodes.com/utils/script/evaluate',
     },
     contracts: {
-		factory: '3PEV7YB8caXLgQPCuKHtWtFSDTjgtbAxgqZ',
-		swap: '3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa',
-		lpToken: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg',
+        factory: '3PEV7YB8caXLgQPCuKHtWtFSDTjgtbAxgqZ',
+        swap: '3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa',
+        lpToken: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg',
         leasing: '3PF1QWiN4A3CCJoKh1kGtqYqMNaBnRZbC6t',
-	},
+    },
     network: {
         code: 'W'
     },
