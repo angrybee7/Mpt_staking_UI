@@ -5,19 +5,21 @@ import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { filterObjectUserLeasing, moneyFactory } from './utils.ts';
 import { IUserAssets, IUserContractData, IUserData, IUserLeasingNodeData, IUserLeasingNodeDataRaw } from './interface';
-import { computed, makeObservable, reaction } from 'mobx';
+import { computed, makeObservable, observable, reaction, runInAction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
 import { ITuple, parseOrderedTupleValue, parseSearchStr, parseTupleData } from '../../utils/evaluate/utils.ts';
-import { Money } from '@waves/data-entities';
+import { Asset, Money } from '@waves/data-entities';
 import { INode } from '../utils/fetchNodeList.ts';
 import { validate } from '../../utils';
+import { AssetWithMeta, IAssetsResponse } from '../assets/interface';
 
 const USER_DATA_POLLING_TIME = 20_000;
 
 export class ContractStore extends ChildStore {
 
     public userContractData: FetchTracker<IUserData, [IEvaluateResponse, IState]> = new FetchTracker();
+    public unitsAsset: AssetWithMeta;
 
     public get totalLeased(): { current: Money, next: Money } {
         if (!this.userContractData?.data?.nodes) {
@@ -81,6 +83,7 @@ export class ContractStore extends ChildStore {
         const leasingAddress = this.rs.configStore.config.contracts.leasing;
 
         makeObservable(this, {
+            unitsAsset: observable,
             nodes: computed,
             totalLeased: computed,
             rewrittenUserNodes: computed,
@@ -90,6 +93,7 @@ export class ContractStore extends ChildStore {
         reaction(
             () => this.rs.authStore.isAuthorized,
             () => {
+                this.getUnitsToken();
                 if (this.rs.authStore.isAuthorized) {
                     this.userContractData.setOptions({
                         fetchUrl: evaluateUrl,
@@ -116,12 +120,56 @@ export class ContractStore extends ChildStore {
                         autoFetch: true,
                         refreshInterval: USER_DATA_POLLING_TIME
                     });
+
                 } else {
                     this.userContractData.off();
                 }
             },
         );
     }
+
+    private getUnitsToken = (): void => {
+        const url = encodeURI(
+            `${this.rs.configStore.config.apiUrl.stateEntries}/${this.rs.configStore.config.contracts.leasing}/%s__unitsAssetId`
+        );
+
+        fetch(`${url}`)
+            .then((res) => res.ok ? res : Promise.reject(res))
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.value) {
+                    fetch(`${this.rs.configStore.config.apiUrl.assets}?ids=${data.value}`)
+                        .then((res) => res.json())
+                        .then(({ data }: IAssetsResponse) => {
+                            const tokens = data.map((item) => {
+                                if (item === null) {
+                                    return null;
+                                } else
+                                    return Object.assign(new Asset(({
+                                        ...item.data,
+                                        ticker: item.data.ticker || '',
+                                        hasScript: item.data.hasScript,
+                                    })), {
+                                        icon:`${this.rs.configStore.config.apiUrl.assetsIcons}/${item.data.id}.svg`,
+                                        meta: {
+                                            ... item.metadata,
+                                            oracleData: item.metadata.oracle_data,
+                                            hasImage: item.metadata.has_image,
+                                            sponsorBalance: item.metadata.sponsor_balance
+                                        },
+                                    });
+                            }).filter(Boolean);
+
+                            if (tokens.length) {
+                                runInAction(() => {
+                                    this.unitsAsset = tokens[0];
+                                });
+                            }
+                        });
+                }
+            })
+            .catch((e) => console.error(e));
+    };
 
     private userDataParser = ([data, searchData]: [IEvaluateResponse, IState]): IUserData => {
         const USER_ASSETS_VALUES = [
@@ -131,6 +179,13 @@ export class ContractStore extends ChildStore {
             'nextPeriodAvailableToClaim',
             'totalLeasedAmount',
             'currentHeight',
+            'unitsAvailableToClaim',
+            'totalUnitsClaimed',
+            'l2mpTobBurnOnUnitsClaim',
+            'totalL2mpBurned',
+            'lastUnitsClaimedHeight',
+            'unitsPerBlockPerl2InScale16',
+            'unitsClaimRemaining'
         ];
         const parsedTuple = parseTupleData<IUserAssets>(
             data as ITuple,
@@ -138,6 +193,7 @@ export class ContractStore extends ChildStore {
             parseOrderedTupleValue
         );
         const getLpAmount = moneyFactory(new Money(0, this.rs.assetsStore.LPToken));
+        const getUnitsAmount = moneyFactory(new Money(0, this.unitsAsset));
         const contractData = Object.keys(parsedTuple).reduce((acc, key) => {
             if (
                 key === 'currentPeriodAvailableToClaim' ||
@@ -145,6 +201,14 @@ export class ContractStore extends ChildStore {
                 key === 'totalLeasedAmount'
             ) {
                 acc[key] = getLpAmount(parsedTuple[key]);
+                return acc;
+            }
+            if (
+                key === 'unitsAvailableToClaim' ||
+                key === 'totalUnitsClaimed' ||
+                key === 'unitsPerBlockPerl2InScale16'
+            ) {
+                acc[key] = getUnitsAmount(parsedTuple[key]);
                 return acc;
             }
             acc[key] = parsedTuple[key];

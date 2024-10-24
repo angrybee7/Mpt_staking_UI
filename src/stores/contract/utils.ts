@@ -15,13 +15,13 @@ export const filterObjectUserLeasing =  ({ contractAddress, userAddress }) => {
                 values
             }
         }
-    }
-}
+    };
+};
 
 
 export const moneyFactory = (zeroMoney: Money) => (amount: number):  Money => {
     return zeroMoney.cloneWithCoins(amount);
-}
+};
 
 export const BLOCKS_PER_DAY = 60 * 24;
 export const BLOCKS_PER_YEAR = BLOCKS_PER_DAY * 365;

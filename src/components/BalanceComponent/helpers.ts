@@ -12,6 +12,14 @@ export const getAlign = (align: 'left' | 'center' | 'right'): string => {
 };
 
 export const stylesByVariant: Record<TBalanceContentSize, any> = {
+    small: {
+        iconSize: '24px',
+        label: { size: 'text1', color: '#292929', fontFamily: 'Sfmono-light' },
+        balance: { size: 'heading3', color: 'main' },
+        ticker: { size: 'heading4', color: 'text' },
+        equivalent: { size: 'text1', color: 'wdtextsec' },
+        labelVariant: 'text2',
+    },
     medium: {
         iconSize: '24px',
         label: { size: 'text1', color: '#292929', fontFamily: 'Sfmono-light' },
