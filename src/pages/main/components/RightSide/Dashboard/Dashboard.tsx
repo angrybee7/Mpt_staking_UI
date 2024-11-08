@@ -7,6 +7,7 @@ import { AppStoreContext } from '../../../../../App.tsx';
 import { UnitsReward } from './UnitsReward';
 import { ActiveStakings } from './ActiveStakings.tsx';
 import { SwapModule } from '../../forms/SwapModule/SwapModule.tsx';
+import { UnitsRetroDrop } from './UnitsRetroDrop.tsx';
 
 export const Dashboard: FC = observer(() => {
     const { balanceStore, contractStore } = useContext(AppStoreContext);
@@ -34,6 +35,17 @@ export const Dashboard: FC = observer(() => {
                         blocks={contractStore.userContractData?.data?.unitsClaimRemaining}
                         forClaim={contractStore.userContractData?.data?.unitsAvailableToClaim}
                         claimed={contractStore.userContractData?.data?.totalUnitsClaimed}
+                    />
+                    <Box
+                        width="100%"
+                        height={['0', '30px']}
+                        borderLeft={['none', '1px solid #C6DAE6']}
+                        sx={{ my: ['12px', '16px'] }}
+                    />
+                    <UnitsRetroDrop
+                        blocks={contractStore.userContractData?.data?.vesting?.remainBlocks}
+                        forClaim={contractStore.userContractData?.data?.vesting?.availableToClaim}
+                        claimed={contractStore.userContractData?.data?.vesting?.claimed}
                     />
                     <Box
                         width="100%"

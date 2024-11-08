@@ -9,6 +9,12 @@ interface IUserAssets {
     currentHeight: number;
 }
 
+interface IUserVestingData {
+    availableToClaim: Money;
+    claimed: Money;
+    remainBlocks: number;
+}
+
 interface IUserContractData {
     currentPeriodStart: number;
     currentPeriodAvailableToClaim: Money;
@@ -46,4 +52,5 @@ interface IUserLeasingData {
 
 interface IUserData extends IUserContractData {
     nodes: IUserLeasingNodeData;
+    vesting: IUserVestingData;
 }

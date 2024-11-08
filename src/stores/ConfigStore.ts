@@ -25,6 +25,7 @@ export type TConfig = {
         lpToken: string;
         unitsToken: string;
         leasing: string;
+        unitsDrop: string;
     },
     network: {
         code: 'W' | 'T';
