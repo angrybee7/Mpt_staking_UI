@@ -4,7 +4,14 @@ import { IState } from '../../utils/search';
 import { AppStore } from '../AppStore.ts';
 import { search } from '../../utils/search/searchRequest.ts';
 import { filterObjectUserLeasing, moneyFactory } from './utils.ts';
-import { IUserAssets, IUserContractData, IUserData, IUserLeasingNodeData, IUserLeasingNodeDataRaw } from './interface';
+import {
+    IUserAssets,
+    IUserContractData,
+    IUserData,
+    IUserLeasingNodeData,
+    IUserLeasingNodeDataRaw,
+    IUserVestingData
+} from './interface';
 import { computed, makeObservable, observable, reaction, runInAction } from 'mobx';
 import { evaluate } from '../../utils/evaluate/evaluate.ts';
 import { IEvaluateResponse } from '../../utils/evaluate';
@@ -18,7 +25,7 @@ const USER_DATA_POLLING_TIME = 20_000;
 
 export class ContractStore extends ChildStore {
 
-    public userContractData: FetchTracker<IUserData, [IEvaluateResponse, IState]> = new FetchTracker();
+    public userContractData: FetchTracker<IUserData, [IEvaluateResponse, IEvaluateResponse, IState]> = new FetchTracker();
     public unitsAsset: AssetWithMeta;
 
     public get totalLeased(): { current: Money, next: Money } {
@@ -81,6 +88,7 @@ export class ContractStore extends ChildStore {
         const searchUrl = this.rs.configStore.config.apiUrl.stateSearch;
         const evaluateUrl = this.rs.configStore.config.apiUrl.evaluate;
         const leasingAddress = this.rs.configStore.config.contracts.leasing;
+        const unitsDrop = this.rs.configStore.config.contracts.unitsDrop;
 
         makeObservable(this, {
             unitsAsset: observable,
@@ -104,6 +112,13 @@ export class ContractStore extends ChildStore {
                                     {
                                         address: leasingAddress,
                                         expr: `getUserDataREADONLY("${this.rs.authStore.user.address}")`
+                                    }
+                                ),
+                                evaluate(
+                                    evaluateUrl,
+                                    {
+                                        address: unitsDrop,
+                                        expr: `userInfoREADONLY("${this.rs.authStore.user.address}")`
                                     }
                                 ),
                                 search(
@@ -171,7 +186,7 @@ export class ContractStore extends ChildStore {
             .catch((e) => console.error(e));
     };
 
-    private userDataParser = ([data, searchData]: [IEvaluateResponse, IState]): IUserData => {
+    private userDataParser = ([data, unitsDropData, searchData]: [IEvaluateResponse, IEvaluateResponse, IState]): IUserData => {
         const USER_ASSETS_VALUES = [
             'currentPeriodStart',
             'currentPeriodAvailableToClaim',
@@ -215,6 +230,23 @@ export class ContractStore extends ChildStore {
             return acc;
         }, {} as IUserContractData);
 
+        const USER_VESTING_VALUES = ['availableToClaim', '_', 'vestings'];
+        const parsedVestingTuple = parseTupleData<{ availableToClaim: number; _: number; vestings: Record<string, any>[][] }>(
+            unitsDropData as ITuple,
+            USER_VESTING_VALUES,
+            parseOrderedTupleValue
+        );
+        const remainBlocks = parsedVestingTuple.vestings.length ?
+            Number(parsedVestingTuple.vestings[0][1].value) - contractData.currentHeight:
+            0
+        const vestingsData: IUserVestingData = {
+            availableToClaim: getUnitsAmount(parsedVestingTuple.availableToClaim),
+            claimed: parsedVestingTuple.vestings.length ?
+                getUnitsAmount(parsedVestingTuple.vestings[0][4].value) :
+                getUnitsAmount(0),
+            remainBlocks
+        };
+
         const LEASING_VALUES = [
             'currentPeriodHeight',
             'currentLeasingAmount',
@@ -256,6 +288,7 @@ export class ContractStore extends ChildStore {
 
         return ({
             ...contractData,
+            vesting: { ...vestingsData },
             nodes: { ...leasingData }
         });
     };

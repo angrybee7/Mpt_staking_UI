@@ -20,6 +20,7 @@ export default<TConfig> {
         swap: '3PANnmCGrufT8SZY5u6BZUgZq4QTh5XdPMa',
         lpToken: '7scqyYoVsNrpWbTAc78eRqNVcYLxMPzZs8EQfX7ruJAg',
         leasing: '3PF1QWiN4A3CCJoKh1kGtqYqMNaBnRZbC6t',
+        unitsDrop: '3PGfJPQ5oabMWfsA6r9KWZzMC1XpPkrHVjn',
     },
     network: {
         code: 'W'

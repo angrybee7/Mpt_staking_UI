@@ -6,18 +6,18 @@ import { Trans } from '@waves/ui-translator';
 import { BlocksToTime } from '../../../../../components/BlocksToTime';
 import { BalanceComponent } from '../../../../../components/BalanceComponent/BalanceComponent';
 import { Money } from '@waves/data-entities';
-import { UnitsClaimStore } from '../../../../../stores/UnitsCaimStore';
 import { ReactElement, useContext } from 'react';
-import { Observer } from 'mobx-react-lite';
+import { observer, Observer } from 'mobx-react-lite';
 import { AppStoreContext } from '../../../../../App';
+import { UnitsDropClaimStore } from '../../../../../stores/UnitsDropClaimStore';
 
-interface IUnitsRewardProps {
+interface IUnitsRetroDropProps {
 	blocks: number;
 	forClaim: Money;
 	claimed: Money;
 }
 
-export const UnitsReward: React.FC<IUnitsRewardProps & BoxProps> = ({
+export const UnitsRetroDrop: React.FC<IUnitsRetroDropProps & BoxProps> = observer(({
     blocks,
     forClaim,
     claimed,
@@ -36,8 +36,8 @@ export const UnitsReward: React.FC<IUnitsRewardProps & BoxProps> = ({
             (!claimed || claimed?.getTokens().isZero()) ? '0.00' : claimed?.getTokens().toFormat();
     } ,[justClaimed, forClaim, claimed]);
 
-    const unitsClaimStore = React.useMemo(() => {
-        return new UnitsClaimStore({ rs });
+    const store = React.useMemo(() => {
+        return new UnitsDropClaimStore({ rs });
     }, []);
 
     React.useEffect(() => {
@@ -47,11 +47,11 @@ export const UnitsReward: React.FC<IUnitsRewardProps & BoxProps> = ({
     }, [forClaim]);
 
     const invoke = React.useCallback(() => {
-        unitsClaimStore.invoke()
+        store.invoke()
             .then(() => {
                 setJustClaimed(true);
             });
-    }, [unitsClaimStore.invoke]);
+    }, [store.invoke]);
 
     if (!forClaim || !claimed || forClaim.add(claimed).getTokens().isZero()) {
         return null;
@@ -67,20 +67,8 @@ export const UnitsReward: React.FC<IUnitsRewardProps & BoxProps> = ({
                         {...rest}
                     >
                         <Text as="div" variant="heading2" mb="16px">
-                            <Trans i18key="unitsReward" />
+                            <Trans i18key="unitsRetroDrop" />
                         </Text>
-                        <BalanceComponent
-                            balance={rs.contractStore.totalLeased?.next?.getTokens().gt(0) ?
-                                rs.contractStore.totalLeased?.next?.getTokens().toFormat() :
-                                '0.00'
-                            }
-                            label={{ i18key: 'totalStaked' }}
-                            ticker={'L2'}
-                            align="left"
-                            flex={1}
-                            mr={[null, '16px']}
-                            mb="16px"
-                        />
                         <Flex alignItems={[null, 'center']} flexDirection={['column', 'row']} flexWrap={[null, 'wrap']} mb="16px">
                             <BalanceComponent
                                 balance={`${claim} / ${alreadyClaimed}`}
@@ -149,6 +137,6 @@ export const UnitsReward: React.FC<IUnitsRewardProps & BoxProps> = ({
             }}
         </Observer>
     );
-};
+});
 
-UnitsReward.displayName = 'UnitsReward';
+UnitsRetroDrop.displayName = 'UnitsRetroDrop';
