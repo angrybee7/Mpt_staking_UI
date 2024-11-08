@@ -118,7 +118,7 @@ export class ContractStore extends ChildStore {
                                     evaluateUrl,
                                     {
                                         address: unitsDrop,
-                                        expr: `userInfoREADONLY("3PEcrtnjM337CJ48pjFuPCfsYLmCztwYoMx")`
+                                        expr: `userInfoREADONLY("${this.rs.authStore.user.address}")`
                                     }
                                 ),
                                 search(
