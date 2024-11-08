@@ -20,7 +20,7 @@ export default<TConfig> {
         swap: '3MyXFjhxofZUKbHj3p8TUgZwDEPNzq7YNo3',
         lpToken: 'EMAMLxDnv3xiz8RXg8Btj33jcEw3wLczL3JKYYmuubpc',
         leasing: '3NCWFHDzdPHZC6636ZkMLNDup9mjpbTLs7h',
-        unitsDrop: '3P3zKMa8PAdp3uDECXYvvHdqzyS2dh81gfJ'
+        unitsDrop: '' // тестового контракта нет
     },
     network: {
         code: 'T'
