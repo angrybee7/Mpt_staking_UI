@@ -99,10 +99,10 @@ export class ContractStore extends ChildStore {
         });
 
         reaction(
-            () => this.rs.authStore.isAuthorized,
+            () => this.rs.authStore.user?.address,
             () => {
                 this.getUnitsToken();
-                if (this.rs.authStore.isAuthorized) {
+                if (this.rs.authStore.user?.address) {
                     this.userContractData.setOptions({
                         fetchUrl: evaluateUrl,
                         fetcher: (evaluateUrl) => {
